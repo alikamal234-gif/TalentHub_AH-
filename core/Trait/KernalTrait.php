@@ -2,6 +2,7 @@
 
 namespace Core\Trait;
 
+use Core\Database\Connection;
 use Core\Http\Request;
 use Core\Http\Response;
 use Core\Router\Router;
@@ -11,7 +12,21 @@ trait KernalTrait
 {
     public function run(): void
     {
+        $this->runConnection();
+        $this->runHttp();
+    }
+
+    private function runConnection(): void
+    {
+        $connection = new Connection();
+        $this->container->bind(Connection::class, $connection);
+    }
+
+    private function runHttp(): void
+    {
         $request = Request::capture();
+
+        $this->container->bind(Request::class, $request);
 
         $routesFile = dirname(__DIR__, 2) . '/route/web.php';
         if (file_exists($routesFile)) {
@@ -32,28 +47,23 @@ trait KernalTrait
         [$controllerClass, $methodName] = $action;
 
         // Create the core action (the final step in the pipeline)
-        $next = static function (Request $request) use ($controllerClass, $methodName) {
+        $next = function (Request $request) use ($controllerClass, $methodName) {
             if (!class_exists($controllerClass)) {
                 throw new \RuntimeException("Controller $controllerClass not found");
             }
 
-            $controller = new $controllerClass();
-            if (!method_exists($controller, $methodName)) {
+            $controllerInstance = $this->container->get($controllerClass);
+            if (!method_exists($controllerInstance, $methodName)) {
                 throw new \RuntimeException("Method $methodName not found in $controllerClass");
             }
 
-            $reflection = new \ReflectionMethod($controller, $methodName);
+            $reflection = new \ReflectionMethod($controllerInstance, $methodName);
 
             if ($reflection->getReturnType()?->getName() !== Response::class) {
                 throw new \RuntimeException('The method must return a Response object');
             }
 
-            $args = [];
-            if ($reflection->getNumberOfParameters() > 0) {
-                $args[] = $request;
-            }
-
-            return $controller->$methodName(...$args);
+            return $this->container->call([$controllerInstance, $methodName]);
         };
 
         $middlewares = array_reverse($route->getMiddlewares());
