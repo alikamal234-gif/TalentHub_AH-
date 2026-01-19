@@ -1,0 +1,22 @@
+{
+    "name": "youcode/talent-hub_ah",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hamza Hajjaji",
+            "email": "hh.hajjaji.hamza@gmail.com"
+        },
+        {
+            "name": "Ali Kamal",
+            "email": "alikamal0675@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "symfony/var-dumper": "8.0"
+    }
+}
