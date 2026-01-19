@@ -1,25 +1,27 @@
 {
-    "name": "youcode/talent-hub_ah",
-    "autoload": {
-        "psr-4": {
-            "Core\\": "core/",
-            "App\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Hamza Hajjaji",
-            "email": "hh.hajjaji.hamza@gmail.com"
-        },
-        {
-            "name": "Ali Kamal",
-            "email": "alikamal0675@gmail.com"
-        }
-    ],
-    "require": {
-      "ext-pdo": "*"
-    },
-    "require-dev": {
-        "symfony/var-dumper": "8.0"
+  "name": "youcode/talent-hub_ah",
+  "autoload": {
+    "psr-4": {
+      "Core\\": "core/",
+      "App\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "Hamza Hajjaji",
+      "email": "hh.hajjaji.hamza@gmail.com"
+    },
+    {
+      "name": "Ali Kamal",
+      "email": "alikamal0675@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.4",
+    "ext-pdo": "*",
+    "twig/twig": "^3.22"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "8.0"
+  }
 }
