@@ -2,6 +2,7 @@
     "name": "youcode/talent-hub_ah",
     "autoload": {
         "psr-4": {
+            "Core\\": "core/",
             "App\\": "src/"
         }
     },
@@ -15,7 +16,9 @@
             "email": "alikamal0675@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+      "ext-pdo": "*"
+    },
     "require-dev": {
         "symfony/var-dumper": "8.0"
     }
