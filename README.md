@@ -1,4 +1,3 @@
-```markdown
 # 🎯 Talent HUB – Plateforme de recrutement (MVC PHP)
 
 Talent HUB est une application web développée en **PHP 8 orienté objet**, sans framework, suivant une architecture **MVC** et le **Repository Pattern**.  
@@ -25,21 +24,7 @@ Ce projet collectif sert de base d’authentification réutilisable, extensible 
 
 ## 🏗️ Architecture
 
-```
 
-/app
-├── Controllers
-├── Models
-├── Repositories
-├── Middlewares
-├── Services
-└── Views
-/config
-/public
-/uploads
-/routes
-
-````
 
 Principes :
 - Chaque entité a :
@@ -217,4 +202,5 @@ Construire une base **solide, sécurisée et réutilisable** pour toute applicat
 ---
 
 ```
+hamza Hajaji   /    Ali kamal     / Hajar Mohili 
 ```
