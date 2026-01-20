@@ -56,7 +56,7 @@ trait KernalTrait
         $route = Router::resolve($method, $path);
 
         if (!$route) {
-            Error::abort(404);
+            Error::abort(404)->send();
             return;
         }
 

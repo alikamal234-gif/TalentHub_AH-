@@ -8,13 +8,13 @@ abstract class Error
 {
     public static function abort(int $errorCode): Response
     {
-        $templatePath = sprintf('./pages/%s.php', $errorCode);
+        $templatePath = sprintf('%s/pages/%s.php',__DIR__ ,$errorCode);
         if (!file_exists($templatePath)) {
-            $templatePath = './pages/default.php';
+            $templatePath = sprintf('%s/pages/default.php',__DIR__);
         }
 
         ob_start();
-        require $templatePath;
+        require_once $templatePath;
         $content = ob_get_clean();
 
         return new Response($content, $errorCode);
