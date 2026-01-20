@@ -45,7 +45,7 @@ trait KernalTrait
 
         $this->container->bind(Request::class, $request);
 
-        $routesFile = dirname(__DIR__, 2) . '/route/web.php';
+        $routesFile = dirname(__DIR__, 2) . '/routes/web.php';
         if (file_exists($routesFile)) {
             require_once $routesFile;
         }
