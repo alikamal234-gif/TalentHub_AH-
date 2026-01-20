@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-black">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talent HUB - Dashboard Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#000000',
+                        'dark-card': '#111111',
+                        'dark-border': '#1a1a1a',
+                        'green-primary': '#10b981',
+                        'green-secondary': '#059669',
+                        'green-accent': '#34d399',
+                        'text-primary': '#ffffff',
+                        'text-secondary': '#a3a3a3'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .dark-card {
+            background-color: #111111;
+            border-color: #1a1a1a;
+        }
+        .dark-input {
+            background-color: #0a0a0a;
+            border-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .dark-input:focus {
+            border-color: #10b981;
+            outline: none;
+            box-shadow: 0 0 0 1px #10b981;
+        }
+        .dark-button {
+            background-color: #10b981;
+            color: #000000;
+        }
+        .dark-button:hover {
+            background-color: #059669;
+        }
+        .dark-button-secondary {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 1px solid #333333;
+        }
+        .dark-button-secondary:hover {
+            background-color: #262626;
+        }
+        .dark-text-secondary {
+            color: #a3a3a3;
+        }
+        .dark-text-accent {
+            color: #34d399;
+        }
+        .dark-border {
+            border-color: #1a1a1a;
+        }
+        .dark-hover:hover {
+            background-color: #1a1a1a;
+        }
+        .dark-active {
+            background-color: #0a0a0a;
+            border-bottom: 2px solid #10b981;
+        }
+        .dark-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dark-scrollbar::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        .dark-scrollbar::-webkit-scrollbar-thumb {
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+        .dark-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #262626;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="h-full">
+    <div class="min-h-full flex flex-col">
+        <!-- Navigation -->
+        <nav class="dark-card border-b dark-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <!-- Logo -->
+                        <div class="flex-shrink-0 flex items-center">
+                            <h1 class="text-xl font-bold text-green-primary">
+                                <i class="fas fa-briefcase mr-2"></i>Talent HUB
+                            </h1>
+                        </div>
+                        <!-- Navigation links -->
+                        <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                            <a href="#" class="dark-active inline-flex items-center px-1 pt-1 text-sm font-medium">
+                                Dashboard
+                            </a>
+                            <a href="#" class="border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium dark-hover">
+                                Offres
+                            </a>
+                            <a href="#" class="border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium dark-hover">
+                                Candidats
+                            </a>
+                            <a href="#" class="border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium dark-hover">
+                                Recruteurs
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <!-- Profile dropdown -->
+                        <div class="relative">
+                            <button id="profileMenuButton" class="dark-card flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-primary p-1">
+                                <span class="sr-only">Ouvrir le menu utilisateur</span>
+                                <div class="h-8 w-8 rounded-full bg-green-primary flex items-center justify-center text-black">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </button>
+                            <div id="profileMenu" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg dark-card ring-1 ring-dark-border">
+                                <div class="py-1">
+                                    <a href="#" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Mon profil</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Paramètres</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Déconnexion</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <main class="flex-1 dark-scrollbar overflow-auto">
+            <div class="py-6">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- Page header -->
+                    <div class="mb-8">
+                        <h1 class="text-2xl font-bold text-text-primary">Tableau de bord administrateur</h1>
+                        <p class="mt-1 text-sm dark-text-secondary">Bienvenue sur votre espace de gestion Talent HUB</p>
+                    </div>
+
+                    <!-- Stats cards -->
+                    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+                        <div class="dark-card overflow-hidden shadow rounded-lg border dark-border">
+                            <div class="p-5">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
+                                        <i class="fas fa-briefcase text-black"></i>
+                                    </div>
+                                    <div class="ml-5 w-0 flex-1">
+                                        <dl>
+                                            <dt class="text-sm font-medium dark-text-secondary truncate">Total offres</dt>
+                                            <dd class="text-lg font-medium text-text-primary">247</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-dark-bg px-5 py-3 border-t dark-border">
+                                <div class="text-sm">
+                                    <a href="#" class="font-medium dark-text-accent hover:text-green-primary">
+                                        Voir toutes les offres
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dark-card overflow-hidden shadow rounded-lg border dark-border">
+                            <div class="p-5">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
+                                        <i class="fas fa-users text-black"></i>
+                                    </div>
+                                    <div class="ml-5 w-0 flex-1">
+                                        <dl>
+                                            <dt class="text-sm font-medium dark-text-secondary truncate">Candidats</dt>
+                                            <dd class="text-lg font-medium text-text-primary">1,428</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-dark-bg px-5 py-3 border-t dark-border">
+                                <div class="text-sm">
+                                    <a href="#" class="font-medium dark-text-accent hover:text-green-primary">
+                                        Voir tous les candidats
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dark-card overflow-hidden shadow rounded-lg border dark-border">
+                            <div class="p-5">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
+                                        <i class="fas fa-building text-black"></i>
+                                    </div>
+                                    <div class="ml-5 w-0 flex-1">
+                                        <dl>
+                                            <dt class="text-sm font-medium dark-text-secondary truncate">Recruteurs</dt>
+                                            <dd class="text-lg font-medium text-text-primary">87</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-dark-bg px-5 py-3 border-t dark-border">
+                                <div class="text-sm">
+                                    <a href="#" class="font-medium dark-text-accent hover:text-green-primary">
+                                        Voir tous les recruteurs
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dark-card overflow-hidden shadow rounded-lg border dark-border">
+                            <div class="p-5">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
+                                        <i class="fas fa-file-alt text-black"></i>
+                                    </div>
+                                    <div class="ml-5 w-0 flex-1">
+                                        <dl>
+                                            <dt class="text-sm font-medium dark-text-secondary truncate">Candidatures</dt>
+                                            <dd class="text-lg font-medium text-text-primary">3,521</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-dark-bg px-5 py-3 border-t dark-border">
+                                <div class="text-sm">
+                                    <a href="#" class="font-medium dark-text-accent hover:text-green-primary">
+                                        Voir toutes les candidatures
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts and recent activity -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                        <!-- Chart -->
+                        <div class="dark-card shadow rounded-lg p-6 border dark-border">
+                            <h3 class="text-lg leading-6 font-medium text-text-primary mb-4">Offres par catégorie</h3>
+                            <div class="chart-container">
+                                <canvas id="categoryChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Recent activity -->
+                        <div class="dark-card shadow rounded-lg p-6 border dark-border">
+                            <h3 class="text-lg leading-6 font-medium text-text-primary mb-4">Activité récente</h3>
+                            <div class="flow-root">
+                                <ul class="-mb-8">
+                                    <li>
+                                        <div class="relative pb-8">
+                                            <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-dark-border" aria-hidden="true"></span>
+                                            <div class="relative flex space-x-3">
+                                                <div>
+                                                    <span class="h-8 w-8 rounded-full bg-green-primary flex items-center justify-center ring-8 ring-dark-card">
+                                                        <i class="fas fa-check text-black text-xs"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                                    <div>
+                                                        <p class="text-sm text-text-primary">Nouvelle offre publiée: <span class="font-medium">Développeur Full Stack</span></p>
+                                                        <p class="text-xs dark-text-secondary mt-1">Par TechCorp</p>
+                                                    </div>
+                                                    <div class="text-right text-sm whitespace-nowrap dark-text-secondary">
+                                                        Il y a 2h
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="relative pb-8">
+                                            <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-dark-border" aria-hidden="true"></span>
+                                            <div class="relative flex space-x-3">
+                                                <div>
+                                                    <span class="h-8 w-8 rounded-full bg-green-primary flex items-center justify-center ring-8 ring-dark-card">
+                                                        <i class="fas fa-user text-black text-xs"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                                    <div>
+                                                        <p class="text-sm text-text-primary">Nouveau candidat inscrit: <span class="font-medium">Jean Dupont</span></p>
+                                                        <p class="text-xs dark-text-secondary mt-1">Développeur Senior</p>
+                                                    </div>
+                                                    <div class="text-right text-sm whitespace-nowrap dark-text-secondary">
+                                                        Il y a 4h
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="relative pb-8">
+                                            <div class="relative flex space-x-3">
+                                                <div>
+                                                    <span class="h-8 w-8 rounded-full bg-green-primary flex items-center justify-center ring-8 ring-dark-card">
+                                                        <i class="fas fa-building text-black text-xs"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                                    <div>
+                                                        <p class="text-sm text-text-primary">Nouveau recruteur vérifié: <span class="font-medium">StartUp Innov</span></p>
+                                                        <p class="text-xs dark-text-secondary mt-1">Paris, France</p>
+                                                    </div>
+                                                    <div class="text-right text-sm whitespace-nowrap dark-text-secondary">
+                                                        Il y a 6h
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick actions -->
+                    <div class="dark-card shadow rounded-lg p-6 border dark-border mb-8">
+                        <h3 class="text-lg leading-6 font-medium text-text-primary mb-4">Actions rapides</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <button class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black dark-button">
+                                <i class="fas fa-plus mr-2"></i>
+                                Ajouter une catégorie
+                            </button>
+                            <button class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black dark-button">
+                                <i class="fas fa-tag mr-2"></i>
+                                Ajouter un tag
+                            </button>
+                            <button class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black dark-button">
+                                <i class="fas fa-user-check mr-2"></i>
+                                Valider un recruteur
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tables -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                        <!-- Recent offers -->
+                        <div class="dark-card shadow rounded-lg border dark-border">
+                            <div class="px-4 py-5 sm:px-6 border-b dark-border">
+                                <h3 class="text-lg leading-6 font-medium text-text-primary">Offres récentes</h3>
+                            </div>
+                            <div class="overflow-hidden">
+                                <table class="min-w-full divide-y divide-dark-border">
+                                    <thead class="bg-dark-bg">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                                Titre
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                                Recruteur
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                                Date
+                                            </th>
+                                            <th scope="col" class="relative px-6 py-3">
+                                                <span class="sr-only">Actions</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-dark-border">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
+                                                Développeur Full Stack
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                TechCorp
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                12/06/2023
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="#" class="dark-text-accent hover:text-green-primary">Voir</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
+                                                UX Designer
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                DesignHub
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                11/06/2023
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="#" class="dark-text-accent hover:text-green-primary">Voir</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
+                                                Data Analyst
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                DataTech
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                10/06/2023
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="#" class="dark-text-accent hover:text-green-primary">Voir</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Recent applications -->
+                        <div class="dark-card shadow rounded-lg border dark-border">
+                            <div class="px-4 py-5 sm:px-6 border-b dark-border">
+                                <h3 class="text-lg leading-6 font-medium text-text-primary">Candidatures récentes</h3>
+                            </div>
+                            <div class="overflow-hidden">
+                                <table class="min-w-full divide-y divide-dark-border">
+                                    <thead class="bg-dark-bg">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                                Candidat
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                                Offre
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                                Date
+                                            </th>
+                                            <th scope="col" class="relative px-6 py-3">
+                                                <span class="sr-only">Actions</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-dark-border">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
+                                                Jean Dupont
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                Développeur Full Stack
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                12/06/2023
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="#" class="dark-text-accent hover:text-green-primary">Voir</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
+                                                Marie Martin
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                UX Designer
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                11/06/2023
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="#" class="dark-text-accent hover:text-green-primary">Voir</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
+                                                Pierre Durand
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                Data Analyst
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                10/06/2023
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="#" class="dark-text-accent hover:text-green-primary">Voir</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories and tags management -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Categories -->
+                        <div class="dark-card shadow rounded-lg border dark-border">
+                            <div class="px-4 py-5 sm:px-6 border-b dark-border flex justify-between items-center">
+                                <h3 class="text-lg leading-6 font-medium text-text-primary">Catégories</h3>
+                                <button class="dark-button inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded text-black">
+                                    <i class="fas fa-plus mr-1"></i>
+                                    Ajouter
+                                </button>
+                            </div>
+                            <div class="overflow-hidden">
+                                <table class="min-w-full divide-y divide-dark-border">
+                                    <thead class="bg-dark-bg">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                                Nom
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                                Offres
+                                            </th>
+                                            <th scope="col" class="relative px-6 py-3">
+                                                <span class="sr-only">Actions</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-dark-border">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
+                                                Développement
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                85
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="#" class="dark-text-accent hover:text-green-primary mr-3">Modifier</a>
+                                                <a href="#" class="text-red-500 hover:text-red-400">Supprimer</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
+                                                Design
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                45
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="#" class="dark-text-accent hover:text-green-primary mr-3">Modifier</a>
+                                                <a href="#" class="text-red-500 hover:text-red-400">Supprimer</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
+                                                Marketing
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                                62
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="#" class="dark-text-accent hover:text-green-primary mr-3">Modifier</a>
+                                                <a href="#" class="text-red-500 hover:text-red-400">Supprimer</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="dark-card shadow rounded-lg border dark-border">
+                            <div class="px-4 py-5 sm:px-6 border-b dark-border flex justify-between items-center">
+                                <h3 class="text-lg leading-6 font-medium text-text-primary">Tags</h3>
+                                <button class="dark-button inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded text-black">
+                                    <i class="fas fa-plus mr-1"></i>
+                                    Ajouter
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-dark-bg text-text-primary border dark-border">
+                                        JavaScript
+                                        <button class="ml-2 text-red-500 hover:text-red-400">
+                                            <i class="fas fa-times text-xs"></i>
+                                        </button>
+                                    </span>
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-dark-bg text-text-primary border dark-border">
+                                        PHP
+                                        <button class="ml-2 text-red-500 hover:text-red-400">
+                                            <i class="fas fa-times text-xs"></i>
+                                        </button>
+                                    </span>
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-dark-bg text-text-primary border dark-border">
+                                        React
+                                        <button class="ml-2 text-red-500 hover:text-red-400">
+                                            <i class="fas fa-times text-xs"></i>
+                                        </button>
+                                    </span>
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-dark-bg text-text-primary border dark-border">
+                                        Node.js
+                                        <button class="ml-2 text-red-500 hover:text-red-400">
+                                            <i class="fas fa-times text-xs"></i>
+                                        </button>
+                                    </span>
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-dark-bg text-text-primary border dark-border">
+                                        Python
+                                        <button class="ml-2 text-red-500 hover:text-red-400">
+                                            <i class="fas fa-times text-xs"></i>
+                                        </button>
+                                    </span>
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-dark-bg text-text-primary border dark-border">
+                                        UI/UX
+                                        <button class="ml-2 text-red-500 hover:text-red-400">
+                                            <i class="fas fa-times text-xs"></i>
+                                        </button>
+                                    </span>
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-dark-bg text-text-primary border dark-border">
+                                        Data Science
+                                        <button class="ml-2 text-red-500 hover:text-red-400">
+                                            <i class="fas fa-times text-xs"></i>
+                                        </button>
+                                    </span>
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-dark-bg text-text-primary border dark-border">
+                                        SEO
+                                        <button class="ml-2 text-red-500 hover:text-red-400">
+                                            <i class="fas fa-times text-xs"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Profile dropdown
+        document.getElementById('profileMenuButton').addEventListener('click', function() {
+            document.getElementById('profileMenu').classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const profileMenu = document.getElementById('profileMenu');
+            const profileMenuButton = document.getElementById('profileMenuButton');
+            
+            if (!profileMenuButton.contains(event.target) && !profileMenu.contains(event.target)) {
+                profileMenu.classList.add('hidden');
+            }
+        });
+
+        // Chart
+        const ctx = document.getElementById('categoryChart').getContext('2d');
+        
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Développement', 'Design', 'Marketing', 'Data', 'Autres'],
+                datasets: [{
+                    data: [85, 45, 62, 35, 20],
+                    backgroundColor: [
+                        '#10b981',
+                        '#059669',
+                        '#34d399',
+                        '#10b981',
+                        '#059669'
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#ffffff',
+                            padding: 15,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+    </script>
+</body>
+</html>
