@@ -4,10 +4,10 @@ namespace Core\Trait;
 
 use Core\Controller\AbstractController;
 use Core\Database\Connection;
+use Core\Error\Error;
 use Core\Http\Request;
 use Core\Http\Response;
 use Core\Router\Router;
-use Core\Utils\ViewUtil;
 use Dotenv\Dotenv;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -29,7 +29,7 @@ trait KernalTrait
 
     public function runTwig(): void
     {
-        $twig = new Environment(new FilesystemLoader(dirname(__DIR__, 2) . '/views'));
+        $twig = new Environment(new FilesystemLoader($this->projectDir . '/views'));
         $this->container->bind(Environment::class, $twig);
     }
 
@@ -56,7 +56,7 @@ trait KernalTrait
         $route = Router::resolve($method, $path);
 
         if (!$route) {
-            new Response(ViewUtil::renderView('errors/404'), 404)->send();
+            Error::abort(404);
             return;
         }
 
