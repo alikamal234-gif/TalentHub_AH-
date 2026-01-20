@@ -2,23 +2,40 @@
 
 namespace Core\Trait;
 
+use Core\Controller\AbstractController;
 use Core\Database\Connection;
 use Core\Http\Request;
 use Core\Http\Response;
 use Core\Router\Router;
 use Core\Utils\ViewUtil;
+use Dotenv\Dotenv;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 trait KernalTrait
 {
     public function run(): void
     {
+        $this->runEnvironment();
         $this->runConnection();
+        $this->runTwig();
         $this->runHttp();
+    }
+
+    public function runEnvironment(): void
+    {
+        Dotenv::createImmutable($this->projectDir)->load();
+    }
+
+    public function runTwig(): void
+    {
+        $twig = new Environment(new FilesystemLoader(dirname(__DIR__, 2) . '/views'));
+        $this->container->bind(Environment::class, $twig);
     }
 
     private function runConnection(): void
     {
-        $connection = new Connection();
+        $connection = new Connection(getenv('DB_HOST'), getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASSWORD'));
         $this->container->bind(Connection::class, $connection);
     }
 
@@ -52,7 +69,16 @@ trait KernalTrait
                 throw new \RuntimeException("Controller $controllerClass not found");
             }
 
+            /**
+             * @var AbstractController $controllerInstance
+             */
             $controllerInstance = $this->container->get($controllerClass);
+            /**
+             * @var Environment $environment
+             */
+            $environment = $this->container->get(Environment::class);
+
+            $controllerInstance->setEnvironment($environment);
 
             if (!method_exists($controllerInstance, $methodName)) {
                 throw new \RuntimeException("Method $methodName not found in $controllerClass");

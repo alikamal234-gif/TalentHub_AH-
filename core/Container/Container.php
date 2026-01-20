@@ -13,7 +13,7 @@ class Container
 {
     private array $bindings = [];
 
-    public function bind(string $key, object $concrete): void
+    public function bind(string $key, object | string $concrete): void
     {
         $this->bindings[$key] = $concrete;
     }
