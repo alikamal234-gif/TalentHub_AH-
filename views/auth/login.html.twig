@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-black">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talent HUB - Connexion / Inscription</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#000000',
+                        'dark-card': '#111111',
+                        'dark-border': '#1a1a1a',
+                        'green-primary': '#10b981',
+                        'green-secondary': '#059669',
+                        'green-accent': '#34d399',
+                        'text-primary': '#ffffff',
+                        'text-secondary': '#a3a3a3'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .dark-card {
+            background-color: #111111;
+            border-color: #1a1a1a;
+        }
+        .dark-input {
+            background-color: #0a0a0a;
+            border-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .dark-input:focus {
+            border-color: #10b981;
+            outline: none;
+            box-shadow: 0 0 0 1px #10b981;
+        }
+        .dark-button {
+            background-color: #10b981;
+            color: #000000;
+        }
+        .dark-button:hover {
+            background-color: #059669;
+        }
+        .dark-button-secondary {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 1px solid #333333;
+        }
+        .dark-button-secondary:hover {
+            background-color: #262626;
+        }
+        .dark-text-secondary {
+            color: #a3a3a3;
+        }
+        .dark-text-accent {
+            color: #34d399;
+        }
+        .dark-border {
+            border-color: #1a1a1a;
+        }
+        .dark-hover:hover {
+            background-color: #1a1a1a;
+        }
+        .dark-active {
+            background-color: #0a0a0a;
+            border-bottom: 2px solid #10b981;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 100%;
+        }
+        .file-upload input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+        .file-upload-label {
+            display: block;
+            padding: 0.5rem 1rem;
+            border: 1px dashed #1a1a1a;
+            border-radius: 0.375rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .file-upload-label:hover {
+            border-color: #10b981;
+            background-color: #0a0a0a;
+        }
+        .preview-image {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .password-strength {
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .strength-weak {
+            background-color: #ef4444;
+            width: 33%;
+        }
+        .strength-medium {
+            background-color: #f59e0b;
+            width: 66%;
+        }
+        .strength-strong {
+            background-color: #10b981;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col">
+    <!-- Navigation -->
+    <nav class="dark-card border-b dark-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-xl font-bold text-green-primary">
+                            <i class="fas fa-briefcase mr-2"></i>Talent HUB
+                        </h1>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="#" class="dark-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium">
+                        Retour à l'accueil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <!-- Header -->
+            <div class="text-center">
+                <h2 class="mt-6 text-3xl font-extrabold text-text-primary">
+                    Bienvenue sur Talent HUB
+                </h2>
+                <p class="mt-2 text-sm dark-text-secondary">
+                    Connectez-vous ou créez votre compte pour commencer
+                </p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="border-b dark-border">
+                <nav class="-mb-px flex">
+                    <button class="tab-btn dark-active py-2 px-1 border-b-2 font-medium text-sm w-1/2" data-tab="login">
+                        Connexion
+                    </button>
+                    <button class="tab-btn border-transparent py-2 px-1 border-b-2 font-medium text-sm text-text-secondary hover:text-text-primary w-1/2" data-tab="register">
+                        Inscription
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Login form -->
+            <div id="login" class="tab-content active">
+                <form class="mt-8 space-y-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="loginEmail" class="block text-sm font-medium text-text-primary mb-2">
+                                Email
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-400"></i>
+                                </div>
+                                <input id="loginEmail" name="email" type="email" autocomplete="email" required 
+                                    class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none" 
+                                    placeholder="votre@email.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="loginPassword" class="block text-sm font-medium text-text-primary mb-2">
+                                Mot de passe
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-400"></i>
+                                </div>
+                                <input id="loginPassword" name="password" type="password" autocomplete="current-password" required 
+                                    class="dark-input w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none" 
+                                    placeholder="••••••••">
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <button type="button" id="toggleLoginPassword" class="text-gray-400 hover:text-gray-500">
+                                        <i class="fas fa-eye" id="loginPasswordIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input id="rememberMe" name="rememberMe" type="checkbox" 
+                                class="dark-input rounded">
+                            <label for="rememberMe" class="ml-2 block text-sm text-text-secondary">
+                                Se souvenir de moi
+                            </label>
+                        </div>
+                        <a href="#" class="text-sm dark-text-accent hover:text-green-primary">
+                            Mot de passe oublié ?
+                        </a>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="dark-button w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black">
+                            Se connecter
+                        </button>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="text-sm dark-text-secondary">
+                            Pas encore de compte ? 
+                            <a href="#" id="switchToRegister" class="dark-text-accent hover:text-green-primary">S'inscrire</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Register form -->
+            <div id="register" class="tab-content">
+                <form class="mt-8 space-y-6">
+                    <div class="space-y-4">
+                        <!-- Role selection -->
+                        <div>
+                            <label for="registerRole" class="block text-sm font-medium text-text-primary mb-2">
+                                Je suis
+                            </label>
+                            <div class="flex space-x-4">
+                                <label class="flex items-center">
+                                    <input id="candidateRole" name="role" type="radio" value="candidate" checked 
+                                        class="dark-input mr-2">
+                                    <span class="text-sm text-text-primary">Candidat</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input id="recruiterRole" name="role" type="radio" value="recruiter" 
+                                        class="dark-input mr-2">
+                                    <span class="text-sm text-text-primary">Recruteur</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Profile image upload -->
+                        <div>
+                            <label for="profileImage" class="block text-sm font-medium text-text-primary mb-2">
+                                Photo de profil
+                            </label>
+                            <div class="flex items-center space-x-4">
+                                <div class="file-upload">
+                                    <input type="file" id="profileImage" name="profileImage" accept="image/*">
+                                    <label for="profileImage" class="file-upload-label">
+                                        <i class="fas fa-cloud-upload-alt mr-2"></i>
+                                        Choisir une image
+                                    </label>
+                                </div>
+                                <div id="imagePreview" class="hidden">
+                                    <img src="" alt="Preview" class="preview-image">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Name fields -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-text-primary mb-2">
+                                    Prénom
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-user text-gray-400"></i>
+                                    </div>
+                                    <input id="firstName" name="firstName" type="text" required 
+                                        class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none" 
+                                        placeholder="Jean">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-text-primary mb-2">
+                                    Nom
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-user text-gray-400"></i>
+                                    </div>
+                                    <input id="lastName" name="lastName" type="text" required 
+                                        class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none" 
+                                        placeholder="Dupont">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Speciality field -->
+                        <div>
+                            <label for="speciality" class="block text-sm font-medium text-text-primary mb-2">
+                                Spécialité
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-briefcase text-gray-400"></i>
+                                </div>
+                                <input id="speciality" name="speciality" type="text" required 
+                                    class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none" 
+                                    placeholder="Développeur Full Stack, UX Designer, ...">
+                            </div>
+                        </div>
+
+                        <!-- Email field -->
+                        <div>
+                            <label for="registerEmail" class="block text-sm font-medium text-text-primary mb-2">
+                                Email
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-400"></i>
+                                </div>
+                                <input id="registerEmail" name="email" type="email" autocomplete="email" required 
+                                    class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none" 
+                                    placeholder="votre@email.com">
+                            </div>
+                        </div>
+
+                        <!-- Phone field -->
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-text-primary mb-2">
+                                Téléphone
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-phone text-gray-400"></i>
+                                </div>
+                                <input id="phone" name="phone" type="tel" required 
+                                    class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none" 
+                                    placeholder="+33 6 12 34 56 78">
+                            </div>
+                        </div>
+
+                        <!-- Password fields -->
+                        <div>
+                            <label for="registerPassword" class="block text-sm font-medium text-text-primary mb-2">
+                                Mot de passe
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-400"></i>
+                                </div>
+                                <input id="registerPassword" name="password" type="password" required 
+                                    class="dark-input w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none" 
+                                    placeholder="••••••••">
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <button type="button" id="toggleRegisterPassword" class="text-gray-400 hover:text-gray-500">
+                                        <i class="fas fa-eye" id="registerPasswordIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="passwordStrength" class="password-strength"></div>
+                            <p class="text-xs dark-text-secondary mt-1">
+                                Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre
+                            </p>
+                        </div>
+
+                        <div>
+                            <label for="verifyPassword" class="block text-sm font-medium text-text-primary mb-2">
+                                Confirmer le mot de passe
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-400"></i>
+                                </div>
+                                <input id="verifyPassword" name="verifyPassword" type="password" required 
+                                    class="dark-input w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none" 
+                                    placeholder="••••••••">
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <button type="button" id="toggleVerifyPassword" class="text-gray-400 hover:text-gray-500">
+                                        <i class="fas fa-eye" id="verifyPasswordIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p id="passwordMatch" class="text-xs mt-1 hidden"></p>
+                        </div>
+
+                        <!-- Terms and conditions -->
+                        <div>
+                            <div class="flex items-start">
+                                <input id="agreeTerms" name="agreeTerms" type="checkbox" required 
+                                    class="dark-input rounded mt-1">
+                                <label for="agreeTerms" class="ml-2 block text-sm text-text-secondary">
+                                    J'accepte les <a href="#" class="dark-text-accent hover:text-green-primary">conditions d'utilisation</a> 
+                                    et la <a href="#" class="dark-text-accent hover:text-green-primary">politique de confidentialité</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="dark-button w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black">
+                            S'inscrire
+                        </button>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="text-sm dark-text-secondary">
+                            Déjà un compte ? 
+                            <a href="#" id="switchToLogin" class="dark-text-accent hover:text-green-primary">Se connecter</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dark-card border-t dark-border py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm dark-text-secondary">
+                    &copy; 2023 Talent HUB. Tous droits réservés.
+                </p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Mentions légales</a>
+                    <a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Politique de confidentialité</a>
+                    <a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Conditions d'utilisation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all tabs and contents
+                tabBtns.forEach(tab => {
+                    tab.classList.remove('dark-active');
+                    tab.classList.add('border-transparent');
+                    tab.classList.remove('text-text-primary');
+                    tab.classList.add('text-text-secondary');
+                });
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('dark-active');
+                this.classList.remove('border-transparent');
+                this.classList.remove('text-text-secondary');
+                this.classList.add('text-text-primary');
+                
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        switchToRegister.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Trigger click on register tab
+            document.querySelector('[data-tab="register"]').click();
+        });
+
+        switchToLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Trigger click on login tab
+            document.querySelector('[data-tab="login"]').click();
+        });
+
+        // Password visibility toggle
+        const toggleLoginPassword = document.getElementById('toggleLoginPassword');
+        const loginPassword = document.getElementById('loginPassword');
+        const loginPasswordIcon = document.getElementById('loginPasswordIcon');
+
+        toggleLoginPassword.addEventListener('click', function() {
+            if (loginPassword.type === 'password') {
+                loginPassword.type = 'text';
+                loginPasswordIcon.classList.remove('fa-eye');
+                loginPasswordIcon.classList.add('fa-eye-slash');
+            } else {
+                loginPassword.type = 'password';
+                loginPasswordIcon.classList.remove('fa-eye-slash');
+                loginPasswordIcon.classList.add('fa-eye');
+            }
+        });
+
+        const toggleRegisterPassword = document.getElementById('toggleRegisterPassword');
+        const registerPassword = document.getElementById('registerPassword');
+        const registerPasswordIcon = document.getElementById('registerPasswordIcon');
+
+        toggleRegisterPassword.addEventListener('click', function() {
+            if (registerPassword.type === 'password') {
+                registerPassword.type = 'text';
+                registerPasswordIcon.classList.remove('fa-eye');
+                registerPasswordIcon.classList.add('fa-eye-slash');
+            } else {
+                registerPassword.type = 'password';
+                registerPasswordIcon.classList.remove('fa-eye-slash');
+                registerPasswordIcon.classList.add('fa-eye');
+            }
+        });
+
+        const toggleVerifyPassword = document.getElementById('toggleVerifyPassword');
+        const verifyPassword = document.getElementById('verifyPassword');
+        const verifyPasswordIcon = document.getElementById('verifyPasswordIcon');
+
+        toggleVerifyPassword.addEventListener('click', function() {
+            if (verifyPassword.type === 'password') {
+                verifyPassword.type = 'text';
+                verifyPasswordIcon.classList.remove('fa-eye');
+                verifyPasswordIcon.classList.add('fa-eye-slash');
+            } else {
+                verifyPassword.type = 'password';
+                verifyPasswordIcon.classList.remove('fa-eye-slash');
+                verifyPasswordIcon.classList.add('fa-eye');
+            }
+        });
+
+        // Password strength checker
+        const passwordStrength = document.getElementById('passwordStrength');
+        const passwordMatch = document.getElementById('passwordMatch');
+
+        registerPassword.addEventListener('input', function() {
+            const password = this.value;
+            let strength = 0;
+            
+            // Check password strength
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]+/)) strength++;
+            if (password.match(/[A-Z]+/)) strength++;
+            if (password.match(/[0-9]+/)) strength++;
+            if (password.match(/[$@#&!]+/)) strength++;
+            
+            // Update strength indicator
+            passwordStrength.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
+            
+            if (password.length > 0) {
+                if (strength <= 2) {
+                    passwordStrength.classList.add('strength-weak');
+                } else if (strength <= 4) {
+                    passwordStrength.classList.add('strength-medium');
+                } else {
+                    passwordStrength.classList.add('strength-strong');
+                }
+            }
+            
+            // Check if passwords match
+            if (verifyPassword.value.length > 0) {
+                checkPasswordMatch();
+            }
+        });
+
+        verifyPassword.addEventListener('input', checkPasswordMatch);
+
+        function checkPasswordMatch() {
+            const password = registerPassword.value;
+            const verify = verifyPassword.value;
+            
+            passwordMatch.classList.remove('hidden');
+            
+            if (password === verify && password.length > 0) {
+                passwordMatch.textContent = 'Les mots de passe correspondent';
+                passwordMatch.classList.remove('text-red-500');
+                passwordMatch.classList.add('text-green-primary');
+            } else if (verify.length > 0) {
+                passwordMatch.textContent = 'Les mots de passe ne correspondent pas';
+                passwordMatch.classList.remove('text-green-primary');
+                passwordMatch.classList.add('text-red-500');
+            } else {
+                passwordMatch.classList.add('hidden');
+            }
+        }
+
+        // Profile image preview
+        const profileImage = document.getElementById('profileImage');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = imagePreview.querySelector('img');
+
+        profileImage.addEventListener('change', function() {
+            const file = this.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.addEventListener('load', function() {
+                    previewImg.setAttribute('src', this.result);
+                    imagePreview.classList.remove('hidden');
+                });
+                
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form submission
+        const loginForm = document.querySelector('#login form');
+        const registerForm = document.querySelector('#register form');
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would implement the login logic
+            console.log('Login form submitted');
+            // Redirect to dashboard based on role
+            window.location.href = 'dashboard.html';
+        });
+
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would implement the registration logic
+            console.log('Register form submitted');
+            // Redirect to dashboard based on role
+            const role = document.querySelector('input[name="role"]:checked').value;
+            if (role === 'recruiter') {
+                window.location.href = 'recruiter-dashboard.html';
+            } else {
+                window.location.href = 'candidate-dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>
