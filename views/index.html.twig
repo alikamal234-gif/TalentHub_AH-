@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-black">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talent HUB - Plateforme de recrutement</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#000000',
+                        'dark-card': '#111111',
+                        'dark-border': '#1a1a1a',
+                        'green-primary': '#10b981',
+                        'green-secondary': '#059669',
+                        'green-accent': '#34d399',
+                        'text-primary': '#ffffff',
+                        'text-secondary': '#a3a3a3'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .dark-card {
+            background-color: #111111;
+            border-color: #1a1a1a;
+        }
+        .dark-input {
+            background-color: #0a0a0a;
+            border-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .dark-input:focus {
+            border-color: #10b981;
+            outline: none;
+            box-shadow: 0 0 0 1px #10b981;
+        }
+        .dark-button {
+            background-color: #10b981;
+            color: #000000;
+        }
+        .dark-button:hover {
+            background-color: #059669;
+        }
+        .dark-button-secondary {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 1px solid #333333;
+        }
+        .dark-button-secondary:hover {
+            background-color: #262626;
+        }
+        .dark-text-secondary {
+            color: #a3a3a3;
+        }
+        .dark-text-accent {
+            color: #34d399;
+        }
+        .dark-border {
+            border-color: #1a1a1a;
+        }
+        .dark-hover:hover {
+            background-color: #1a1a1a;
+        }
+        .dark-active {
+            background-color: #0a0a0a;
+            border-bottom: 2px solid #10b981;
+        }
+        .dark-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dark-scrollbar::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        .dark-scrollbar::-webkit-scrollbar-thumb {
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+        .dark-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #262626;
+        }
+        .job-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .job-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tag-pill {
+            transition: all 0.2s ease-in-out;
+        }
+        .tag-pill:hover {
+            background-color: #059669;
+            transform: scale(1.05);
+        }
+        .company-logo {
+            width: 48px;
+            height: 48px;
+            background-color: #10b981;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .filter-section {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+        @media (max-width: 768px) {
+            .filter-section {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body class="h-full">
+    <!-- Navigation -->
+    <nav class="dark-card border-b dark-border sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-xl font-bold text-green-primary">
+                            <i class="fas fa-briefcase mr-2"></i>Talent HUB
+                        </h1>
+                    </div>
+                    <!-- Search bar -->
+                    <div class="hidden md:ml-6 md:flex md:items-center md:w-96">
+                        <div class="relative w-full">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </div>
+                            <input id="searchInput" type="text" class="dark-input w-full pl-10 pr-4 py-2 rounded-md text-sm" placeholder="Rechercher des offres, des entreprises...">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- Navigation links -->
+                    <div class="hidden md:flex space-x-4">
+                        <a href="#" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium">
+                            Offres
+                        </a>
+                        <a href="#" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium">
+                            Entreprises
+                        </a>
+                        <a href="#" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium">
+                            Salaires
+                        </a>
+                    </div>
+                    <!-- Auth buttons -->
+                    <div class="flex items-center space-x-2">
+                        <button id="loginBtn" class="dark-button-secondary px-4 py-2 border border-transparent text-sm font-medium rounded-md">
+                            Connexion
+                        </button>
+                        <button id="registerBtn" class="dark-button px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black">
+                            Inscription
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile search -->
+        <div class="md:hidden px-4 pb-3">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-gray-400"></i>
+                </div>
+                <input type="text" class="dark-input w-full pl-10 pr-4 py-2 rounded-md text-sm" placeholder="Rechercher des offres, des entreprises...">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="flex-1 dark-scrollbar overflow-auto">
+        <!-- Hero section -->
+        <section class="hero-gradient py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center">
+                    <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                        Trouvez l'emploi de vos rêves
+                    </h2>
+                    <p class="mt-4 text-xl text-green-100 max-w-2xl mx-auto">
+                        Rejoignez des milliers de professionnels qui ont trouvé leur prochaine opportunité sur Talent HUB
+                    </p>
+                    <div class="mt-8 flex justify-center">
+                        <div class="inline-flex rounded-md shadow">
+                            <a href="#jobs" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-black bg-white hover:bg-gray-100">
+                                <i class="fas fa-search mr-2"></i>
+                                Explorer les offres
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured companies -->
+        <section class="py-8 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <h3 class="text-lg font-medium text-text-primary mb-4">Entreprises qui recrutent</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <div class="dark-card p-4 rounded-lg flex items-center justify-center">
+                        <div class="company-logo">
+                            <span>TC</span>
+                        </div>
+                    </div>
+                    <div class="dark-card p-4 rounded-lg flex items-center justify-center">
+                        <div class="company-logo">
+                            <span>DH</span>
+                        </div>
+                    </div>
+                    <div class="dark-card p-4 rounded-lg flex items-center justify-center">
+                        <div class="company-logo">
+                            <span>DT</span>
+                        </div>
+                    </div>
+                    <div class="dark-card p-4 rounded-lg flex items-center justify-center">
+                        <div class="company-logo">
+                            <span>SI</span>
+                        </div>
+                    </div>
+                    <div class="dark-card p-4 rounded-lg flex items-center justify-center">
+                        <div class="company-logo">
+                            <span>MT</span>
+                        </div>
+                    </div>
+                    <div class="dark-card p-4 rounded-lg flex items-center justify-center">
+                        <div class="company-logo">
+                            <span>AC</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jobs section -->
+        <section id="jobs" class="py-8 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row gap-6">
+                    <!-- Filters sidebar -->
+                    <aside class="filter-section w-full md:w-1/4">
+                        <div class="dark-card p-4 rounded-lg">
+                            <h3 class="text-lg font-medium text-text-primary mb-4">Filtres</h3>
+                            
+                            <!-- Location filter -->
+                            <div class="mb-6">
+                                <h4 class="text-sm font-medium text-text-primary mb-2">Localisation</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded" checked>
+                                        <span class="text-sm text-text-secondary">Paris</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">Lyon</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">Marseille</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">Télétravail</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Job type filter -->
+                            <div class="mb-6">
+                                <h4 class="text-sm font-medium text-text-primary mb-2">Type de contrat</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">CDI</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">CDD</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">Freelance</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">Stage</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Experience level filter -->
+                            <div class="mb-6">
+                                <h4 class="text-sm font-medium text-text-primary mb-2">Niveau d'expérience</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">Junior (0-2 ans)</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">Intermédiaire (2-5 ans)</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">Senior (5+ ans)</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Salary range filter -->
+                            <div class="mb-6">
+                                <h4 class="text-sm font-medium text-text-primary mb-2">Fourchette salariale</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">0 - 30k€</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">30k€ - 50k€</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">50k€ - 70k€</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="dark-input mr-2 rounded">
+                                        <span class="text-sm text-text-secondary">70k€+</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <button class="dark-button w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black">
+                                Appliquer les filtres
+                            </button>
+                        </div>
+                    </aside>
+                    
+                    <!-- Jobs list -->
+                    <div class="w-full md:w-3/4">
+                        <!-- Tabs -->
+                        <div class="border-b dark-border mb-6">
+                            <nav class="-mb-px flex space-x-8">
+                                <button class="tab-btn dark-active py-2 px-1 border-b-2 font-medium text-sm" data-tab="recommended">
+                                    Recommandés pour vous
+                                </button>
+                                <button class="tab-btn border-transparent py-2 px-1 border-b-2 font-medium text-sm text-text-secondary hover:text-text-primary" data-tab="recent">
+                                    Dernières offres
+                                </button>
+                                <button class="tab-btn border-transparent py-2 px-1 border-b-2 font-medium text-sm text-text-secondary hover:text-text-primary" data-tab="popular">
+                                    Les plus populaires
+                                </button>
+                            </nav>
+                        </div>
+                        
+                        <!-- Tab content -->
+                        <div id="recommended" class="tab-content active">
+                            <!-- Job cards -->
+                            <div class="space-y-4">
+                                <!-- Job card 1 -->
+                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex">
+                                            <div class="company-logo mr-4">
+                                                <span>TC</span>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-lg font-medium text-text-primary">Développeur Full Stack</h4>
+                                                <p class="text-sm dark-text-secondary">TechCorp • Paris, France</p>
+                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
+                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
+                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 45k-60k€</span>
+                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 2 jours</span>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2 mt-3">
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">JavaScript</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">React</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Node.js</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">MongoDB</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col items-end">
+                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
+                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
+                                            </button>
+                                            <span class="text-xs dark-text-secondary">24 candidatures</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Job card 2 -->
+                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex">
+                                            <div class="company-logo mr-4">
+                                                <span>DH</span>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-lg font-medium text-text-primary">UX Designer</h4>
+                                                <p class="text-sm dark-text-secondary">DesignHub • Lyon, France</p>
+                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
+                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
+                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 40k-55k€</span>
+                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 3 jours</span>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2 mt-3">
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Figma</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Adobe XD</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Prototyping</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col items-end">
+                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
+                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
+                                            </button>
+                                            <span class="text-xs dark-text-secondary">18 candidatures</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Job card 3 -->
+                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex">
+                                            <div class="company-logo mr-4">
+                                                <span>DT</span>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-lg font-medium text-text-primary">Data Analyst</h4>
+                                                <p class="text-sm dark-text-secondary">DataTech • Télétravail</p>
+                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
+                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
+                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 42k-58k€</span>
+                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 5 jours</span>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2 mt-3">
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Python</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">SQL</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Tableau</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Power BI</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col items-end">
+                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
+                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
+                                            </button>
+                                            <span class="text-xs dark-text-secondary">31 candidatures</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Job card 4 -->
+                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex">
+                                            <div class="company-logo mr-4">
+                                                <span>SI</span>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-lg font-medium text-text-primary">Chef de Projet Digital</h4>
+                                                <p class="text-sm dark-text-secondary">StartUp Innov • Paris, France</p>
+                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
+                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
+                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 50k-70k€</span>
+                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 1 semaine</span>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2 mt-3">
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Agile</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Scrum</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Management</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col items-end">
+                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
+                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
+                                            </button>
+                                            <span class="text-xs dark-text-secondary">12 candidatures</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Job card 5 -->
+                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex">
+                                            <div class="company-logo mr-4">
+                                                <span>MT</span>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-lg font-medium text-text-primary">Développeur Mobile</h4>
+                                                <p class="text-sm dark-text-secondary">MobileTech • Télétravail</p>
+                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
+                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
+                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 45k-65k€</span>
+                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 1 semaine</span>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2 mt-3">
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">React Native</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Flutter</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">iOS</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Android</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col items-end">
+                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
+                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
+                                            </button>
+                                            <span class="text-xs dark-text-secondary">8 candidatures</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Load more button -->
+                            <div class="mt-8 flex justify-center">
+                                <button class="dark-button px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black">
+                                    Charger plus d'offres
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="recent" class="tab-content">
+                            <!-- Recent jobs content -->
+                            <div class="space-y-4">
+                                <!-- Similar job cards but with recent jobs -->
+                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex">
+                                            <div class="company-logo mr-4">
+                                                <span>AC</span>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-lg font-medium text-text-primary">Développeur Backend PHP</h4>
+                                                <p class="text-sm dark-text-secondary">AppCompany • Marseille, France</p>
+                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
+                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
+                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 40k-55k€</span>
+                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 1 jour</span>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2 mt-3">
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">PHP</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Symfony</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">MySQL</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col items-end">
+                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
+                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
+                                            </button>
+                                            <span class="text-xs dark-text-secondary">15 candidatures</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- More recent job cards... -->
+                            </div>
+                        </div>
+                        
+                        <div id="popular" class="tab-content">
+                            <!-- Popular jobs content -->
+                            <div class="space-y-4">
+                                <!-- Similar job cards but with popular jobs -->
+                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex">
+                                            <div class="company-logo mr-4">
+                                                <span>TC</span>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-lg font-medium text-text-primary">Développeur Frontend Vue.js</h4>
+                                                <p class="text-sm dark-text-secondary">TechCorp • Paris, France</p>
+                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
+                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
+                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 42k-60k€</span>
+                                                    <span><i class="fas fa-fire mr-1 text-orange-500"></i> Très populaire</span>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2 mt-3">
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Vue.js</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">JavaScript</span>
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">CSS</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col items-end">
+                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
+                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
+                                            </button>
+                                            <span class="text-xs dark-text-secondary">52 candidatures</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- More popular job cards... -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works section -->
+        <section class="py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-extrabold text-text-primary">Comment ça marche ?</h3>
+                    <p class="mt-4 text-lg dark-text-secondary">
+                        Trouvez votre prochain emploi en quelques étapes simples
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="flex justify-center items-center w-16 h-16 bg-green-primary rounded-full mx-auto mb-4">
+                            <i class="fas fa-search text-black text-xl"></i>
+                        </div>
+                        <h4 class="text-lg font-medium text-text-primary mb-2">1. Recherchez</h4>
+                        <p class="text-sm dark-text-secondary">
+                            Explorez des milliers d'offres d'emploi et trouvez celles qui correspondent à votre profil
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex justify-center items-center w-16 h-16 bg-green-primary rounded-full mx-auto mb-4">
+                            <i class="fas fa-file-alt text-black text-xl"></i>
+                        </div>
+                        <h4 class="text-lg font-medium text-text-primary mb-2">2. Postulez</h4>
+                        <p class="text-sm dark-text-secondary">
+                            Soumettez votre candidature en quelques clics avec votre CV et lettre de motivation
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex justify-center items-center w-16 h-16 bg-green-primary rounded-full mx-auto mb-4">
+                            <i class="fas fa-handshake text-black text-xl"></i>
+                        </div>
+                        <h4 class="text-lg font-medium text-text-primary mb-2">3. Décrochez</h4>
+                        <p class="text-sm dark-text-secondary">
+                            Suivez vos candidatures et décrochez l'emploi de vos rêves
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials section -->
+        <section class="py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-extrabold text-text-primary">Témoignages</h3>
+                    <p class="mt-4 text-lg dark-text-secondary">
+                        Découvrez les expériences de nos utilisateurs
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="dark-card p-6 rounded-lg border dark-border">
+                        <div class="flex items-center mb-4">
+                            <div class="h-12 w-12 rounded-full bg-green-primary flex items-center justify-center text-black font-bold mr-4">
+                                JD
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-text-primary">Jean Dupont</h4>
+                                <p class="text-sm dark-text-secondary">Développeur Full Stack</p>
+                            </div>
+                        </div>
+                        <p class="text-sm dark-text-secondary italic">
+                            "Grâce à Talent HUB, j'ai trouvé mon emploi de rêve en moins d'un mois. La plateforme est intuitive et les offres sont de qualité."
+                        </p>
+                        <div class="flex mt-4">
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                        </div>
+                    </div>
+                    <div class="dark-card p-6 rounded-lg border dark-border">
+                        <div class="flex items-center mb-4">
+                            <div class="h-12 w-12 rounded-full bg-green-primary flex items-center justify-center text-black font-bold mr-4">
+                                MM
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-text-primary">Marie Martin</h4>
+                                <p class="text-sm dark-text-secondary">UX Designer</p>
+                            </div>
+                        </div>
+                        <p class="text-sm dark-text-secondary italic">
+                            "J'ai postulé à plusieurs offres et j'ai été contactée par 3 entreprises différentes. Talent HUB a vraiment facilité ma recherche d'emploi."
+                        </p>
+                        <div class="flex mt-4">
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                        </div>
+                    </div>
+                    <div class="dark-card p-6 rounded-lg border dark-border">
+                        <div class="flex items-center mb-4">
+                            <div class="h-12 w-12 rounded-full bg-green-primary flex items-center justify-center text-black font-bold mr-4">
+                                PD
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-text-primary">Pierre Durand</h4>
+                                <p class="text-sm dark-text-secondary">Data Analyst</p>
+                            </div>
+                        </div>
+                        <p class="text-sm dark-text-secondary italic">
+                            "Les filtres de recherche sont très efficaces et m'ont permis de trouver des offres correspondant exactement à mes compétences et mes attentes."
+                        </p>
+                        <div class="flex mt-4">
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="far fa-star text-yellow-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA section -->
+        <section class="py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                <h3 class="text-3xl font-extrabold text-text-primary">Prêt à trouver votre prochain emploi ?</h3>
+                <p class="mt-4 text-lg dark-text-secondary">
+                    Rejoignez des milliers de professionnels qui ont trouvé leur opportunité sur Talent HUB
+                </p>
+                <div class="mt-8 flex justify-center space-x-4">
+                    <button class="dark-button px-6 py-3 border border-transparent text-base font-medium rounded-md text-black">
+                        S'inscrire maintenant
+                    </button>
+                    <button class="dark-button-secondary px-6 py-3 border border-transparent text-base font-medium rounded-md">
+                        En savoir plus
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dark-card border-t dark-border">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-medium text-text-primary mb-4">À propos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Qui sommes-nous</a></li>
+                        <li><a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Carrières</a></li>
+                        <li><a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Presse</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-text-primary mb-4">Candidats</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Rechercher des offres</a></li>
+                        <li><a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Conseils carrière</a></li>
+                        <li><a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Salaires</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-text-primary mb-4">Recruteurs</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Publier une offre</a></li>
+                        <li><a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Tarifs</a></li>
+                        <li><a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Ressources</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-text-primary mb-4">Restez connecté</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-green-primary hover:text-green-accent"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-green-primary hover:text-green-accent"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-green-primary hover:text-green-accent"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-green-primary hover:text-green-accent"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <p class="text-sm dark-text-secondary">
+                        Abonnez-vous à notre newsletter pour recevoir les dernières offres et actualités
+                    </p>
+                    <div class="mt-4 flex">
+                        <input type="email" placeholder="Votre email" class="dark-input px-3 py-2 rounded-l-md text-sm flex-1">
+                        <button class="dark-button px-4 py-2 rounded-r-md text-sm text-black">
+                            S'abonner
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t dark-border">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm dark-text-secondary">
+                        &copy; 2023 Talent HUB. Tous droits réservés.
+                    </p>
+                    <div class="flex space-x-4 mt-4 md:mt-0">
+                        <a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Mentions légales</a>
+                        <a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Politique de confidentialité</a>
+                        <a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Conditions d'utilisation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script>
+        // Modal functionality
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const jobDetailModal = document.getElementById('jobDetailModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const closeRegisterModal = document.getElementById('closeRegisterModal');
+        const closeJobDetailModal = document.getElementById('closeJobDetailModal');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const registerRole = document.getElementById('registerRole');
+        const recruiterFields = document.getElementById('recruiterFields');
+
+        loginBtn.addEventListener('click', function() {
+            loginModal.classList.add('active');
+        });
+
+        registerBtn.addEventListener('click', function() {
+            registerModal.classList.add('active');
+        });
+
+        closeLoginModal.addEventListener('click', function() {
+            loginModal.classList.remove('active');
+        });
+
+        closeRegisterModal.addEventListener('click', function() {
+            registerModal.classList.remove('active');
+        });
+
+        closeJobDetailModal.addEventListener('click', function() {
+            jobDetailModal.classList.remove('active');
+        });
+
+        switchToRegister.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginModal.classList.remove('active');
+            registerModal.classList.add('active');
+        });
+
+        switchToLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            registerModal.classList.remove('active');
+            loginModal.classList.add('active');
+        });
+
+        registerRole.addEventListener('change', function() {
+            if (this.value === 'recruiter') {
+                recruiterFields.classList.remove('hidden');
+            } else {
+                recruiterFields.classList.add('hidden');
+            }
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === loginModal) {
+                loginModal.classList.remove('active');
+            }
+            if (event.target === registerModal) {
+                registerModal.classList.remove('active');
+            }
+            if (event.target === jobDetailModal) {
+                jobDetailModal.classList.remove('active');
+            }
+        });
+
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all tabs and contents
+                tabBtns.forEach(tab => {
+                    tab.classList.remove('dark-active');
+                    tab.classList.add('border-transparent');
+                    tab.classList.remove('text-text-primary');
+                    tab.classList.add('text-text-secondary');
+                });
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('dark-active');
+                this.classList.remove('border-transparent');
+                this.classList.remove('text-text-secondary');
+                this.classList.add('text-text-primary');
+                
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Job card click to show detail
+        const jobCards = document.querySelectorAll('.job-card');
+        jobCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Check if the click is not on a button
+                if (!e.target.closest('button')) {
+                    jobDetailModal.classList.add('active');
+                }
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            // Here you would implement the search logic
+            console.log('Searching for:', searchTerm);
+        });
+
+        // Filter functionality
+        const filterCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+        filterCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Here you would implement the filter logic
+                console.log('Filter changed:', this.name, this.checked);
+            });
+        });
+    </script>
+</body>
+</html>
