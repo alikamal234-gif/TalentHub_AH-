@@ -1,78 +1,116 @@
 <?php
 
+namespace App\Entity;
+
+use DateTimeImmutable;
+
 class Candidature
 {
+    public const string STATUS_PENDING = 'pending';
+    public const string STATUS_ACCEPTED = 'accepted';
+    public const string STATUS_REJECTED = 'rejected';
+
     private int $id;
     private User $user;
     private Offer $offer;
     private ?string $message;
-    private $cv; 
-    private string $status; 
-    private ?string $createdAt;
+    private string $cv;
+    private string $status;
+    private DateTimeImmutable $createdAt;
 
     public function __construct(User $user, Offer $offer, ?string $message = null)
     {
         $this->user = $user;
         $this->offer = $offer;
         $this->message = $message;
-        $this->status = 'pending';
-        $this->createdAt = date('Y-m-d');
+        $this->status = self::STATUS_PENDING;
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function accept(): void
     {
-        $this->status = 'accepted';
+        $this->status = self::STATUS_ACCEPTED;
     }
 
     public function reject(): void
     {
-        $this->status = 'rejected';
+        $this->status = self::STATUS_REJECTED;
     }
 
-    public function getId(){
+    public function getId(): int
+    {
         return $this->id;
     }
-    public function getUser(){
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getUser(): User
+    {
         return $this->user;
     }
-    public function getOffer(){
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    public function getOffer(): Offer
+    {
         return $this->offer;
     }
-    public function getMessage(){
+
+    public function setOffer(Offer $offer): self
+    {
+        $this->offer = $offer;
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
         return $this->message;
     }
-    public function getCv(){
+
+    public function setMessage(?string $message): self
+    {
+        $this->message = $message;
+        return $this;
+    }
+
+    public function getCv(): string
+    {
         return $this->cv;
     }
-    public function getStatus(){
+
+    public function setCv(string $cv): self
+    {
+        $this->cv = $cv;
+        return $this;
+    }
+
+    public function getStatus(): string
+    {
         return $this->status;
     }
-    public function getCreatedAt(){
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
         return $this->createdAt;
     }
 
-
-
-
-    public function setId($id){
-        $this->id = $id;
-    }
-    public function setUser($user){
-        $this->user = $user;
-    }
-    public function setOffer($offer){
-        $this->offer = $offer;
-    }
-    public function setMessage($message){
-        $this->message = $message;
-    }
-    public function setCv($cv){
-        $this->cv = $cv;
-    }
-    public function setStatus($status){
-        $this->status = $status;
-    }
-    public function setCreatedAt($createdAt){
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    {
         $this->createdAt = $createdAt;
+        return $this;
     }
 }

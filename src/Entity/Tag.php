@@ -1,47 +1,63 @@
 <?php
 
+namespace App\Entity;
+
+use DateTimeImmutable;
 
 class Tag
 {
     private int $id;
     private string $name;
-    private ?string $createdAt;
-    private ?string $deletedAt;
+    private DateTimeImmutable $createdAt;
+    private ?DateTimeImmutable $deletedAt = null;
 
     public function __construct(string $name)
     {
         $this->name = $name;
-        $this->createdAt = date('Y-m-d');
+        $this->createdAt = new DateTimeImmutable();
     }
 
-
-
-    
-    public function getId(){
+    public function getId(): int
+    {
         return $this->id;
     }
-    public function getName(){
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getName(): string
+    {
         return $this->name;
     }
-    public function getCreatedAt(){
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
         return $this->createdAt;
     }
-    public function getDeletedAt(){
+
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getDeletedAt(): ?DateTimeImmutable
+    {
         return $this->deletedAt;
     }
 
-
-
-    public function setId($id){
-        $this->id = $id;
-    }
-    public function setName($name){
-        $this->name = $name;
-    }
-    public function setCreatedAt($createdAt){
-        $this->createdAt = $createdAt;
-    }
-    public function setDeletedAt($deletedAt){
+    public function setDeletedAt(?DateTimeImmutable $deletedAt): self
+    {
         $this->deletedAt = $deletedAt;
+        return $this;
     }
 }

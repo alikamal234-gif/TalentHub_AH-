@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Entity;
+
+use DateTimeImmutable;
+
 class Offer
 {
     private int $id;
@@ -8,75 +12,110 @@ class Offer
     private string $name;
     private string $description;
     private float $salary;
-    private ?string $createdAt;
-    private ?string $deletedAt;
+    private DateTimeImmutable $createdAt;
+    private ?DateTimeImmutable $deletedAt = null;
 
     public function __construct(
         Categorie $category,
-        User $owner,
-        string $name,
-        string $description,
-        float $salary
-    ) {
+        User      $owner,
+        string    $name,
+        string    $description,
+        float     $salary
+    )
+    {
         $this->category = $category;
         $this->owner = $owner;
         $this->name = $name;
         $this->description = $description;
         $this->salary = $salary;
-        $this->createdAt = date('Y-m-d');
+        $this->createdAt = new DateTimeImmutable();
     }
 
-
-    public function getId(){
+    public function getId(): int
+    {
         return $this->id;
     }
-    public function getCategory(){
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getCategory(): Categorie
+    {
         return $this->category;
     }
-    public function getOwner(){
+
+    public function setCategory(Categorie $category): self
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getOwner(): User
+    {
         return $this->owner;
     }
-    public function getName(){
+
+    public function setOwner(User $owner): self
+    {
+        $this->owner = $owner;
+        return $this;
+    }
+
+    public function getName(): string
+    {
         return $this->name;
     }
-    public function getDescription(){
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
         return $this->description;
     }
-    public function getSalary(){
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function getSalary(): float
+    {
         return $this->salary;
     }
-    public function getCreatedAt(){
+
+    public function setSalary(float $salary): self
+    {
+        $this->salary = $salary;
+        return $this;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
         return $this->createdAt;
     }
-    public function getDeletedAt(){
+
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getDeletedAt(): ?DateTimeImmutable
+    {
         return $this->deletedAt;
     }
 
-
-
-
-    public function setId($id){
-        $this->id = $id;
-    }
-    public function setCategory($category){
-        $this->category = $category;
-    }
-    public function setOwner($owner){
-        $this->owner = $owner;
-    }
-    public function setName($name){
-        $this->name = $name;
-    }
-    public function setDescription($description){
-        $this->description = $description;
-    }
-    public function setSalary($salary){
-        $this->salary = $salary;
-    }
-    public function setCreatedAt($createdAt){
-        $this->createdAt = $createdAt;
-    }
-    public function setDeletedAt($deletedAt){
+    public function setDeletedAt(?DateTimeImmutable $deletedAt): self
+    {
         $this->deletedAt = $deletedAt;
+        return $this;
     }
 }
