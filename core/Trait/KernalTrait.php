@@ -35,7 +35,7 @@ trait KernalTrait
 
     private function runConnection(): void
     {
-        $connection = new Connection(getenv('DB_HOST'), getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASSWORD'));
+        $connection = new Connection(env('DB_HOST'), env('DB_NAME'), env('DB_USER'), env('DB_PASSWORD'));
         $this->container->bind(Connection::class, $connection);
     }
 
@@ -45,7 +45,7 @@ trait KernalTrait
 
         $this->container->bind(Request::class, $request);
 
-        $routesFile = dirname(__DIR__, 2) . '/routes/web.php';
+        $routesFile = sprintf('%s/%s', $this->projectDir, '/routes/web.php');
         if (file_exists($routesFile)) {
             require_once $routesFile;
         }

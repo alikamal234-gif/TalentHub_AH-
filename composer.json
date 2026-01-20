@@ -4,7 +4,10 @@
     "psr-4": {
       "Core\\": "core/",
       "App\\": "src/"
-    }
+    },
+    "files": [
+      "core/functions/env.php"
+    ]
   },
   "authors": [
     {
