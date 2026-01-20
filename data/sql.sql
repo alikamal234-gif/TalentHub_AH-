@@ -1,0 +1,96 @@
+CREATE TABLE roles (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP NULL
+);
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  role_id INT NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  speciality VARCHAR(255),
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  phone VARCHAR(50),
+  image BLOB,
+  resume BLOB,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP NULL,
+  CONSTRAINT fk_users_role
+    FOREIGN KEY (role_id) REFERENCES roles(id)
+    ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE categories (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP NULL
+);
+
+CREATE TABLE offers (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  category_id INT NOT NULL,
+  owner_id INT NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  salary FLOAT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP NULL,
+  CONSTRAINT fk_offers_category
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT fk_offers_owner
+    FOREIGN KEY (owner_id) REFERENCES users(id)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE tags (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) UNIQUE NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP NULL
+);
+
+CREATE TABLE candidatures (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  offer_id INT NOT NULL,
+  message TEXT,
+  is_accepte BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_candidatures_user
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_candidatures_offer
+    FOREIGN KEY (offer_id) REFERENCES offers(id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  UNIQUE (user_id, offer_id)
+);
+
+
+CREATE TABLE offer_tag (
+  offer_id INT NOT NULL,
+  tag_id INT NOT NULL,
+  PRIMARY KEY (offer_id, tag_id),
+  CONSTRAINT fk_offer_tag_offer
+    FOREIGN KEY (offer_id) REFERENCES offers(id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_offer_tag_tag
+    FOREIGN KEY (tag_id) REFERENCES tags(id)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE user_tag (
+  user_id INT NOT NULL,
+  tag_id INT NOT NULL,
+  PRIMARY KEY (user_id, tag_id),
+  CONSTRAINT fk_user_tag_user
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_user_tag_tag
+    FOREIGN KEY (tag_id) REFERENCES tags(id)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
