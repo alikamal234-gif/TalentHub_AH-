@@ -30,7 +30,7 @@ class Container
         }
 
         $instance = $this->resolve($key);
-        $this->bindings[$key] = $instance;
+        $this->bind($key, $instance);
         return $instance;
     }
 

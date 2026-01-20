@@ -53,6 +53,7 @@ trait KernalTrait
             }
 
             $controllerInstance = $this->container->get($controllerClass);
+
             if (!method_exists($controllerInstance, $methodName)) {
                 throw new \RuntimeException("Method $methodName not found in $controllerClass");
             }
