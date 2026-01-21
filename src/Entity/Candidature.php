@@ -27,6 +27,11 @@ class Candidature
         $this->createdAt = new DateTimeImmutable();
     }
 
+    public function __toString(): string
+    {
+        return $this->user->getName();
+    }
+
     public function accept(): void
     {
         $this->status = self::STATUS_ACCEPTED;

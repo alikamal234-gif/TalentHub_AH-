@@ -31,6 +31,11 @@ class User
         $this->createdAt = new DateTimeImmutable();
     }
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public function getPassword(): string
     {
         return $this->password;

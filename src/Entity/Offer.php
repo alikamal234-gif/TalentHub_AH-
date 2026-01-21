@@ -7,20 +7,26 @@ use DateTimeImmutable;
 class Offer
 {
     private int $id;
-    private Categorie $category;
+    private ?Categorie $category;
     private User $owner;
     private string $name;
     private string $description;
     private float $salary;
+    private string $city;
+    private string $contact;
+    private string $company;
     private DateTimeImmutable $createdAt;
     private ?DateTimeImmutable $deletedAt = null;
 
     public function __construct(
-        Categorie $category,
+        ?Categorie $category,
         User      $owner,
         string    $name,
         string    $description,
-        float     $salary
+        float     $salary,
+        string    $city,
+        string    $contact,
+        string    $company
     )
     {
         $this->category = $category;
@@ -28,7 +34,15 @@ class Offer
         $this->name = $name;
         $this->description = $description;
         $this->salary = $salary;
+        $this->city = $city;
+        $this->contact = $contact;
+        $this->company = $company;
         $this->createdAt = new DateTimeImmutable();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     public function getId(): int
@@ -42,12 +56,12 @@ class Offer
         return $this;
     }
 
-    public function getCategory(): Categorie
+    public function getCategory(): ?Categorie
     {
         return $this->category;
     }
 
-    public function setCategory(Categorie $category): self
+    public function setCategory(?Categorie $category): self
     {
         $this->category = $category;
         return $this;
@@ -94,6 +108,39 @@ class Offer
     public function setSalary(float $salary): self
     {
         $this->salary = $salary;
+        return $this;
+    }
+
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    public function getContact(): string
+    {
+        return $this->contact;
+    }
+
+    public function setContact(string $contact): self
+    {
+        $this->contact = $contact;
+        return $this;
+    }
+
+    public function getCompany(): string
+    {
+        return $this->company;
+    }
+
+    public function setCompany(string $company): self
+    {
+        $this->company = $company;
         return $this;
     }
 
