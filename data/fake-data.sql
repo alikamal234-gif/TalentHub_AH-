@@ -4,18 +4,18 @@ VALUES ('Admin', '2025-01-01', NULL),
        ('Recruiter', '2025-01-02', NULL),
        ('Candidate', '2025-01-03', NULL);
 
--- USERS
+-- USERS pass : 1234456
 INSERT INTO users (role_id, name, speciality, email, password, phone, image, created_at, deleted_at)
-VALUES (1, 'Alice Admin', NULL, 'alice.admin@example.com', 'hashed_pass_1', '111-222-333', NULL, '2025-01-05', NULL),
-       (2, 'Bob Recruiter', 'HR Manager', 'bob.recruiter@example.com', 'hashed_pass_2', '222-333-444', NULL,
+VALUES (1, 'Alice Admin', NULL, 'alice.admin@example.com', '$2y$12$wzFI11mtf0iqMiscUzt2HOF03fdR1hRIDaKbY3XWyW6MpJMLrcnCu', '111-222-333', NULL, '2025-01-05', NULL),
+       (2, 'Bob Recruiter', 'HR Manager', 'bob.recruiter@example.com', '$2y$12$wzFI11mtf0iqMiscUzt2HOF03fdR1hRIDaKbY3XWyW6MpJMLrcnCu', '222-333-444', NULL,
         '2025-01-06', NULL),
-       (2, 'Sarah Recruiter', 'Tech Recruiter', 'sarah.recruiter@example.com', 'hashed_pass_3', '333-444-555', NULL,
+       (2, 'Sarah Recruiter', 'Tech Recruiter', 'sarah.recruiter@example.com', '$2y$12$wzFI11mtf0iqMiscUzt2HOF03fdR1hRIDaKbY3XWyW6MpJMLrcnCu', '333-444-555', NULL,
         '2025-01-06', NULL),
-       (3, 'John Candidate', 'Backend Developer', 'john.candidate@example.com', 'hashed_pass_4', '444-555-666', NULL,
+       (3, 'John Candidate', 'Backend Developer', 'john.candidate@example.com', '$2y$12$wzFI11mtf0iqMiscUzt2HOF03fdR1hRIDaKbY3XWyW6MpJMLrcnCu', '444-555-666', NULL,
         '2025-01-07', NULL),
-       (3, 'Emma Candidate', 'UI/UX Designer', 'emma.candidate@example.com', 'hashed_pass_5', '555-666-777', NULL,
+       (3, 'Emma Candidate', 'UI/UX Designer', 'emma.candidate@example.com', '$2y$12$wzFI11mtf0iqMiscUzt2HOF03fdR1hRIDaKbY3XWyW6MpJMLrcnCu', '555-666-777', NULL,
         '2025-01-07', NULL),
-       (3, 'Mark Candidate', 'Data Analyst', 'mark.candidate@example.com', 'hashed_pass_6', '666-777-888', NULL,
+       (3, 'Mark Candidate', 'Data Analyst', 'mark.candidate@example.com', '$2y$12$wzFI11mtf0iqMiscUzt2HOF03fdR1hRIDaKbY3XWyW6MpJMLrcnCu', '666-777-888', NULL,
         '2025-01-07', NULL);
 
 -- CATEGORIES
