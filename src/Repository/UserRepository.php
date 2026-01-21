@@ -169,9 +169,15 @@ class UserRepository extends AbstractRepository implements SoftDeleteInterface
     {
         $role = new Role($data['role_name'])
             ->setId($data['role_id'])
-            ->setCreatedAt($data['role_created_at'])
-            ->setDeletedAt($data['role_deleted_at'])
         ;
+
+        if (isset($data['role_created_at'])) {
+            $role->setCreatedAt(new DateTimeImmutable($data['role_created_at']));
+        }
+
+        if (isset($data['role_deleted_at'])) {
+            $role->setDeletedAt(new DateTimeImmutable($data['role_deleted_at']));
+        }
 
         $user = new User($role, $data['name'], $data['email'], $data['password'])
             ->setId(isset($data['id']) ? (int) $data['id'] : null)

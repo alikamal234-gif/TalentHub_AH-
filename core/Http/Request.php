@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Core\Http;
 
+use App\Entity\User;
+
 class Request
 {
     private array $queryParams;
@@ -99,5 +101,10 @@ class Request
     public function all(): array
     {
         return array_merge($this->queryParams, $this->bodyParams);
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->session->get('auth_user');
     }
 }

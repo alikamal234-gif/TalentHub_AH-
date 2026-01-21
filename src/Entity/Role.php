@@ -65,4 +65,19 @@ class Role
         $this->deletedAt = $deletedAt;
         return $this;
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->name === 'Admin';
+    }
+
+    public function isRecruiter(): bool
+    {
+        return $this->name === 'Recruiter';
+    }
+
+    public function isCandidate(): bool
+    {
+        return $this->name === 'Candidate';
+    }
 }

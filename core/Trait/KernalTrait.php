@@ -18,8 +18,7 @@ trait KernalTrait
     {
         $this->runEnvironment();
         $this->runConnection();
-        $this->runTwig();
-        $this->runHttp();
+        $this->runHttp($this->runTwig());
     }
 
     public function runEnvironment(): void
@@ -27,10 +26,17 @@ trait KernalTrait
         Dotenv::createImmutable($this->projectDir)->load();
     }
 
-    public function runTwig(): void
+    public function runTwig(): Request
     {
+        $request = Request::capture();
+
         $twig = new Environment(new FilesystemLoader($this->projectDir . '/views'));
+        $twig->addGlobal('request', $request);
+
+        $this->container->bind(Request::class, $request);
         $this->container->bind(Environment::class, $twig);
+
+        return $request;
     }
 
     private function runConnection(): void
@@ -39,12 +45,8 @@ trait KernalTrait
         $this->container->bind(Connection::class, $connection);
     }
 
-    private function runHttp(): void
+    private function runHttp(Request $request): void
     {
-        $request = Request::capture();
-
-        $this->container->bind(Request::class, $request);
-
         $routesFile = sprintf('%s/%s', $this->projectDir, '/routes/web.php');
         if (file_exists($routesFile)) {
             require_once $routesFile;
@@ -84,11 +86,11 @@ trait KernalTrait
                 throw new \RuntimeException("Method $methodName not found in $controllerClass");
             }
 
-            $reflection = new \ReflectionMethod($controllerInstance, $methodName);
+            /*$reflection = new \ReflectionMethod($controllerInstance, $methodName);
 
             if ($reflection->getReturnType()?->getName() !== Response::class) {
                 throw new \RuntimeException('The method must return a Response object');
-            }
+            }*/
 
             return $this->container->call([$controllerInstance, $methodName]);
         };
