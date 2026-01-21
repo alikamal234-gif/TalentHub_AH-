@@ -6,7 +6,7 @@ use DateTimeImmutable;
 
 class Offer
 {
-    private int $id;
+    private ?int $id;
     private ?Categorie $category;
     private User $owner;
     private string $name;
@@ -45,12 +45,12 @@ class Offer
         return $this->name;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
