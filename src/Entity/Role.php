@@ -1,48 +1,68 @@
 <?php
 
+namespace App\Entity;
+
+use DateTimeImmutable;
+
 class Role
 {
-    private int $id;
+    private ?int $id;
     private string $name;
-    private ?string $createdAt;
-    private ?string $deletedAt;
+    private DateTimeImmutable $createdAt;
+    private ?DateTimeImmutable $deletedAt = null;
 
     public function __construct(string $name)
     {
         $this->name = $name;
-        $this->createdAt = date('Y-m-d');
-        $this->deletedAt = null;
+        $this->createdAt = new DateTimeImmutable();
     }
 
-    public function getId(): int{
-        return $this->id;
-    }
-
-    public function getName(): string{
+    public function __toString(): string
+    {
         return $this->name;
     }
 
-    public function getCreatedAt(): ?string{
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
         return $this->createdAt;
     }
 
-    public function getDeletedAt(): ?string{
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getDeletedAt(): ?DateTimeImmutable
+    {
         return $this->deletedAt;
     }
 
-    public function setId(int $id): void{
-        $this->id = $id;
-    }
-
-    public function setName(string $name): void{
-        $this->name = $name;
-    }
-
-    public function setCreatedAt(?string $createdAt): void{
-        $this->createdAt = $createdAt;
-    }
-
-    public function setDeletedAt(?string $deletedAt): void{
+    public function setDeletedAt(?DateTimeImmutable $deletedAt): self
+    {
         $this->deletedAt = $deletedAt;
+        return $this;
     }
 }

@@ -4,34 +4,33 @@ namespace Core\Repository;
 
 
 use Core\Database\Connection;
-use PDO;
+use Core\Query\QueryBuilder;
 
 abstract class AbstractRepository
 {
-    protected PDO $pdo;
+    protected Connection $connection;
     protected string $tableName;
+    protected string $alias;
 
-    public function __construct(Connection $connection)
+    public function __construct(Connection $connection, string $tableName, string $alias)
     {
-        $this->pdo = $connection->getConnection();
-        $this->tableName = $this->getTableName();
+        $this->connection = $connection;
+        $this->tableName = $tableName;
+        $this->alias = $alias;
     }
 
-    protected function findAll(): array
+    protected function createQueryBuilder(): QueryBuilder
     {
-        return $this->pdo->query("SELECT * FROM {$this->tableName}")->fetchAll();
+        return new QueryBuilder($this->connection->getConnection())
+            ->select('*')
+            ->from($this->tableName, $this->alias)
+            ;
     }
 
-    protected function find(int $id): ?array
-    {
-        $stmt = $this->pdo->prepare("SELECT * FROM {$this->tableName} WHERE id = :id");
-        $stmt->execute([':id' => $id]);
-        $result = $stmt->fetch();
-
-        return $result ?: null;
-    }
-
-    abstract protected function getTableName(): string;
-
-    abstract public function mapToObject(array $data);
+    abstract public function find(int $id): ?object;
+    abstract public function findAll(): array;
+    abstract public function create(object $object): object;
+    abstract public function update(object $object): object;
+    abstract public function delete(object $object): bool;
+    abstract public function mapToObject(array $data): object;
 }

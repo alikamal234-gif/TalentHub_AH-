@@ -15,9 +15,9 @@ use PDOException;
 class Connection
 {
     /**
-     * @var PDO|null L'instance unique de PDO.
+     * @var PDO L'instance unique de PDO.
      */
-    private ?PDO $instance = null;
+    private PDO $instance;
 
 
     public function __construct(
@@ -45,7 +45,7 @@ class Connection
     /**
      * Empêche le clonage de l'instance.
      */
-    public function getConnection(): ?PDO
+    public function getConnection(): PDO
     {
         return $this->instance;
     }
