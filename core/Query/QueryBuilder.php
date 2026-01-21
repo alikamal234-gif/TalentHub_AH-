@@ -115,7 +115,7 @@ class QueryBuilder
         return $this;
     }
 
-    public function orderBy(string $sort, string $order = 'ASC'): self
+    public function orderBy(string $sort, string $order = 'ASC'|'DESC'): self
     {
         $this->orderBy[] = "$sort $order";
         return $this;
