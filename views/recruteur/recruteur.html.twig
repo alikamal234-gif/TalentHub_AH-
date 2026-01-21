@@ -7,6 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -131,6 +135,47 @@
             margin-left: 0.5rem;
             cursor: pointer;
         }
+
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    background-color: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    color: white;
+    min-height: 42px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    color: white;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #10b981;
+    border: none;
+    color: black;
+    font-size: 12px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: black;
+    margin-right: 5px;
+}
+
+.select2-container--default .select2-dropdown {
+    background-color: #0a0a0a;
+    border: 1px solid #1a1a1a;
+}
+
+.select2-container--default .select2-results__option {
+    color: white;
+}
+
+.select2-container--default .select2-results__option--highlighted {
+    background-color: #10b981;
+    color: black;
+
     </style>
 </head>
 <body class="h-full">
@@ -498,86 +543,131 @@
         </main>
     </div>
 
-    <!-- Modal for new offer -->
-    <div id="newOfferModal" class="modal">
-        <div class="dark-card rounded-lg p-6 w-full max-w-2xl max-h-screen overflow-y-auto">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg leading-6 font-medium text-text-primary">Créer une nouvelle offre</h3>
-                <button id="closeModalBtn" class="text-text-secondary hover:text-text-primary">
-                    <i class="fas fa-times"></i>
+   <!-- Modal for new offer -->
+<div id="newOfferModal" class="modal">
+    <div class="dark-card rounded-lg p-4 w-full max-w-xl max-h-[85vh] overflow-y-auto">
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-3">
+            <h3 class="text-base font-medium text-text-primary">Créer une nouvelle offre</h3>
+            <button id="closeModalBtn" class="text-text-secondary hover:text-text-primary">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <form>
+
+            <!-- Titre -->
+            <div class="mb-3">
+                <label for="offerTitle" class="block text-sm font-medium text-text-primary mb-1">
+                    Titre de l'offre
+                </label>
+                <input type="text" id="offerTitle" name="offerTitle"
+                    class="dark-input w-full px-3 py-1.5 border rounded-md focus:outline-none"
+                    placeholder="Ex: Développeur Full Stack">
+            </div>
+
+            <!-- Catégorie -->
+            <div class="mb-3">
+                <label for="offerCategory" class="block text-sm font-medium text-text-primary mb-1">
+                    Catégorie
+                </label>
+                <select id="offerCategory" name="offerCategory"
+                    class="dark-input w-full px-3 py-1.5 border rounded-md focus:outline-none">
+                    <option value="">Sélectionner une catégorie</option>
+                    <option value="dev">Développement</option>
+                    <option value="design">Design</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="data">Data</option>
+                    <option value="other">Autre</option>
+                </select>
+            </div>
+
+            <!-- Type de contrat -->
+            <div class="mb-3">
+                <label for="offerType" class="block text-sm font-medium text-text-primary mb-1">
+                    Type de contrat
+                </label>
+                <select id="offerType" name="offerType"
+                    class="dark-input w-full px-3 py-1.5 border rounded-md focus:outline-none">
+                    <option value="">Sélectionner un type</option>
+                    <option value="cdi">CDI</option>
+                    <option value="cdd">CDD</option>
+                    <option value="freelance">Freelance</option>
+                    <option value="stage">Stage</option>
+                    <option value="alternance">Alternance</option>
+                </select>
+            </div>
+
+            <!-- Tags -->
+            <div class="mb-3">
+                <label class="block text-sm font-medium text-text-primary mb-1">
+                    Tags de développement
+                </label>
+                <select name="tags[]" multiple
+                    class="tags dark-input w-full px-3 py-1.5 border rounded-md focus:outline-none">
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="php">PHP</option>
+                    <option value="laravel">Laravel</option>
+                    <option value="symfony">Symfony</option>
+                    <option value="react">React.js</option>
+                    <option value="vue">Vue.js</option>
+                    <option value="angular">Angular</option>
+                    <option value="node">Node.js</option>
+                    <option value="mysql">MySQL</option>
+                    <option value="git">Git</option>
+                    <option value="docker">Docker</option>
+                </select>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label for="offerDescription" class="block text-sm font-medium text-text-primary mb-1">
+                    Description
+                </label>
+                <textarea id="offerDescription" name="offerDescription" rows="4"
+                    class="dark-input w-full px-3 py-1.5 border rounded-md focus:outline-none"
+                    placeholder="Décrivez le poste, les responsabilités, les qualifications requises..."></textarea>
+            </div>
+
+            <!-- Localisation & Salaire -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                <div>
+                    <label for="offerLocation" class="block text-sm font-medium text-text-primary mb-1">
+                        Localisation
+                    </label>
+                    <input type="text" id="offerLocation" name="offerLocation"
+                        class="dark-input w-full px-3 py-1.5 border rounded-md focus:outline-none"
+                        placeholder="Ex: Paris, France">
+                </div>
+                <div>
+                    <label for="offerSalary" class="block text-sm font-medium text-text-primary mb-1">
+                        Salaire
+                    </label>
+                    <input type="text" id="offerSalary" name="offerSalary"
+                        class="dark-input w-full px-3 py-1.5 border rounded-md focus:outline-none"
+                        placeholder="Ex: 45k-60k€">
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-end space-x-2 mt-4">
+                <button type="button" id="cancelBtn"
+                    class="dark-button-secondary px-3 py-1.5 border border-transparent text-sm font-medium rounded-md">
+                    Annuler
+                </button>
+                <button type="submit"
+                    class="dark-button px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-black">
+                    Créer l'offre
                 </button>
             </div>
-            <form>
-                <div class="mb-4">
-                    <label for="offerTitle" class="block text-sm font-medium text-text-primary mb-2">Titre de l'offre</label>
-                    <input type="text" id="offerTitle" name="offerTitle" class="dark-input w-full px-3 py-2 border rounded-md focus:outline-none" placeholder="Ex: Développeur Full Stack">
-                </div>
-                <div class="mb-4">
-                    <label for="offerCategory" class="block text-sm font-medium text-text-primary mb-2">Catégorie</label>
-                    <select id="offerCategory" name="offerCategory" class="dark-input w-full px-3 py-2 border rounded-md focus:outline-none">
-                        <option value="">Sélectionner une catégorie</option>
-                        <option value="dev">Développement</option>
-                        <option value="design">Design</option>
-                        <option value="marketing">Marketing</option>
-                        <option value="data">Data</option>
-                        <option value="other">Autre</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="offerTags" class="block text-sm font-medium text-text-primary mb-2">Tags (compétences requises)</label>
-                    <div class="tag-input-container" id="tagInputContainer">
-                        <input type="text" id="tagInput" class="bg-transparent outline-none flex-1 min-w-[120px]" placeholder="Ajouter un tag...">
-                    </div>
-                    <p class="text-xs dark-text-secondary mt-1">Appuyez sur Entrée pour ajouter un tag</p>
-                </div>
-                <div class="mb-4">
-                    <label for="offerDescription" class="block text-sm font-medium text-text-primary mb-2">Description</label>
-                    <textarea id="offerDescription" name="offerDescription" rows="5" class="dark-input w-full px-3 py-2 border rounded-md focus:outline-none" placeholder="Décrivez le poste, les responsabilités, les qualifications requises..."></textarea>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label for="offerLocation" class="block text-sm font-medium text-text-primary mb-2">Localisation</label>
-                        <input type="text" id="offerLocation" name="offerLocation" class="dark-input w-full px-3 py-2 border rounded-md focus:outline-none" placeholder="Ex: Paris, France">
-                    </div>
-                    <div>
-                        <label for="offerSalary" class="block text-sm font-medium text-text-primary mb-2">Salaire</label>
-                        <input type="text" id="offerSalary" name="offerSalary" class="dark-input w-full px-3 py-2 border rounded-md focus:outline-none" placeholder="Ex: 45k-60k€">
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label for="offerType" class="block text-sm font-medium text-text-primary mb-2">Type de contrat</label>
-                        <select id="offerType" name="offerType" class="dark-input w-full px-3 py-2 border rounded-md focus:outline-none">
-                            <option value="">Sélectionner un type</option>
-                            <option value="cdi">CDI</option>
-                            <option value="cdd">CDD</option>
-                            <option value="freelance">Freelance</option>
-                            <option value="stage">Stage</option>
-                            <option value="alternance">Alternance</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="offerExperience" class="block text-sm font-medium text-text-primary mb-2">Expérience requise</label>
-                        <select id="offerExperience" name="offerExperience" class="dark-input w-full px-3 py-2 border rounded-md focus:outline-none">
-                            <option value="">Sélectionner un niveau</option>
-                            <option value="junior">Junior (0-2 ans)</option>
-                            <option value="intermediate">Intermédiaire (2-5 ans)</option>
-                            <option value="senior">Senior (5+ ans)</option>
-                            <option value="expert">Expert (10+ ans)</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="flex justify-end space-x-3 mt-6">
-                    <button type="button" id="cancelBtn" class="dark-button-secondary px-4 py-2 border border-transparent text-sm font-medium rounded-md">
-                        Annuler
-                    </button>
-                    <button type="submit" class="dark-button px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black">
-                        Créer l'offre
-                    </button>
-                </div>
-            </form>
-        </div>
+
+        </form>
     </div>
+</div>
+
 
     <script>
         // Profile dropdown
@@ -620,40 +710,15 @@
             }
         });
 
-        // Tag input functionality
-        const tagInput = document.getElementById('tagInput');
-        const tagInputContainer = document.getElementById('tagInputContainer');
-        const tags = [];
+        
+        $(document).ready(function () {
+    $('.tags').select2({
+        width: '100%',
+        placeholder: "Choisir des tags",
+        allowClear: true
+    });
+});
 
-        tagInput.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                const tagValue = tagInput.value.trim();
-                
-                if (tagValue && !tags.includes(tagValue)) {
-                    tags.push(tagValue);
-                    
-                    const tagElement = document.createElement('div');
-                    tagElement.className = 'tag-item';
-                    tagElement.innerHTML = `
-                        ${tagValue}
-                        <span class="tag-remove">&times;</span>
-                    `;
-                    
-                    tagInputContainer.insertBefore(tagElement, tagInput);
-                    tagInput.value = '';
-                    
-                    // Add remove functionality
-                    tagElement.querySelector('.tag-remove').addEventListener('click', function() {
-                        const index = tags.indexOf(tagValue);
-                        if (index > -1) {
-                            tags.splice(index, 1);
-                        }
-                        tagElement.remove();
-                    });
-                }
-            }
-        });
 
         // Chart
         const ctx = document.getElementById('applicationChart').getContext('2d');
