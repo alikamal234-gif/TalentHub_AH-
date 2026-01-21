@@ -10,7 +10,7 @@ class Candidature
     public const string STATUS_ACCEPTED = 'accepted';
     public const string STATUS_REJECTED = 'rejected';
 
-    private int $id;
+    private ?int $id;
     private User $user;
     private Offer $offer;
     private ?string $message;
@@ -42,12 +42,12 @@ class Candidature
         $this->status = self::STATUS_REJECTED;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
