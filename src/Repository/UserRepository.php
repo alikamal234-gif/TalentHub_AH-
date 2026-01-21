@@ -178,8 +178,11 @@ class UserRepository extends AbstractRepository implements SoftDeleteInterface
             ->setSpeciality($data['speciality'])
             ->setPhone($data['phone'])
             ->setImage($data['image'])
-            ->setCreatedAt(new DateTimeImmutable($data['created_at']))
         ;
+
+        if (isset($data['created_at'])) {
+            $user->setCreatedAt(new DateTimeImmutable($data['created_at']));
+        }
 
         if (isset($data['deleted_at'])) {
             $user->setDeletedAt(new DateTimeImmutable($data['deleted_at']));

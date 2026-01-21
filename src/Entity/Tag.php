@@ -6,7 +6,7 @@ use DateTimeImmutable;
 
 class Tag
 {
-    private int $id;
+    private ?int $id;
     private string $name;
     private DateTimeImmutable $createdAt;
     private ?DateTimeImmutable $deletedAt = null;
@@ -17,12 +17,12 @@ class Tag
         $this->createdAt = new DateTimeImmutable();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
