@@ -35,7 +35,7 @@
         }
         .dark-input {
             background-color: #0a0a0a;
-            border-color: #1a1a1a;
+            border-color: #09412e;
             color: #ffffff;
         }
         .dark-input:focus {
@@ -235,12 +235,7 @@
                         </button>
                     </div>
 
-                    <div class="text-center">
-                        <p class="text-sm dark-text-secondary">
-                            Pas encore de compte ? 
-                            <a href="#" id="switchToRegister" class="dark-text-accent hover:text-green-primary">S'inscrire</a>
-                        </p>
-                    </div>
+                    
                 </form>
             </div>
 
@@ -272,10 +267,10 @@
                             <label for="profileImage" class="block text-sm font-medium text-text-primary mb-2">
                                 Photo de profil
                             </label>
-                            <div class="flex items-center space-x-4">
-                                <div class="file-upload">
+                            <div class=" flex items-center space-x-4">
+                                <div class="file-upload ">
                                     <input type="file" id="profileImage" name="profileImage" accept="image/*">
-                                    <label for="profileImage" class="file-upload-label">
+                                    <label for="profileImage" class="file-upload-label ">
                                         <i class="fas fa-cloud-upload-alt mr-2"></i>
                                         Choisir une image
                                     </label>
@@ -290,7 +285,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label for="firstName" class="block text-sm font-medium text-text-primary mb-2">
-                                    Prénom
+                                    nom et Prénom
                                 </label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -298,38 +293,26 @@
                                     </div>
                                     <input id="firstName" name="firstName" type="text" required 
                                         class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none" 
-                                        placeholder="Jean">
+                                        placeholder="Ali Hajjaji">
                                 </div>
                             </div>
+                            <!-- Speciality field -->
                             <div>
-                                <label for="lastName" class="block text-sm font-medium text-text-primary mb-2">
-                                    Nom
+                                <label for="speciality" class="block text-sm font-medium text-text-primary mb-2">
+                                    Spécialité
                                 </label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fas fa-user text-gray-400"></i>
+                                        <i class="fas fa-briefcase text-gray-400"></i>
                                     </div>
-                                    <input id="lastName" name="lastName" type="text" required 
+                                    <input id="speciality" name="speciality" type="text" required 
                                         class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none" 
-                                        placeholder="Dupont">
-                                </div>
+                                        placeholder="Développeur Full Stack, UX Designer, ...">
                             </div>
+                        </div>
                         </div>
 
-                        <!-- Speciality field -->
-                        <div>
-                            <label for="speciality" class="block text-sm font-medium text-text-primary mb-2">
-                                Spécialité
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-briefcase text-gray-400"></i>
-                                </div>
-                                <input id="speciality" name="speciality" type="text" required 
-                                    class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none" 
-                                    placeholder="Développeur Full Stack, UX Designer, ...">
-                            </div>
-                        </div>
+                        
 
                         <!-- Email field -->
                         <div>
@@ -424,12 +407,7 @@
                         </button>
                     </div>
 
-                    <div class="text-center">
-                        <p class="text-sm dark-text-secondary">
-                            Déjà un compte ? 
-                            <a href="#" id="switchToLogin" class="dark-text-accent hover:text-green-primary">Se connecter</a>
-                        </p>
-                    </div>
+                    
                 </form>
             </div>
         </div>
@@ -440,7 +418,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <p class="text-sm dark-text-secondary">
-                    &copy; 2023 Talent HUB. Tous droits réservés.
+                    &copy; 2026 Talent HUB. Tous droits réservés.
                 </p>
                 <div class="flex space-x-4 mt-4 md:mt-0">
                     <a href="#" class="text-sm dark-text-secondary hover:text-text-primary">Mentions légales</a>
@@ -452,7 +430,6 @@
     </footer>
 
     <script>
-        // Tab functionality
         const tabBtns = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
         const switchToRegister = document.getElementById('switchToRegister');
@@ -460,7 +437,6 @@
 
         tabBtns.forEach(btn => {
             btn.addEventListener('click', function() {
-                // Remove active class from all tabs and contents
                 tabBtns.forEach(tab => {
                     tab.classList.remove('dark-active');
                     tab.classList.add('border-transparent');
@@ -485,17 +461,14 @@
 
         switchToRegister.addEventListener('click', function(e) {
             e.preventDefault();
-            // Trigger click on register tab
             document.querySelector('[data-tab="register"]').click();
         });
 
         switchToLogin.addEventListener('click', function(e) {
             e.preventDefault();
-            // Trigger click on login tab
             document.querySelector('[data-tab="login"]').click();
         });
 
-        // Password visibility toggle
         const toggleLoginPassword = document.getElementById('toggleLoginPassword');
         const loginPassword = document.getElementById('loginPassword');
         const loginPasswordIcon = document.getElementById('loginPasswordIcon');
@@ -544,7 +517,6 @@
             }
         });
 
-        // Password strength checker
         const passwordStrength = document.getElementById('passwordStrength');
         const passwordMatch = document.getElementById('passwordMatch');
 
@@ -559,7 +531,6 @@
             if (password.match(/[0-9]+/)) strength++;
             if (password.match(/[$@#&!]+/)) strength++;
             
-            // Update strength indicator
             passwordStrength.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
             
             if (password.length > 0) {
@@ -572,7 +543,6 @@
                 }
             }
             
-            // Check if passwords match
             if (verifyPassword.value.length > 0) {
                 checkPasswordMatch();
             }
@@ -599,7 +569,6 @@
             }
         }
 
-        // Profile image preview
         const profileImage = document.getElementById('profileImage');
         const imagePreview = document.getElementById('imagePreview');
         const previewImg = imagePreview.querySelector('img');
