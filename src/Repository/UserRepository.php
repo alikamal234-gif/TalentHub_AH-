@@ -7,6 +7,7 @@ use App\Entity\User;
 use Core\Database\Connection;
 use Core\Repository\AbstractRepository;
 use Core\Repository\SoftDeleteInterface;
+use DateTimeImmutable;
 
 class UserRepository extends AbstractRepository implements SoftDeleteInterface
 {
@@ -95,7 +96,7 @@ class UserRepository extends AbstractRepository implements SoftDeleteInterface
             ':password' => password_hash($object->getPassword(), PASSWORD_DEFAULT),
             ':phone' => $object->getPhone(),
             ':image' => $object->getImage(),
-            ':created_at' => $object->getCreatedAt(),
+            ':created_at' => $object->getCreatedAt()->format('Y-m-d H:i:s'),
             ':role_id' => $object->getRole()->getId(),
         ]);
 
@@ -172,13 +173,18 @@ class UserRepository extends AbstractRepository implements SoftDeleteInterface
             ->setDeletedAt($data['role_deleted_at'])
         ;
 
-        return new User($role, $data['name'], $data['email'], $data['password'])
+        $user = new User($role, $data['name'], $data['email'], $data['password'])
             ->setId(isset($data['id']) ? (int) $data['id'] : null)
             ->setSpeciality($data['speciality'])
             ->setPhone($data['phone'])
             ->setImage($data['image'])
-            ->setCreatedAt($data['created_at'])
-            ->setDeletedAt($data['deleted_at'])
+            ->setCreatedAt(new DateTimeImmutable($data['created_at']))
         ;
+
+        if (isset($data['deleted_at'])) {
+            $user->setDeletedAt(new DateTimeImmutable($data['deleted_at']));
+        }
+
+        return $user;
     }
 }
