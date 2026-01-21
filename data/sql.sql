@@ -13,7 +13,7 @@ CREATE TABLE users (
   email VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL,
   phone VARCHAR(50),
-  image BLOB,
+  image LONGBLOB,
   created_at DATE,
   deleted_at DATE,
   FOREIGN KEY (role_id) REFERENCES roles(id)
@@ -54,7 +54,7 @@ CREATE TABLE candidatures (
   user_id INT NOT NULL,
   offer_id INT NOT NULL,
   message TEXT,
-  cv BLOB,
+  cv LONGBLOB,
   status ENUM('pending','accepted','rejected') DEFAULT 'pending',
   created_at DATE,
   FOREIGN KEY (user_id) REFERENCES users(id),

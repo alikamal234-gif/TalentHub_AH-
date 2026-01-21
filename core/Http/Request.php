@@ -107,4 +107,9 @@ class Request
     {
         return $this->session->get('auth_user');
     }
+
+    public function file(string $key): ?array
+    {
+        return $this->fileParams[$key] ?? null;
+    }
 }

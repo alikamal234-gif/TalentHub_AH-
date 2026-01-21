@@ -241,7 +241,7 @@
 
             <!-- Register form -->
             <div id="register" class="tab-content">
-                <form class="mt-8 space-y-6" action="/register" method="post">
+                <form class="mt-8 space-y-6" action="/register" method="post" enctype="multipart/form-data">
                     <div class="space-y-4">
                         <!-- Role selection -->
                         <div>
@@ -601,16 +601,8 @@
         });
 
         registerForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Here you would implement the registration logic
-            console.log('Register form submitted');
-            // Redirect to dashboard based on role
-            const role = document.querySelector('input[name="role"]:checked').value;
-            if (role === 'recruiter') {
-                window.location.href = 'recruiter-dashboard.html';
-            } else {
-                window.location.href = 'candidate-dashboard.html';
-            }
+            // Remove e.preventDefault() to allow server-side submission
+            console.log('Register form submitting...');
         });
     </script>
 </body>
