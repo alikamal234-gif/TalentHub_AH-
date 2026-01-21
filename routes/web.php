@@ -11,4 +11,7 @@ Router::get('/', [HomeController::class, 'index']);
 Router::get('/admin', [AdminController::class, 'admin']);
 Router::get('/candidate', [CandidateController::class, 'candidate']);
 Router::get('/recruteur', [RecruteurController::class, 'recruteur']);
-Router::get('/login', [AuthentificationController::class, 'login']);
+Router::get('/auth', [AuthentificationController::class, 'index']);
+Router::post('/login', [AuthentificationController::class, 'login']);
+Router::post('/register', [AuthentificationController::class, 'register']);
+Router::get('/logout', [AuthentificationController::class, 'logout']);

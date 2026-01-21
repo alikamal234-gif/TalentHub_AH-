@@ -40,7 +40,7 @@ class UserRepository extends AbstractRepository implements SoftDeleteInterface
     public function findAll(): array
     {
         $data = $this->createQueryBuilder()
-        ->select('u.*', 'r.name AS role_name', 'r.created_at AS role_created_at', 'r.deleted_at AS role_deleted_at')
+            ->select('u.*', 'r.name AS role_name', 'r.created_at AS role_created_at', 'r.deleted_at AS role_deleted_at')
             ->innerJoin('roles', 'u.role_id = r.id', 'r')
             ->where('u.deleted_at IS NULL')
             ->getResult()
@@ -129,7 +129,7 @@ class UserRepository extends AbstractRepository implements SoftDeleteInterface
             "DELETE FROM {$this->tableName} WHERE id = :id"
         );
 
-         return $stmt->execute([
+        return $stmt->execute([
             ':id' => $object->getId(),
         ]);
     }
@@ -169,9 +169,15 @@ class UserRepository extends AbstractRepository implements SoftDeleteInterface
     {
         $role = new Role($data['role_name'])
             ->setId($data['role_id'])
-            ->setCreatedAt($data['role_created_at'])
-            ->setDeletedAt($data['role_deleted_at'])
         ;
+
+        if (isset($data['role_created_at'])) {
+            $role->setCreatedAt(new DateTimeImmutable($data['role_created_at']));
+        }
+
+        if (isset($data['role_deleted_at'])) {
+            $role->setDeletedAt(new DateTimeImmutable($data['role_deleted_at']));
+        }
 
         $user = new User($role, $data['name'], $data['email'], $data['password'])
             ->setId(isset($data['id']) ? (int) $data['id'] : null)

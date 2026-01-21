@@ -57,6 +57,23 @@ class RoleRepository extends AbstractRepository implements SoftDeleteInterface
         return array_map(fn($data) => $this->mapToObject($data), $data);
     }
 
+    public function findByName(string $name): ?Role
+    {
+        $data = $this->createQueryBuilder()
+            ->select('r.*')
+            ->where('r.name = :name')
+            ->andWhere('r.deleted_at IS NULL')
+            ->setParameter(':name', $name)
+            ->getSingleResult()
+        ;
+
+        if (!$data) {
+            return null;
+        }
+
+        return $this->mapToObject($data);
+    }
+
     /**
      * @param Role $object
      * @return Role
