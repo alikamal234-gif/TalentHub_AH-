@@ -100,7 +100,7 @@ class UserRepository extends AbstractRepository implements SoftDeleteInterface
             ':role_id' => $object->getRole()->getId(),
         ]);
 
-        return $object->setId($this->connection->getConnection()->lastInsertId());
+        return $object->setId((int) $this->connection->getConnection()->lastInsertId());
     }
 
     public function update(object $object): object
