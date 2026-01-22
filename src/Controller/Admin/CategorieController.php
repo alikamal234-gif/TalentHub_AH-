@@ -34,13 +34,31 @@ class CategorieController extends AbstractController
         $this->redirectToPath('/admin/categories');
     }
 
-    public function edit(): Response
+    public function edit(Request $request): Response
     {
-        return $this->render('admin/categorie/edit.html.twig');
+        $id = (int) $request->query('id');
+        $categorie = $this->categorieRepository->find($id);
+
+        if (!$categorie) {
+            $this->redirectToPath('/admin/categories');
+        }
+
+        return $this->render('admin/categorie/edit.html.twig', ['categorie' => $categorie]);
     }
 
     public function update(Request $request)
     {
+        $id = (int) $request->input('id');
+        $name = $request->input('name');
+
+        $categorie = $this->categorieRepository->find($id);
+
+        if ($categorie && $name) {
+            $categorie->setName($name);
+            $this->categorieRepository->save($categorie);
+        }
+
+        $this->redirectToPath('/admin/categories');
     }
 
     public function delete(Request $request)
