@@ -61,6 +61,18 @@ class CategorieRepository extends AbstractRepository implements SoftDeleteInterf
      * @param Categorie $object
      * @return Categorie
      */
+    public function save(object $object): Categorie
+    {
+        if ($object->getId()) {
+            return $this->update($object);
+        }
+        return $this->create($object);
+    }
+
+    /**
+     * @param Categorie $object
+     * @return Categorie
+     */
     public function create(object $object): Categorie
     {
         $stmt = $this->connection->getConnection()->prepare(

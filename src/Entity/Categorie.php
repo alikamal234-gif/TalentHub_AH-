@@ -6,7 +6,7 @@ use DateTimeImmutable;
 
 class Categorie
 {
-    private ?int $id;
+    private ?int $id = null;
     private string $name;
     private DateTimeImmutable $createdAt;
     private ?DateTimeImmutable $deletedAt = null;
