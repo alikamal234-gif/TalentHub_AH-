@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-black">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talent HUB - {% block title %}Base{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#000000',
+                        'dark-card': '#111111',
+                        'dark-border': '#1a1a1a',
+                        'green-primary': '#10b981',
+                        'green-secondary': '#059669',
+                        'green-accent': '#34d399',
+                        'text-primary': '#ffffff',
+                        'text-secondary': '#a3a3a3'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .dark-card {
+            background-color: #111111;
+            border-color: #1a1a1a;
+        }
+        .dark-input {
+            background-color: #0a0a0a;
+            border-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .dark-input:focus {
+            border-color: #10b981;
+            outline: none;
+            box-shadow: 0 0 0 1px #10b981;
+        }
+        .dark-button {
+            background-color: #10b981;
+            color: #000000;
+        }
+        .dark-button:hover {
+            background-color: #059669;
+        }
+        .dark-button-secondary {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 1px solid #333333;
+        }
+        .dark-button-secondary:hover {
+            background-color: #262626;
+        }
+        .dark-text-secondary {
+            color: #a3a3a3;
+        }
+        .dark-text-accent {
+            color: #34d399;
+        }
+        .dark-border {
+            border-color: #1a1a1a;
+        }
+        .dark-hover:hover {
+            background-color: #1a1a1a;
+        }
+        .dark-active {
+            background-color: #0a0a0a;
+            border-bottom: 2px solid #10b981;
+        }
+        .dark-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dark-scrollbar::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        .dark-scrollbar::-webkit-scrollbar-thumb {
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+        .dark-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #262626;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="h-full">
+<div class="min-h-full flex flex-col">
+    {% include 'admin/layout/header.html.twig' %}
+
+    <!-- Main content -->
+    <main class="flex-1 dark-scrollbar overflow-auto">
+        <div class="py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Page header -->
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-text-primary">{% block body_title %}Dashboard{% endblock %}</h1>
+                </div>
+
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Profile dropdown
+    document.getElementById('profileMenuButton').addEventListener('click', function() {
+        document.getElementById('profileMenu').classList.toggle('hidden');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const profileMenu = document.getElementById('profileMenu');
+        const profileMenuButton = document.getElementById('profileMenuButton');
+
+        if (!profileMenuButton.contains(event.target) && !profileMenu.contains(event.target)) {
+            profileMenu.classList.add('hidden');
+        }
+    });
+
+    // Chart
+    const ctx = document.getElementById('categoryChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Développement', 'Design', 'Marketing', 'Data', 'Autres'],
+            datasets: [{
+                data: [85, 45, 62, 35, 20],
+                backgroundColor: [
+                    '#10b981',
+                    '#059669',
+                    '#34d399',
+                    '#10b981',
+                    '#059669'
+                ],
+                borderWidth: 0,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#ffffff',
+                        padding: 15,
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            },
+            cutout: '60%'
+        }
+    });
+</script>
+</body>
+</html>
