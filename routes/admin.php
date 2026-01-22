@@ -19,4 +19,6 @@ Router::post('/admin/categories/update', [CategorieController::class, 'update'])
 
 // delete
 Router::get('/admin/categories/delete', [CategorieController::class, 'delete']);
+Router::get('/admin/categories/trash', [CategorieController::class, 'trash']);
 Router::get('/admin/categories/trashed', [CategorieController::class, 'trashed']);
+Router::get('/admin/categories/restore', [CategorieController::class, 'restore']);

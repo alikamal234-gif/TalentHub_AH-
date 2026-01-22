@@ -32,6 +32,23 @@ class CategorieRepository extends AbstractRepository implements SoftDeleteInterf
         return $this->mapToObject($data);
     }
 
+    public function findTrashed(int $id): ?Categorie
+    {
+        $data = $this->createQueryBuilder()
+            ->select('c.*')
+            ->where('c.id = :id')
+            ->andWhere('c.deleted_at IS NOT NULL')
+            ->setParameter(':id', $id)
+            ->getSingleResult()
+        ;
+
+        if (!$data) {
+            return null;
+        }
+
+        return $this->mapToObject($data);
+    }
+
     /**
      * @return Categorie[]
      */

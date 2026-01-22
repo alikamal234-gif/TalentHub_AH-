@@ -61,15 +61,33 @@ class CategorieController extends AbstractController
         $this->redirectToPath('/admin/categories');
     }
 
+    public function trash(): Response
+    {
+        return $this->render('admin/categorie/trash.html.twig', [
+            'categories' => $this->categorieRepository->findAllTrashed()
+        ]);
+    }
+
+    public function restore(Request $request)
+    {
+        $id = (int) $request->query('id');
+        $categorie = $this->categorieRepository->findTrashed($id);
+        if ($categorie) {
+            $this->categorieRepository->restore($categorie);
+        }
+
+        $this->redirectToPath('/admin/categories/trash');
+    }
+
     public function delete(Request $request)
     {
         $id = (int) $request->query('id');
-        $categorie = $this->categorieRepository->find($id);
+        $categorie = $this->categorieRepository->findTrashed($id);
         if ($categorie) {
             $this->categorieRepository->delete($categorie);
         }
 
-        $this->redirectToPath('/admin/categories');
+        $this->redirectToPath('/admin/categories/trash');
     }
 
     public function trashed(Request $request)
