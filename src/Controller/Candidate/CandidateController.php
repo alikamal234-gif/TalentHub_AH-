@@ -11,4 +11,8 @@ class CandidateController extends AbstractController
     {
         return $this->render("candidate/candidate.html.twig");
     }
+    public function postuler(): Response
+    {
+        return $this->render("candidate/postuler.html.twig");
+    }
 }
