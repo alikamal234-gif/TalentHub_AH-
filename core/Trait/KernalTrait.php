@@ -53,7 +53,7 @@ trait KernalTrait
         }
 
         $method = $request->getMethod();
-        $path = rtrim($request->getPath(), '/');
+        $path = $request->getPath();
 
         $route = Router::resolve($method, $path);
 
