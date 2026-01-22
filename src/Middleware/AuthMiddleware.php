@@ -17,6 +17,6 @@ class AuthMiddleware extends Middleware
             Redirect::to('/auth');
         }
 
-        return next($request);
+        return $next($request);
     }
 }

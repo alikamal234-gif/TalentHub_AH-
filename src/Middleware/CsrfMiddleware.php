@@ -12,6 +12,6 @@ class CsrfMiddleware extends Middleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        return next($request);
+        return $next($request);
     }
 }
