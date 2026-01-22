@@ -75,6 +75,24 @@ class TagRepository extends AbstractRepository implements SoftDeleteInterface
         return $object->setId((int) $this->connection->getConnection()->lastInsertId());
     }
 
+    public function findTrashed(int $id): ?Tag
+    {
+        $data = $this->createQueryBuilder()
+            ->select('t.*')
+            ->where('t.id = :id')
+            ->andWhere('t.deleted_at IS NOT NULL')
+            ->setParameter(':id', $id)
+            ->getSingleResult()
+        ;
+        
+
+        if (!$data) {
+            return null;
+        }
+
+        return $this->mapToObject($data);
+    }
+
     /**
      * @param Tag $object
      * @return Tag
@@ -147,5 +165,12 @@ class TagRepository extends AbstractRepository implements SoftDeleteInterface
         }
 
         return $tag;
+    }
+    public function save(object $object): Tag
+    {
+        if ($object->getId()) {
+            return $this->update($object);
+        }
+        return $this->create($object);
     }
 }
