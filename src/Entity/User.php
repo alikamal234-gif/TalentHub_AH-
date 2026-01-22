@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
+use finfo;
 
 class User
 {
@@ -116,6 +117,15 @@ class User
     public function getImage(): ?string
     {
         return $this->image;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        if ($this->image) {
+            $mimeType = new finfo(FILEINFO_MIME_TYPE)->buffer($this->image);
+            return sprintf('data:%s;base64,%s', $mimeType, base64_encode($this->image));
+        }
+        return null;
     }
 
     public function setImage(?string $image): self
