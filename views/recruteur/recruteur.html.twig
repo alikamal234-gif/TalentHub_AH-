@@ -567,37 +567,41 @@
                     placeholder="Ex: Développeur Full Stack">
             </div>
 
-            <!-- Catégorie -->
-            <div class="mb-3">
-                <label for="offerCategory" class="block text-sm font-medium text-text-primary mb-1">
-                    Catégorie
-                </label>
-                <select id="offerCategory" name="offerCategory"
-                    class="dark-input w-full px-3 py-1.5 border rounded-md focus:outline-none">
-                    <option value="">Sélectionner une catégorie</option>
-                    <option value="dev">Développement</option>
-                    <option value="design">Design</option>
-                    <option value="marketing">Marketing</option>
-                    <option value="data">Data</option>
-                    <option value="other">Autre</option>
-                </select>
-            </div>
+            <!-- Catégorie + Type de contrat -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
 
-            <!-- Type de contrat -->
-            <div class="mb-3">
-                <label for="offerType" class="block text-sm font-medium text-text-primary mb-1">
-                    Type de contrat
-                </label>
-                <select id="offerType" name="offerType"
-                    class="dark-input w-full px-3 py-1.5 border rounded-md focus:outline-none">
-                    <option value="">Sélectionner un type</option>
-                    <option value="cdi">CDI</option>
-                    <option value="cdd">CDD</option>
-                    <option value="freelance">Freelance</option>
-                    <option value="stage">Stage</option>
-                    <option value="alternance">Alternance</option>
-                </select>
-            </div>
+    <div>
+        <label for="offerCategory" class="block text-sm font-medium text-text-primary mb-1">
+            Catégorie
+        </label>
+        <select id="offerCategory" name="offerCategory"
+            class="dark-input w-full px-3 py-1.5 border rounded-md focus:outline-none">
+            <option value="">Sélectionner une catégorie</option>
+            <option value="dev">Développement</option>
+            <option value="design">Design</option>
+            <option value="marketing">Marketing</option>
+            <option value="data">Data</option>
+            <option value="other">Autre</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="offerType" class="block text-sm font-medium text-text-primary mb-1">
+            Type de contrat
+        </label>
+        <select id="offerType" name="offerType"
+            class="dark-input w-full px-3 py-1.5 border rounded-md focus:outline-none">
+            <option value="">Sélectionner un type</option>
+            <option value="cdi">CDI</option>
+            <option value="cdd">CDD</option>
+            <option value="freelance">Freelance</option>
+            <option value="stage">Stage</option>
+            <option value="alternance">Alternance</option>
+        </select>
+    </div>
+
+</div>
+
 
             <!-- Tags -->
             <div class="mb-3">

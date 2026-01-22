@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Postuler à une offre - Talent HUB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark-bg': '#000000',
+            'dark-card': '#111111',
+            'dark-border': '#1a1a1a',
+            'green-primary': '#10b981',
+            'green-secondary': '#059669',
+            'text-primary': '#ffffff',
+            'text-secondary': '#a3a3a3'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+    }
+    .dark-card {
+      background-color: #111;
+      border: 1px solid #1a1a1a;
+    }
+    .dark-input {
+      background-color: #0a0a0a;
+      border: 1px solid #1a1a1a;
+      color: #fff;
+    }
+    .dark-input:focus {
+      border-color: #10b981;
+      outline: none;
+      box-shadow: 0 0 0 1px #10b981;
+    }
+    .dark-button {
+      background-color: #10b981;
+      color: #000;
+    }
+    .dark-button:hover {
+      background-color: #059669;
+    }
+    .dark-button-secondary {
+      background-color: #1a1a1a;
+      color: #fff;
+      border: 1px solid #333;
+    }
+    .dark-button-secondary:hover {
+      background-color: #262626;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center px-4">
+
+  <div class="dark-card rounded-lg p-6 w-full max-w-lg">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-lg font-semibold text-text-primary">
+        <i class="fas fa-paper-plane mr-2 text-green-primary"></i>
+        Postuler à l’offre
+      </h2>
+      <a href="index.html" class="text-text-secondary hover:text-text-primary">
+        <i class="fas fa-times"></i>
+      </a>
+    </div>
+
+    <p class="text-sm text-text-secondary mb-4">
+      Remplis ce formulaire pour envoyer ta candidature. Ton CV sera transmis au recruteur.
+    </p>
+
+    <!-- Form -->
+    <form action="apply.php" method="POST" enctype="multipart/form-data" class="space-y-4">
+
+      <!-- Message -->
+      <div>
+        <label class="block text-sm font-medium mb-1">
+          Message pour le recruteur
+        </label>
+        <textarea
+          name="message"
+          rows="5"
+          required
+          class="dark-input w-full px-3 py-2 rounded-md"
+          placeholder="Bonjour, je suis très intéressé par votre offre car..."></textarea>
+      </div>
+
+      <!-- CV Upload -->
+      <div>
+        <label class="block text-sm font-medium mb-1">
+          Upload ton CV (PDF)
+        </label>
+        <input
+          type="file"
+          name="cv"
+          accept=".pdf"
+          required
+          class="dark-input w-full px-3 py-2 rounded-md">
+        <p class="text-xs text-text-secondary mt-1">
+          Format accepté : PDF uniquement • Taille max : 2MB
+        </p>
+      </div>
+
+      <!-- Hidden job id (backend ready) -->
+      <input type="hidden" name="job_id" value="123">
+
+      <!-- Buttons -->
+      <div class="flex justify-end space-x-3 pt-2">
+        <a href="index.html"
+           class="dark-button-secondary px-4 py-2 rounded-md text-sm">
+          Annuler
+        </a>
+        <button type="submit"
+          class="dark-button px-4 py-2 rounded-md text-sm font-medium">
+          Envoyer la candidature
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+</html>
