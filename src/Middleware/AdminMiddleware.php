@@ -15,7 +15,7 @@ class AdminMiddleware extends Middleware
         $user = $request->getUser();
 
         if (!$user?->getRole()->isAdmin()) {
-            Error::abort(403);
+            return Error::abort(403);
         }
 
         return $next($request);

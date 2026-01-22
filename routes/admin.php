@@ -2,9 +2,13 @@
 
 use App\Controller\Admin\AdminController;
 use App\Controller\Admin\CategorieController;
+use App\Middleware\AdminMiddleware;
+use App\Middleware\AuthMiddleware;
 use Core\Router\Router;
 
-Router::get('/admin', [AdminController::class, 'admin']);
+Router::get('/admin', [AdminController::class, 'admin'])
+    ->middleware([AuthMiddleware::class, AdminMiddleware::class])
+;
 
 // Router of categories
 Router::get('/admin/categories', [CategorieController::class, 'index']);

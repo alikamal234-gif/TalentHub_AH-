@@ -53,7 +53,7 @@ trait KernalTrait
         }
 
         $method = $request->getMethod();
-        $path = $request->getPath();
+        $path = rtrim($request->getPath(), '/');
 
         $route = Router::resolve($method, $path);
 
@@ -95,10 +95,8 @@ trait KernalTrait
             return $this->container->call([$controllerInstance, $methodName]);
         };
 
-        $middlewares = array_reverse($route->getMiddlewares());
-
         $pipeline = array_reduce(
-            $middlewares,
+            $route->getMiddlewares(),
             static function ($stack, $middlewareClass) {
                 return static function (Request $request) use ($stack, $middlewareClass) {
                     if (!class_exists($middlewareClass)) {

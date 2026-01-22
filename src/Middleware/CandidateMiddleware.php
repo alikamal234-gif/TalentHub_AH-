@@ -15,7 +15,7 @@ class CandidateMiddleware extends Middleware
         $user = $request->getUser();
 
         if (!$user?->getRole()->isCandidate()) {
-            Error::abort(403);
+            return Error::abort(403);
         }
 
         return $next($request);

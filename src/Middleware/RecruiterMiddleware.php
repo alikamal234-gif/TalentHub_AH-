@@ -15,7 +15,7 @@ class RecruiterMiddleware extends Middleware
         $user = $request->getUser();
 
         if (!$user?->getRole()->isRecruiter()) {
-            Error::abort(403);
+            return Error::abort(403);
         }
 
         return $next($request);
