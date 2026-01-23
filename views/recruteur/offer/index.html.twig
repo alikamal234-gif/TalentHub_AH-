@@ -26,6 +26,9 @@
                         Catégorie
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                        Tags
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
                         Ville
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
@@ -48,6 +51,15 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
                             {{ offer.category ? offer.category.name : 'N/A' }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                            <div class="flex flex-wrap gap-1">
+                                {% for tag in offer.tags %}
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300">
+                                        {{ tag.name }}
+                                    </span>
+                                {% endfor %}
+                            </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
                             {{ offer.city }}

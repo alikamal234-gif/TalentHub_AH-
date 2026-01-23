@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -34,185 +34,215 @@
             background-color: #000000;
             color: #ffffff;
         }
+
         .dark-card {
             background-color: #111111;
             border-color: #1a1a1a;
         }
+
         .dark-input {
             background-color: #0a0a0a;
             border-color: #1a1a1a;
             color: #ffffff;
         }
+
         .dark-input:focus {
             border-color: #10b981;
             outline: none;
             box-shadow: 0 0 0 1px #10b981;
         }
+
         .dark-button {
             background-color: #10b981;
             color: #000000;
         }
+
         .dark-button:hover {
             background-color: #059669;
         }
+
         .dark-button-secondary {
             background-color: #1a1a1a;
             color: #ffffff;
             border: 1px solid #333333;
         }
+
         .dark-button-secondary:hover {
             background-color: #262626;
         }
+
         .dark-text-secondary {
             color: #a3a3a3;
         }
+
         .dark-text-accent {
             color: #34d399;
         }
+
         .dark-border {
             border-color: #1a1a1a;
         }
+
         .dark-hover:hover {
             background-color: #1a1a1a;
         }
+
         .dark-active {
             background-color: #0a0a0a;
             border-bottom: 2px solid #10b981;
         }
+
         .dark-scrollbar::-webkit-scrollbar {
             width: 8px;
         }
+
         .dark-scrollbar::-webkit-scrollbar-track {
             background: #0a0a0a;
         }
+
         .dark-scrollbar::-webkit-scrollbar-thumb {
             background: #1a1a1a;
             border-radius: 4px;
         }
+
         .dark-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #262626;
         }
+
         {% block extra_css %}{% endblock %}
     </style>
+
+    <style>
+        /* ===== Select2 Dark Tailwind Style ===== */
+
+        /* Single select */
+        .select2-container--default .select2-selection--single {
+            background-color: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 0.5rem;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .select2-selection__rendered {
+            color: white !important;
+            padding-left: 12px !important;
+        }
+
+        .select2-selection__arrow {
+            height: 100% !important;
+        }
+
+        /* Focus */
+        .select2-container--default.select2-container--focus
+        .select2-selection--single {
+            border-color: #10b981;
+            box-shadow: 0 0 0 1px #10b981;
+        }
+
+        /* Dropdown */
+        .select2-dropdown {
+            background-color: #111111;
+            border: 1px solid #1a1a1a;
+            border-radius: 0.5rem;
+            color: white;
+        }
+
+        /* Search input */
+        .select2-search__field {
+            background-color: #0a0a0a !important;
+            border: 1px solid #1a1a1a !important;
+            color: white !important;
+            border-radius: 0.375rem;
+            min-height: 40px !important;
+        }
+
+        /* Options */
+        .select2-results__option {
+            background-color: #111111;
+            color: #ffffff;
+        }
+
+        .select2-results__option--highlighted {
+            background-color: #10b981 !important;
+            color: #000000 !important;
+        }
+
+        .select2-results__option[aria-selected="true"] {
+            background-color: #059669 !important;
+            color: #000000 !important;
+        }
+
+        /* Multiple select */
+        .select2-container--default .select2-selection--multiple {
+            background-color: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 0.5rem;
+            min-height: 40px;
+        }
+
+        .select2-selection__choice {
+            background-color: #10b981 !important;
+            border: none !important;
+            color: #000000 !important;
+            border-radius: 0.375rem;
+            padding: 2px 8px;
+        }
+
+        .select2-selection__choice__remove {
+            color: #000000 !important;
+        }
+    </style>
+
 </head>
 <body class="h-full">
-    <div class="min-h-full flex flex-col">
-        <!-- Navigation -->
-        {% include 'recruteur/layout/header.html.twig' %}
+<div class="min-h-full flex flex-col">
+    <!-- Navigation -->
+    {% include 'recruteur/layout/header.html.twig' %}
 
-        <!-- Main content -->
-        <main class="flex-1 dark-scrollbar overflow-auto">
-            <div class="py-6">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <!-- Page header -->
-                    <div class="mb-8 flex justify-between items-center">
-                        <div>
-                            <h1 class="text-2xl font-bold text-text-primary">{% block body_title "" %}</h1>
-                        </div>
-                        {% block header_actions %}{% endblock %}
+    <!-- Main content -->
+    <main class="flex-1 dark-scrollbar overflow-auto">
+        <div class="py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Page header -->
+                <div class="mb-8 flex justify-between items-center">
+                    <div>
+                        <h1 class="text-2xl font-bold text-text-primary">{% block body_title "" %}</h1>
                     </div>
-
-                    {% block body %}{% endblock %}
+                    {% block header_actions %}{% endblock %}
                 </div>
+
+                {% block body %}{% endblock %}
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
+</div>
 
-    <script>
-        // Profile dropdown
-        document.getElementById('profileMenuButton').addEventListener('click', function() {
-            document.getElementById('profileMenu').classList.toggle('hidden');
+<script>
+    // Profile dropdown
+    document.getElementById('profileMenuButton').addEventListener('click', function () {
+        document.getElementById('profileMenu').classList.toggle('hidden');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+        const profileMenu = document.getElementById('profileMenu');
+        const profileMenuButton = document.getElementById('profileMenuButton');
+
+        if (!profileMenuButton.contains(event.target) && !profileMenu.contains(event.target)) {
+            profileMenu.classList.add('hidden');
+        }
+    });
+
+    $(document).ready(function () {
+        $('.tags').select2({
+            width: '100%',
+            placeholder: "Choisir des tags",
+            allowClear: true,
         });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const profileMenu = document.getElementById('profileMenu');
-            const profileMenuButton = document.getElementById('profileMenuButton');
-
-            if (!profileMenuButton.contains(event.target) && !profileMenu.contains(event.target)) {
-                profileMenu.classList.add('hidden');
-            }
-        });
-
-        // Modal functionality
-        const newOfferBtn = document.getElementById('newOfferBtn');
-        const newOfferModal = document.getElementById('newOfferModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const cancelBtn = document.getElementById('cancelBtn');
-
-        newOfferBtn.addEventListener('click', function() {
-            newOfferModal.classList.add('active');
-        });
-
-        closeModalBtn.addEventListener('click', function() {
-            newOfferModal.classList.remove('active');
-        });
-
-        cancelBtn.addEventListener('click', function() {
-            newOfferModal.classList.remove('active');
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            if (event.target === newOfferModal) {
-                newOfferModal.classList.remove('active');
-            }
-        });
-
-
-        $(document).ready(function () {
-            $('.tags').select2({
-                width: '100%',
-                placeholder: "Choisir des tags",
-                allowClear: true
-            });
-        });
-
-
-        // Chart
-        const ctx = document.getElementById('applicationChart').getContext('2d');
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Développeur Full Stack', 'UX Designer', 'Data Analyst', 'Chef de projet', 'DevOps'],
-                datasets: [{
-                    label: 'Candidatures reçues',
-                    data: [24, 18, 31, 12, 8],
-                    backgroundColor: '#10b981',
-                    borderColor: '#10b981',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: '#1a1a1a'
-                        },
-                        ticks: {
-                            color: '#a3a3a3'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-                            color: '#a3a3a3'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
-    </script>
+    });
+</script>
 </body>
 </html>

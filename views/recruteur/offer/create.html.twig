@@ -69,6 +69,15 @@
                               placeholder="Décrivez les responsabilités, les compétences requises..."></textarea>
                 </div>
 
+                <div>
+                    <label for="tags" class="block text-sm font-medium text-text-secondary mb-1">Tags</label>
+                    <select name="tags[]" id="tags" multiple="multiple" class="tags w-full">
+                        {% for tag in tags %}
+                            <option value="{{ tag.id }}">{{ tag.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
                 <div class="flex justify-end pt-4 border-t dark-border">
                     <button type="submit" class="dark-button inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black shadow-sm">
                         <i class="fas fa-save mr-2"></i>
