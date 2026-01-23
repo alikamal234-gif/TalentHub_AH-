@@ -370,4 +370,10 @@ class OfferRepository extends AbstractRepository implements SoftDeleteInterface
 
         return $offer;
     }
+
+    public function countOffer(): int{
+        return $this->createQueryBuilder()
+        ->getAffectedRows()
+        ;
+    }
 }
