@@ -256,4 +256,10 @@ class CandidatureRepository extends AbstractRepository
 
         return $candidature;
     }
+
+    public function countCandidature(): int{
+        return $this->createQueryBuilder()
+        ->getAffectedRows()
+        ;
+    }
 }

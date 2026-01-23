@@ -9,4 +9,4 @@ Router::get('/candidate', [CandidateController::class, 'candidate'])
     ->middleware([AuthMiddleware::class, CandidateMiddleware::class])
 ;
 
-Router::get('/postuler', [CandidateController::class, 'postuler']);
+Router::get('/candidate/postuler', [CandidateController::class, 'postuler']);
