@@ -14,21 +14,21 @@ Router::get('/admin', [AdminController::class, 'admin'])
 ;
 
 // Router of categories
-Router::get('/admin/categories', [CategorieController::class, 'index']);
+Router::get('/admin/categories', [CategorieController::class, 'index'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
 
 // create
-Router::get('/admin/categories/create', [CategorieController::class, 'create']);
-Router::post('/admin/categories/store', [CategorieController::class, 'store']);
+Router::get('/admin/categories/create', [CategorieController::class, 'create'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+Router::post('/admin/categories/store', [CategorieController::class, 'store'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
 
 // edit
-Router::get('/admin/categories/edit', [CategorieController::class, 'edit']);
-Router::post('/admin/categories/update', [CategorieController::class, 'update']);
+Router::get('/admin/categories/edit', [CategorieController::class, 'edit'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+Router::post('/admin/categories/update', [CategorieController::class, 'update'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
 
 // delete
-Router::get('/admin/categories/delete', [CategorieController::class, 'delete']);
-Router::get('/admin/categories/trash', [CategorieController::class, 'trash']);
-Router::get('/admin/categories/trashed', [CategorieController::class, 'trashed']);
-Router::get('/admin/categories/restore', [CategorieController::class, 'restore']);
+Router::get('/admin/categories/delete', [CategorieController::class, 'delete'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+Router::get('/admin/categories/trash', [CategorieController::class, 'trash'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+Router::get('/admin/categories/trashed', [CategorieController::class, 'trashed'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+Router::get('/admin/categories/restore', [CategorieController::class, 'restore'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
 
 
 
@@ -36,25 +36,29 @@ Router::get('/admin/categories/restore', [CategorieController::class, 'restore']
 
 
 // Router of tags
-Router::get('/admin/tags', [TagController::class, 'index']);
+Router::get('/admin/tags', [TagController::class, 'index'])
+    ->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+;
 
 // create
-Router::get('/admin/tags/create', [TagController::class, 'create']);
-Router::post('/admin/tags/store', [TagController::class, 'store']);
+Router::get('/admin/tags/create', [TagController::class, 'create'])
+    ->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+;
+Router::post('/admin/tags/store', [TagController::class, 'store'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
 
 // edit
-Router::get('/admin/tags/edit', [TagController::class, 'edit']);
-Router::post('/admin/tag/update', [TagController::class, 'update']);
+Router::get('/admin/tags/edit', [TagController::class, 'edit'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+Router::post('/admin/tag/update', [TagController::class, 'update'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
 
 // delete
-Router::get('/admin/tags/delete', [TagController::class, 'delete']);
-Router::get('/admin/tags/trash', [TagController::class, 'trash']);
-Router::get('/admin/tags/trashed', [TagController::class, 'trashed']);
-Router::get('/admin/tags/restore', [TagController::class, 'restore']);
+Router::get('/admin/tags/delete', [TagController::class, 'delete'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+Router::get('/admin/tags/trash', [TagController::class, 'trash'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+Router::get('/admin/tags/trashed', [TagController::class, 'trashed'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
+Router::get('/admin/tags/restore', [TagController::class, 'restore'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
 
 
 // Router of candidate
-Router::get('/admin/candidate', [CandidateController::class, 'candidate']);
+Router::get('/admin/candidate', [CandidateController::class, 'candidate'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
 
 // Router of Recruiter
-Router::get('/admin/recruiter', [RecruteurController::class, 'Recruteur']);
+Router::get('/admin/recruiter', [RecruteurController::class, 'Recruteur'])->middleware([AuthMiddleware::class, AdminMiddleware::class]);
