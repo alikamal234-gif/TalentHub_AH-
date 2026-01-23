@@ -175,26 +175,20 @@
                 </div>
                 <div class="flex items-center space-x-4">
                     <!-- Navigation links -->
-                    <div class="hidden md:flex space-x-4">
-                        <a href="#" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium">
-                            Offres
-                        </a>
-                        <a href="#" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium">
-                            Entreprises
-                        </a>
-                        <a href="#" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium">
-                            Salaires
-                        </a>
-                    </div>
-                    <!-- Auth buttons -->
-                    <div class="flex items-center space-x-2">
-                        <button id="loginBtn" class="dark-button-secondary px-4 py-2 border border-transparent text-sm font-medium rounded-md">
-                            Connexion
-                        </button>
-                        <button id="registerBtn" class="dark-button px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black">
-                            Inscription
-                        </button>
-                    </div>
+                   
+                       <div class="flex items-center space-x-4">
+    {% if roleName is defined and roleName == "Candidate" %}
+        <button id="logoutBtn"
+            class="dark-button-secondary px-4 py-2 border border-transparent text-sm font-medium rounded-md bg-red-500">
+            Déconnexion
+        </button>
+    {% else %}
+        <button id="loginBtn"
+            class="dark-button-secondary px-4 py-2 border border-transparent text-sm font-medium rounded-md">
+            Connexion
+        </button>
+    {% endif %}
+</div>
                 </div>
             </div>
         </div>
@@ -383,12 +377,7 @@
                                 <button class="tab-btn dark-active py-2 px-1 border-b-2 font-medium text-sm" data-tab="recommended">
                                     Recommandés pour vous
                                 </button>
-                                <button class="tab-btn border-transparent py-2 px-1 border-b-2 font-medium text-sm text-text-secondary hover:text-text-primary" data-tab="recent">
-                                    Dernières offres
-                                </button>
-                                <button class="tab-btn border-transparent py-2 px-1 border-b-2 font-medium text-sm text-text-secondary hover:text-text-primary" data-tab="popular">
-                                    Les plus populaires
-                                </button>
+                                
                             </nav>
                         </div>
                         
@@ -423,7 +412,7 @@
                                             <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
                                                 <i class="fas fa-bookmark mr-1"></i> Sauvegarder
                                             </button>
-                                            <a href="postuler"
+                                            <a href="{% if roleName == "Candidate" %} /candidate/postuler {% else %} /auth {% endif %}"
   class="dark-button px-3 py-1 text-xs font-medium rounded-md text-black">
   <i class="fas fa-paper-plane mr-1"></i> Postuler
 </a>
@@ -434,198 +423,6 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Job card 2 -->
-                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
-                                    <div class="flex items-start justify-between">
-                                        <div class="flex">
-                                            <div class="company-logo mr-4">
-                                                <span>DH</span>
-                                            </div>
-                                            <div>
-                                                <h4 class="text-lg font-medium text-text-primary">UX Designer</h4>
-                                                <p class="text-sm dark-text-secondary">DesignHub • Lyon, France</p>
-                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
-                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
-                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 40k-55k€</span>
-                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 3 jours</span>
-                                                </div>
-                                                <div class="flex flex-wrap gap-2 mt-3">
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Figma</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Adobe XD</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Prototyping</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex flex-col items-end">
-                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
-                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
-                                            </button>
-                                            <a href="postuler"
-  class="dark-button px-3 py-1 text-xs font-medium rounded-md text-black">
-  <i class="fas fa-paper-plane mr-1"></i> Postuler
-</a>
-
-
-                                            <span class="text-xs dark-text-secondary">18 candidatures</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Job card 3 -->
-                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
-                                    <div class="flex items-start justify-between">
-                                        <div class="flex">
-                                            <div class="company-logo mr-4">
-                                                <span>DT</span>
-                                            </div>
-                                            <div>
-                                                <h4 class="text-lg font-medium text-text-primary">Data Analyst</h4>
-                                                <p class="text-sm dark-text-secondary">DataTech • Télétravail</p>
-                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
-                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
-                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 42k-58k€</span>
-                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 5 jours</span>
-                                                </div>
-                                                <div class="flex flex-wrap gap-2 mt-3">
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Python</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">SQL</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Tableau</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Power BI</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex flex-col items-end">
-                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
-                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
-                                            </button>
-                                            <a href="postuler"
-  class="dark-button px-3 py-1 text-xs font-medium rounded-md text-black">
-  <i class="fas fa-paper-plane mr-1"></i> Postuler
-</a>
-
-
-                                            <span class="text-xs dark-text-secondary">31 candidatures</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Job card 4 -->
-                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
-                                    <div class="flex items-start justify-between">
-                                        <div class="flex">
-                                            <div class="company-logo mr-4">
-                                                <span>SI</span>
-                                            </div>
-                                            <div>
-                                                <h4 class="text-lg font-medium text-text-primary">Chef de Projet Digital</h4>
-                                                <p class="text-sm dark-text-secondary">StartUp Innov • Paris, France</p>
-                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
-                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
-                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 50k-70k€</span>
-                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 1 semaine</span>
-                                                </div>
-                                                <div class="flex flex-wrap gap-2 mt-3">
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Agile</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Scrum</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Management</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex flex-col items-end">
-                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
-                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
-                                            </button>
-                                            <a href="postuler"
-  class="dark-button px-3 py-1 text-xs font-medium rounded-md text-black">
-  <i class="fas fa-paper-plane mr-1"></i> Postuler
-</a>
-
-
-                                            <span class="text-xs dark-text-secondary">12 candidatures</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Job card 5 -->
-                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
-                                    <div class="flex items-start justify-between">
-                                        <div class="flex">
-                                            <div class="company-logo mr-4">
-                                                <span>MT</span>
-                                            </div>
-                                            <div>
-                                                <h4 class="text-lg font-medium text-text-primary">Développeur Mobile</h4>
-                                                <p class="text-sm dark-text-secondary">MobileTech • Télétravail</p>
-                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
-                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
-                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 45k-65k€</span>
-                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 1 semaine</span>
-                                                </div>
-                                                <div class="flex flex-wrap gap-2 mt-3">
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">React Native</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Flutter</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">iOS</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Android</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex flex-col items-end">
-                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
-                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
-                                            </button>
-                                            <a href="postuler"
-  class="dark-button px-3 py-1 text-xs font-medium rounded-md text-black">
-  <i class="fas fa-paper-plane mr-1"></i> Postuler
-</a>
-
-
-                                            <span class="text-xs dark-text-secondary">8 candidatures</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Load more button -->
-                            <div class="mt-8 flex justify-center">
-                                <button class="dark-button px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black">
-                                    Charger plus d'offres
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div id="recent" class="tab-content">
-                            <!-- Recent jobs content -->
-                            <div class="space-y-4">
-                                <!-- Similar job cards but with recent jobs -->
-                                <div class="job-card dark-card p-4 rounded-lg border dark-border">
-                                    <div class="flex items-start justify-between">
-                                        <div class="flex">
-                                            <div class="company-logo mr-4">
-                                                <span>AC</span>
-                                            </div>
-                                            <div>
-                                                <h4 class="text-lg font-medium text-text-primary">Développeur Backend PHP</h4>
-                                                <p class="text-sm dark-text-secondary">AppCompany • Marseille, France</p>
-                                                <div class="flex items-center mt-2 text-sm dark-text-secondary">
-                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
-                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 40k-55k€</span>
-                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 1 jour</span>
-                                                </div>
-                                                <div class="flex flex-wrap gap-2 mt-3">
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">PHP</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Symfony</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">MySQL</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex flex-col items-end">
-                                            <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
-                                                <i class="fas fa-bookmark mr-1"></i> Sauvegarder
-                                            </button>
-                                            <span class="text-xs dark-text-secondary">15 candidatures</span>
-                                        </div>
-                                    </div>
-                                </div>
                                 
                                 <!-- More recent job cards... -->
                             </div>
