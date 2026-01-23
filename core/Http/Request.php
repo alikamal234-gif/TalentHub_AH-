@@ -74,8 +74,8 @@ class Request
 
     public function getPath(): string
     {
-        $path = parse_url($this->uri, PHP_URL_PATH);
-        return $path === '' || $path === false ? '/' : $path;
+        $path = rtrim(parse_url($this->uri, PHP_URL_PATH), DIRECTORY_SEPARATOR);
+        return $path === '' ? '/' : $path;
     }
 
     public function isMethod(string $method): bool

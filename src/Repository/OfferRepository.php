@@ -18,6 +18,39 @@ class OfferRepository extends AbstractRepository implements SoftDeleteInterface
         parent::__construct($connection, $tableName, $alias);
     }
 
+    public function findTrashed(int $id): ?Offer
+    {
+        $data = $this->createQueryBuilder()
+            ->select(
+                'o.*',
+                'c.name AS category_name',
+                'c.created_at AS category_created_at',
+                'c.deleted_at AS category_deleted_at',
+                'u.name AS owner_name',
+                'u.email AS owner_email',
+                'u.password AS owner_password',
+                'u.speciality AS owner_speciality',
+                'u.phone AS owner_phone',
+                'u.image AS owner_image',
+                'u.created_at AS owner_created_at',
+                'u.deleted_at AS owner_deleted_at',
+                'u.role_id AS owner_role_id'
+            )
+            ->leftJoin('categories', 'o.category_id = c.id', 'c')
+            ->innerJoin('users', 'o.owner_id = u.id', 'u')
+            ->where('o.id = :id')
+            ->andWhere('o.deleted_at IS NOT NULL')
+            ->setParameter(':id', $id)
+            ->getSingleResult()
+        ;
+
+        if (!$data) {
+            return null;
+        }
+
+        return $this->mapToObject($data);
+    }
+
     public function find(int $id): ?Offer
     {
         $data = $this->createQueryBuilder()
@@ -81,6 +114,41 @@ class OfferRepository extends AbstractRepository implements SoftDeleteInterface
         return array_map(fn($data) => $this->mapToObject($data), $data);
     }
 
+    /**
+     * @return Offer[]
+     */
+    public function findAllByOwner(User $user): array
+    {
+        $data = $this->createQueryBuilder()
+            ->select(
+                'o.*',
+                'c.name AS category_name',
+                'c.created_at AS category_created_at',
+                'c.deleted_at AS category_deleted_at',
+                'u.name AS owner_name',
+                'u.email AS owner_email',
+                'u.password AS owner_password',
+                'u.speciality AS owner_speciality',
+                'u.phone AS owner_phone',
+                'u.image AS owner_image',
+                'u.created_at AS owner_created_at',
+                'u.deleted_at AS owner_deleted_at',
+                'u.role_id AS owner_role_id'
+            )
+            ->leftJoin('categories', 'o.category_id = c.id', 'c')
+            ->innerJoin('users', 'o.owner_id = u.id', 'u')
+            ->where('o.deleted_at IS NULL')
+            ->andWhere('o.owner_id = :owner_id')
+            ->setParameter(':owner_id', $user->getId())
+            ->getResult()
+        ;
+
+        return array_map(fn($data) => $this->mapToObject($data), $data);
+    }
+
+    /**
+     * @return Offer[]
+     */
     public function findAllTrashed(): array
     {
         $data = $this->createQueryBuilder()
@@ -106,6 +174,50 @@ class OfferRepository extends AbstractRepository implements SoftDeleteInterface
         ;
 
         return array_map(fn($data) => $this->mapToObject($data), $data);
+    }
+
+    /**
+     * @return Offer[]
+     */
+    public function findAllTrashedByOwner(User $user): array
+    {
+        $data = $this->createQueryBuilder()
+            ->select(
+                'o.*',
+                'c.name AS category_name',
+                'c.created_at AS category_created_at',
+                'c.deleted_at AS category_deleted_at',
+                'u.name AS owner_name',
+                'u.email AS owner_email',
+                'u.password AS owner_password',
+                'u.speciality AS owner_speciality',
+                'u.phone AS owner_phone',
+                'u.image AS owner_image',
+                'u.created_at AS owner_created_at',
+                'u.deleted_at AS owner_deleted_at',
+                'u.role_id AS owner_role_id'
+            )
+            ->leftJoin('categories', 'o.category_id = c.id', 'c')
+            ->innerJoin('users', 'o.owner_id = u.id', 'u')
+            ->where('o.deleted_at IS NOT NULL')
+            ->andWhere('o.owner_id = :owner_id')
+            ->setParameter(':owner_id', $user->getId())
+            ->getResult()
+        ;
+
+        return array_map(fn($data) => $this->mapToObject($data), $data);
+    }
+
+    /**
+     * @param Offer $object
+     * @return Offer
+     */
+    public function save(object $object): Offer
+    {
+        if ($object->getId()) {
+            return $this->update($object);
+        }
+        return $this->create($object);
     }
 
     /**
@@ -217,12 +329,12 @@ class OfferRepository extends AbstractRepository implements SoftDeleteInterface
             if (isset($data['category_created_at'])) {
                 $category->setCreatedAt(new DateTimeImmutable($data['category_created_at']));
             }
-            if (isset($data['category_deleted_at']) && $data['category_deleted_at'] !== null) {
+            if (isset($data['category_deleted_at'])) {
                 $category->setDeletedAt(new DateTimeImmutable($data['category_deleted_at']));
             }
         }
 
-        $role = (new Role('Unknown'))->setId((int) $data['owner_role_id']);
+        $role = new Role('Unknown')->setId((int) $data['owner_role_id']);
 
         $owner = new User($role, $data['owner_name'], $data['owner_email'], $data['owner_password']);
         $owner->setId((int) $data['owner_id']);
@@ -232,7 +344,7 @@ class OfferRepository extends AbstractRepository implements SoftDeleteInterface
         if (isset($data['owner_created_at'])) {
             $owner->setCreatedAt(new DateTimeImmutable($data['owner_created_at']));
         }
-        if (isset($data['owner_deleted_at']) && $data['owner_deleted_at'] !== null) {
+        if (isset($data['owner_deleted_at'])) {
             $owner->setDeletedAt(new DateTimeImmutable($data['owner_deleted_at']));
         }
 
@@ -246,13 +358,13 @@ class OfferRepository extends AbstractRepository implements SoftDeleteInterface
             $data['contact'],
             $data['company']
         );
-        $offer->setId(isset($data['id']) ? (int) $data['id'] : null);;
+        $offer->setId(isset($data['id']) ? (int) $data['id'] : null);
 
         if (isset($data['created_at'])) {
             $offer->setCreatedAt(new DateTimeImmutable($data['created_at']));
         }
 
-        if (isset($data['deleted_at']) && $data['deleted_at'] !== null) {
+        if (isset($data['deleted_at'])) {
             $offer->setDeletedAt(new DateTimeImmutable($data['deleted_at']));
         }
 

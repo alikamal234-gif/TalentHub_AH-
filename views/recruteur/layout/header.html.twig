@@ -1,0 +1,44 @@
+<nav class="dark-card border-b dark-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <h1 class="text-xl font-bold text-green-primary">
+                        <a href="/recruteur"><i class="fas fa-briefcase mr-2"></i>Talent HUB</a>
+                    </h1>
+                </div>
+                <!-- Navigation links -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="/recruteur" class="{% if request.uri == '/recruteur' %}dark-active{% else %}border-transparent text-text-secondary hover:text-text-primary{% endif %} inline-flex items-center px-1 pt-1 text-sm font-medium">
+                        Dashboard
+                    </a>
+                    <a href="/recruteur/offres" class="{% if request.uri starts with '/recruteur/offres' %}dark-active{% else %}border-transparent text-text-secondary hover:text-text-primary{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium dark-hover">
+                        Mes offres
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex items-center">
+                <!-- Profile dropdown -->
+                <div class="relative">
+                    <button id="profileMenuButton" class="dark-card flex items-center space-x-2 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-primary p-1 pr-3">
+                        {% if request.user.imageUrl %}
+                            <img class="h-8 w-8 rounded-full object-cover" src="{{ request.user.imageUrl }}" alt="{{ request.user.name }}">
+                        {% else %}
+                            <div class="h-8 w-8 rounded-full bg-green-primary flex items-center justify-center text-black">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        {% endif %}
+                        <span class="text-text-primary font-medium">{{ request.user.name }}</span>
+                    </button>
+                    <div id="profileMenu" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg dark-card ring-1 ring-dark-border">
+                        <div class="py-1">
+                            <a href="/logout" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Déconnexion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

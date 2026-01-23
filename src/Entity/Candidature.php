@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
+use finfo;
 
 class Candidature
 {
@@ -89,6 +90,15 @@ class Candidature
     public function getCv(): string
     {
         return $this->cv;
+    }
+
+    public function getCvUrl(): ?string
+    {
+        if ($this->cv) {
+            $mimeType = new finfo(FILEINFO_MIME_TYPE)->buffer($this->cv);
+            return sprintf('data:%s;base64,%s', $mimeType, base64_encode($this->cv));
+        }
+        return null;
     }
 
     public function setCv(string $cv): self

@@ -6,7 +6,7 @@ use DateTimeImmutable;
 
 class Offer
 {
-    private ?int $id;
+    private ?int $id = null;
     private ?Categorie $category;
     private User $owner;
     private string $name;
