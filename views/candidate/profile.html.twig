@@ -29,54 +29,68 @@
             background-color: #000000;
             color: #ffffff;
         }
+
         .dark-card {
             background-color: #111111;
             border-color: #1a1a1a;
         }
+
         .dark-input {
             background-color: #0a0a0a;
             border-color: #1a1a1a;
             color: #ffffff;
         }
+
         .dark-input:focus {
             border-color: #10b981;
             outline: none;
             box-shadow: 0 0 0 1px #10b981;
         }
+
         .dark-button {
             background-color: #10b981;
             color: #000000;
         }
+
         .dark-button:hover {
             background-color: #059669;
         }
+
         .dark-button-secondary {
             background-color: #1a1a1a;
             color: #ffffff;
             border: 1px solid #333333;
         }
+
         .dark-button-secondary:hover {
             background-color: #262626;
         }
+
         .dark-text-secondary {
             color: #a3a3a3;
         }
+
         .dark-text-accent {
             color: #34d399;
         }
+
         .dark-border {
             border-color: #1a1a1a;
         }
+
         .dark-hover:hover {
             background-color: #1a1a1a;
         }
+
         .dark-active {
             background-color: #0a0a0a;
             border-bottom: 2px solid #10b981;
         }
+
         .profile-header {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         }
+
         .profile-image {
             width: 120px;
             height: 120px;
@@ -84,12 +98,15 @@
             border: 4px solid #000000;
             object-fit: cover;
         }
+
         .tab-content {
             display: none;
         }
+
         .tab-content.active {
             display: block;
         }
+
         .skill-tag {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -100,11 +117,13 @@
             transition: all 0.2s ease;
             position: relative;
         }
+
         .skill-tag:hover {
             background-color: #10b981;
             color: #000000;
             border-color: #10b981;
         }
+
         .skill-tag .remove-skill {
             margin-left: 0.5rem;
             cursor: pointer;
@@ -112,20 +131,25 @@
             opacity: 0.7;
             transition: opacity 0.2s ease;
         }
+
         .skill-tag .remove-skill:hover {
             opacity: 1;
         }
+
         .stat-card {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
+
         .stat-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
         }
+
         .timeline-item {
             position: relative;
             padding-left: 40px;
         }
+
         .timeline-item::before {
             content: '';
             position: absolute;
@@ -135,9 +159,11 @@
             width: 2px;
             background-color: #1a1a1a;
         }
+
         .timeline-item:last-child::before {
             display: none;
         }
+
         .timeline-dot {
             position: absolute;
             left: 0;
@@ -148,17 +174,20 @@
             background-color: #10b981;
             border: 3px solid #000000;
         }
+
         .progress-bar {
             height: 8px;
             background-color: #1a1a1a;
             border-radius: 4px;
             overflow: hidden;
         }
+
         .progress-fill {
             height: 100%;
             background-color: #10b981;
             transition: width 0.3s ease;
         }
+
         .skills-modal {
             display: none;
             position: fixed;
@@ -168,13 +197,15 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0, 0, 0, 0.8);
         }
+
         .skills-modal.active {
             display: flex;
             align-items: center;
             justify-content: center;
         }
+
         .skill-input-container {
             display: flex;
             flex-wrap: wrap;
@@ -186,10 +217,12 @@
             min-height: 60px;
             cursor: text;
         }
+
         .skill-input-container:focus-within {
             border-color: #10b981;
             box-shadow: 0 0 0 1px #10b981;
         }
+
         .skill-item {
             display: inline-flex;
             align-items: center;
@@ -200,6 +233,7 @@
             font-size: 0.875rem;
             animation: tagAppear 0.2s ease-in-out;
         }
+
         @keyframes tagAppear {
             from {
                 opacity: 0;
@@ -210,15 +244,18 @@
                 transform: scale(1);
             }
         }
+
         .skill-remove {
             margin-left: 0.5rem;
             cursor: pointer;
             font-weight: bold;
             transition: transform 0.2s ease;
         }
+
         .skill-remove:hover {
             transform: scale(1.2);
         }
+
         .skill-suggestion {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -230,17 +267,20 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
+
         .skill-suggestion:hover {
             background-color: #10b981;
             color: #000000;
             border-color: #10b981;
             transform: translateY(-2px);
         }
+
         .skill-suggestion.selected {
             background-color: #10b981;
             color: #000000;
             border-color: #10b981;
         }
+
         .category-title {
             font-size: 0.75rem;
             font-weight: 600;
@@ -252,859 +292,352 @@
     </style>
 </head>
 <body class="h-full">
-    <!-- Navigation -->
-    <nav class="dark-card border-b dark-border">
+<!-- Navigation -->
+<nav class="dark-card border-b dark-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <h1 class="text-xl font-bold text-green-primary">
+                        <i class="fas fa-briefcase mr-2"></i>Talent HUB
+                    </h1>
+                </div>
+                <!-- Navigation links -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="#" class="dark-active inline-flex items-center px-1 pt-1 text-sm font-medium">
+                        Mon profil
+                    </a>
+                    <a href="#"
+                       class="border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Mes candidatures
+                    </a>
+                    <a href="#"
+                       class="border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Offres recommandées
+                    </a>
+                    <a href="#"
+                       class="border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Messages
+                    </a>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <!-- Notifications -->
+                <button class="relative p-1 rounded-full text-text-secondary hover:text-text-primary mr-4">
+                    <i class="fas fa-bell"></i>
+                    <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-green-primary"></span>
+                </button>
+                <!-- Profile dropdown -->
+                <div class="relative">
+                    <button id="profileMenuButton"
+                            class="dark-card flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-primary p-1">
+                        <span class="sr-only">Ouvrir le menu utilisateur</span>
+                        <div class="h-8 w-8 rounded-full bg-green-primary flex items-center justify-center text-black">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </button>
+                    <div id="profileMenu"
+                         class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg dark-card ring-1 ring-dark-border">
+                        <div class="py-1">
+                            <a href="#"
+                               class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Paramètres</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Aide</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Déconnexion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main content -->
+<main class="flex-1 dark-scrollbar overflow-auto">
+    <div class="py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <!-- Logo -->
-                    <div class="flex-shrink-0 flex items-center">
-                        <h1 class="text-xl font-bold text-green-primary">
-                            <i class="fas fa-briefcase mr-2"></i>Talent HUB
-                        </h1>
-                    </div>
-                    <!-- Navigation links -->
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="#" class="dark-active inline-flex items-center px-1 pt-1 text-sm font-medium">
-                            Mon profil
-                        </a>
-                        <a href="#" class="border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Mes candidatures
-                        </a>
-                        <a href="#" class="border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Offres recommandées
-                        </a>
-                        <a href="#" class="border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Messages
-                        </a>
-                    </div>
+            <!-- Flash Messages -->
+            {% if request.session.hasFlash('success') %}
+                <div class="bg-green-500 text-white p-4 rounded-lg mb-6 flex justify-between items-center">
+                    <span>{{ request.session.flash('success') }}</span>
                 </div>
-                <div class="flex items-center">
-                    <!-- Notifications -->
-                    <button class="relative p-1 rounded-full text-text-secondary hover:text-text-primary mr-4">
-                        <i class="fas fa-bell"></i>
-                        <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-green-primary"></span>
-                    </button>
-                    <!-- Profile dropdown -->
+            {% endif %}
+            {% if request.session.hasFlash('error') %}
+                <div class="bg-red-500 text-white p-4 rounded-lg mb-6 flex justify-between items-center">
+                    <span>{{ request.session.flash('error') }}</span>
+                </div>
+            {% endif %}
+
+            <!-- Profile Header -->
+            <div class="profile-header rounded-lg p-6 mb-6">
+                <div class="flex flex-col md:flex-row items-center md:items-end space-y-4 md:space-y-0 md:space-x-6">
                     <div class="relative">
-                        <button id="profileMenuButton" class="dark-card flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-primary p-1">
-                            <span class="sr-only">Ouvrir le menu utilisateur</span>
-                            <div class="h-8 w-8 rounded-full bg-green-primary flex items-center justify-center text-black">
-                                <i class="fas fa-user"></i>
-                            </div>
-                        </button>
-                        <div id="profileMenu" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg dark-card ring-1 ring-dark-border">
-                            <div class="py-1">
-                                <a href="#" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Paramètres</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Aide</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Déconnexion</a>
-                            </div>
+                        {% if request.user.imageUrl %}
+                            <img src="{{ request.user.imageUrl }}" alt="Photo de profil" class="profile-image">
+                        {% else %}
+                            <img src="https://picsum.photos/seed/candidate/120/120.jpg" alt="Photo de profil"
+                                 class="profile-image">
+                        {% endif %}
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <h2 class="text-2xl font-bold text-white">{{ request.user.name }}</h2>
+                        <p class="text-green-100">{{ request.user.speciality }}</p>
+                        <div class="flex flex-wrap justify-center md:justify-start gap-2 mt-2">
+                            <span class="text-sm text-green-100"><i
+                                        class="fas fa-envelope mr-1"></i>{{ request.user.email }}</span>
+                            <span class="text-sm text-green-100"><i
+                                        class="fas fa-phone mr-1"></i>{{ request.user.phone }}</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </nav>
 
-    <!-- Main content -->
-    <main class="flex-1 dark-scrollbar overflow-auto">
-        <div class="py-6">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Profile Header -->
-                <div class="profile-header rounded-lg p-6 mb-6">
-                    <div class="flex flex-col md:flex-row items-center md:items-end space-y-4 md:space-y-0 md:space-x-6">
-                        <div class="relative">
-                            <img src="https://picsum.photos/seed/candidate/120/120.jpg" alt="Photo de profil" class="profile-image">
-                            <button class="absolute bottom-0 right-0 bg-green-primary text-black p-2 rounded-full hover:bg-green-secondary">
-                                <i class="fas fa-camera text-xs"></i>
-                            </button>
-                        </div>
-                        <div class="flex-1 text-center md:text-left">
-                            <h2 class="text-2xl font-bold text-white">Jean Dupont</h2>
-                            <p class="text-green-100">Développeur Full Stack</p>
-                            <div class="flex flex-wrap justify-center md:justify-start gap-2 mt-2">
-                                <span class="text-sm text-green-100"><i class="fas fa-map-marker-alt mr-1"></i> Paris, France</span>
-                                <span class="text-sm text-green-100"><i class="fas fa-envelope mr-1"></i> jean.dupont@email.com</span>
-                                <span class="text-sm text-green-100"><i class="fas fa-phone mr-1"></i> +33 6 12 34 56 78</span>
-                            </div>
-                        </div>
-                        <div class="flex space-x-2">
-                            <button id="editProfileBtn" class="bg-white text-green-primary px-4 py-2 rounded-md hover:bg-gray-100">
-                                <i class="fas fa-edit mr-2"></i>Modifier
-                            </button>
-                            <button class="bg-transparent border-2 border-white text-white px-4 py-2 rounded-md hover:bg-white hover:text-green-primary">
-                                <i class="fas fa-download mr-2"></i>CV
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <!-- Tabs -->
+            <div class="border-b dark-border mb-6">
+                <nav class="-mb-px flex space-x-8">
+                    <button class="tab-btn dark-active py-2 px-1 border-b-2 font-medium text-sm" data-tab="about">
+                        À propos
+                    </button>
+                    <button class="tab-btn border-transparent py-2 px-1 border-b-2 font-medium text-sm text-text-secondary hover:text-text-primary"
+                            data-tab="applications">
+                        Candidatures
+                    </button>
+                    <button class="tab-btn border-transparent py-2 px-1 border-b-2 font-medium text-sm text-text-secondary hover:text-text-primary"
+                            data-tab="security">
+                        Sécurité
+                    </button>
+                </nav>
+            </div>
 
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                    <div class="stat-card dark-card p-4 rounded-lg border dark-border">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
-                                <i class="fas fa-briefcase text-black"></i>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm dark-text-secondary">Candidatures</p>
-                                <p class="text-xl font-semibold text-text-primary">24</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stat-card dark-card p-4 rounded-lg border dark-border">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
-                                <i class="fas fa-eye text-black"></i>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm dark-text-secondary">Vues du profil</p>
-                                <p class="text-xl font-semibold text-text-primary">156</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stat-card dark-card p-4 rounded-lg border dark-border">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
-                                <i class="fas fa-star text-black"></i>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm dark-text-secondary">Évaluation</p>
-                                <p class="text-xl font-semibold text-text-primary">4.8</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stat-card dark-card p-4 rounded-lg border dark-border">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
-                                <i class="fas fa-calendar text-black"></i>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm dark-text-secondary">Inscrit depuis</p>
-                                <p class="text-xl font-semibold text-text-primary">6 mois</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tabs -->
-                <div class="border-b dark-border mb-6">
-                    <nav class="-mb-px flex space-x-8">
-                        <button class="tab-btn dark-active py-2 px-1 border-b-2 font-medium text-sm" data-tab="about">
-                            À propos
-                        </button>
-                        <button class="tab-btn border-transparent py-2 px-1 border-b-2 font-medium text-sm text-text-secondary hover:text-text-primary" data-tab="experience">
-                            Expérience
-                        </button>
-                        <button class="tab-btn border-transparent py-2 px-1 border-b-2 font-medium text-sm text-text-secondary hover:text-text-primary" data-tab="skills">
-                            Compétences
-                        </button>
-                        <button class="tab-btn border-transparent py-2 px-1 border-b-2 font-medium text-sm text-text-secondary hover:text-text-primary" data-tab="applications">
-                            Candidatures
-                        </button>
-                    </nav>
-                </div>
-
-                <!-- Tab Content -->
-                <div id="about" class="tab-content active">
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <!-- About Me -->
-                        <div class="lg:col-span-2">
-                            <div class="dark-card p-6 rounded-lg border dark-border">
-                                <h3 class="text-lg font-medium text-text-primary mb-4">À propos de moi</h3>
-                                <div id="aboutContent">
-                                    <p class="text-sm dark-text-secondary leading-relaxed">
-                                        Développeur Full Stack avec 5 ans d'expérience dans la création d'applications web modernes. 
-                                        Passionné par les nouvelles technologies et l'optimisation des performances. 
-                                        Je maîtrise l'ensemble de la chaîne de développement, de la conception à la mise en production.
-                                    </p>
-                                    <div class="mt-4">
-                                        <h4 class="text-sm font-medium text-text-primary mb-2">Langues</h4>
-                                        <div class="space-y-2">
-                                            <div class="flex items-center justify-between">
-                                                <span class="text-sm dark-text-secondary">Français</span>
-                                                <div class="flex items-center">
-                                                    <div class="progress-bar w-24 mr-2">
-                                                        <div class="progress-fill" style="width: 100%"></div>
-                                                    </div>
-                                                    <span class="text-xs dark-text-secondary">Natif</span>
-                                                </div>
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <span class="text-sm dark-text-secondary">Anglais</span>
-                                                <div class="flex items-center">
-                                                    <div class="progress-bar w-24 mr-2">
-                                                        <div class="progress-fill" style="width: 80%"></div>
-                                                    </div>
-                                                    <span class="text-xs dark-text-secondary">C1</span>
-                                                </div>
-                                            </div>
+            <!-- Tab Content -->
+            <div id="about" class="tab-content active">
+                <div class="dark-card p-6 rounded-lg border dark-border">
+                    <form class="mt-8 space-y-6" action="/candidate/profile/update" method="post" enctype="multipart/form-data">
+                        <div class="space-y-4">
+                            <!-- Name fields -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-text-primary mb-2">
+                                        Nom et Prénom
+                                    </label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="fas fa-user text-gray-400"></i>
                                         </div>
+                                        <input id="name" name="name" type="text" required value="{{ request.user.name }}"
+                                               class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none"
+                                               placeholder="Ali Hajjaji">
+                                    </div>
+                                </div>
+                                <!-- Speciality field -->
+                                <div>
+                                    <label for="speciality" class="block text-sm font-medium text-text-primary mb-2">
+                                        Spécialité
+                                    </label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="fas fa-briefcase text-gray-400"></i>
+                                        </div>
+                                        <input id="speciality" name="speciality" type="text" required value="{{ request.user.speciality }}"
+                                               class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none"
+                                               placeholder="Développeur Full Stack, UX Designer, ...">
                                     </div>
                                 </div>
                             </div>
+
+
+                            <!-- Email field -->
+                            <div>
+                                <label for="registerEmail" class="block text-sm font-medium text-text-primary mb-2">
+                                    Email
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-envelope text-gray-400"></i>
+                                    </div>
+                                    <input id="registerEmail" name="email" type="email" autocomplete="email" required value="{{ request.user.email }}"
+                                           class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none"
+                                           placeholder="votre@email.com">
+                                </div>
+                            </div>
+
+                            <!-- Phone field -->
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-text-primary mb-2">
+                                    Téléphone
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-phone text-gray-400"></i>
+                                    </div>
+                                    <input id="phone" name="phone" type="tel" required value="{{ request.user.phone }}"
+                                           class="dark-input w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none"
+                                           placeholder="+33 6 12 34 56 78">
+                                </div>
+                            </div>
+
+                            <!-- Image field -->
+                            <div>
+                                <label for="image" class="block text-sm font-medium text-text-primary mb-2">
+                                    Photo de profil
+                                </label>
+                                <input id="image" name="image" type="file" accept="image/*"
+                                       class="dark-input w-full px-3 py-2 border rounded-md focus:outline-none">
+                            </div>
                         </div>
 
-                        <!-- Account Info -->
                         <div>
-                            <div class="dark-card p-6 rounded-lg border dark-border">
-                                <h3 class="text-lg font-medium text-text-primary mb-4">Informations du compte</h3>
-                                <div class="space-y-3">
-                                    <div>
-                                        <p class="text-xs dark-text-secondary">Date de création</p>
-                                        <p class="text-sm text-text-primary">15 juin 2023</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs dark-text-secondary">Dernière connexion</p>
-                                        <p class="text-sm text-text-primary">Il y a 2 heures</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs dark-text-secondary">Email vérifié</p>
-                                        <p class="text-sm text-green-primary"><i class="fas fa-check-circle mr-1"></i>Oui</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs dark-text-secondary">Profil complété</p>
-                                        <p class="text-sm text-green-primary">85%</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="experience" class="tab-content">
-                    <div class="dark-card p-6 rounded-lg border dark-border">
-                        <h3 class="text-lg font-medium text-text-primary mb-4">Expérience professionnelle</h3>
-                        <div class="space-y-6">
-                            <div class="timeline-item">
-                                <div class="timeline-dot"></div>
-                                <div>
-                                    <h4 class="text-md font-medium text-text-primary">Développeur Full Stack Senior</h4>
-                                    <p class="text-sm dark-text-secondary">TechCorp • Paris</p>
-                                    <p class="text-xs dark-text-secondary">Janvier 2021 - Présent</p>
-                                    <p class="text-sm dark-text-secondary mt-2">
-                                        Développement d'applications web avec React et Node.js. 
-                                        Participation à l'architecture technique et au mentoring des juniors.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-dot"></div>
-                                <div>
-                                    <h4 class="text-md font-medium text-text-primary">Développeur Frontend</h4>
-                                    <p class="text-sm dark-text-secondary">WebAgency • Lyon</p>
-                                    <p class="text-xs dark-text-secondary">Juin 2019 - Décembre 2020</p>
-                                    <p class="text-sm dark-text-secondary mt-2">
-                                        Création de sites web responsives et d'applications SPA avec Vue.js.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-dot"></div>
-                                <div>
-                                    <h4 class="text-md font-medium text-text-primary">Développeur Junior</h4>
-                                    <p class="text-sm dark-text-secondary">StartUp • Marseille</p>
-                                    <p class="text-xs dark-text-secondary">Septembre 2018 - Mai 2019</p>
-                                    <p class="text-sm dark-text-secondary mt-2">
-                                        Développement de fonctionnalités backend et maintenance d'applications existantes.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="skills" class="tab-content">
-                    <div class="dark-card p-6 rounded-lg border dark-border">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-medium text-text-primary">Compétences techniques</h3>
-                            <button id="addSkillsBtn" class="dark-button px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-black">
-                                <i class="fas fa-plus mr-1"></i>Ajouter des compétences
+                            <button type="submit"
+                                    class="dark-button w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black">
+                                Enregistrer les modifications
                             </button>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <h4 class="text-sm font-medium text-text-primary mb-3">Frontend</h4>
-                                <div class="flex flex-wrap gap-2" id="frontendSkills">
-                                    <span class="skill-tag">HTML5<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">CSS3<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">JavaScript<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">TypeScript<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">React<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">Vue.js<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">Tailwind CSS<span class="remove-skill">&times;</span></span>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-medium text-text-primary mb-3">Backend</h4>
-                                <div class="flex flex-wrap gap-2" id="backendSkills">
-                                    <span class="skill-tag">Node.js<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">Express.js<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">Python<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">Django<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">PHP<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">Laravel<span class="remove-skill">&times;</span></span>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-medium text-text-primary mb-3">Base de données</h4>
-                                <div class="flex flex-wrap gap-2" id="databaseSkills">
-                                    <span class="skill-tag">MySQL<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">PostgreSQL<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">MongoDB<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">Redis<span class="remove-skill">&times;</span></span>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-medium text-text-primary mb-3">Outils & DevOps</h4>
-                                <div class="flex flex-wrap gap-2" id="toolsSkills">
-                                    <span class="skill-tag">Git<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">Docker<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">AWS<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">CI/CD<span class="remove-skill">&times;</span></span>
-                                    <span class="skill-tag">Jest<span class="remove-skill">&times;</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="applications" class="tab-content">
-                    <div class="dark-card rounded-lg border dark-border">
-                        <div class="px-6 py-4 border-b dark-border">
-                            <h3 class="text-lg font-medium text-text-primary">Mes candidatures</h3>
-                        </div>
-                        <div class="overflow-hidden">
-                            <table class="min-w-full divide-y divide-dark-border">
-                                <thead class="bg-dark-bg">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
-                                            Offre
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
-                                            Entreprise
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
-                                            Date
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
-                                            Statut
-                                        </th>
-                                        <th scope="col" class="relative px-6 py-3">
-                                            <span class="sr-only">Actions</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-dark-border">
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
-                                            Développeur Full Stack Senior
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
-                                            TechCorp
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
-                                            10/12/2023
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-primary text-black">
-                                                En cours
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="#" class="dark-text-accent hover:text-green-primary">Voir</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
-                                            Développeur Frontend React
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
-                                            WebAgency
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
-                                            05/12/2023
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-600 text-white">
-                                                Entretien
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="#" class="dark-text-accent hover:text-green-primary">Voir</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
-                                            Développeur Node.js
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
-                                            StartUp
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
-                                            28/11/2023
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-600 text-white">
-                                            Refusé
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="#" class="dark-text-accent hover:text-green-primary">Voir</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
+
+            <div id="applications" class="tab-content">
+                <div class="dark-card rounded-lg border dark-border">
+                    <div class="px-6 py-4 border-b dark-border">
+                        <h3 class="text-lg font-medium text-text-primary">Mes candidatures</h3>
+                    </div>
+                    <div class="overflow-hidden">
+                        <table class="min-w-full divide-y divide-dark-border">
+                            <thead class="bg-dark-bg">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                    Statut
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                    Date
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                    Message
+                                </th>
+                                <th scope="col" class="relative px-6 py-3">
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="divide-y divide-dark-border">
+                            {% for candidature in candidatures %}
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        {% if candidature.status == 'pending' %}
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">En attente</span>
+                                        {% elseif candidature.status == 'accepted' %}
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Acceptée</span>
+                                        {% elseif candidature.status == 'rejected' %}
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Refusée</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                        {{ candidature.createdAt|date('d/m/Y') }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-text-secondary max-w-xs truncate">
+                                        {{ candidature.message|default('Pas de message') }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <a href="{{ candidature.cvUrl }}" target="_blank" class="dark-text-accent hover:text-green-primary">CV</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="px-6 py-10 text-center text-sm text-text-secondary italic">
+                                        Aucune candidature pour le moment.
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
         </div>
-    </main>
 
-    <!-- Skills Modal -->
-    <div id="skillsModal" class="skills-modal">
-        <div class="dark-card rounded-lg p-6 w-full max-w-4xl max-h-screen overflow-y-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-medium text-text-primary">Gérer mes compétences</h3>
-                <button id="closeSkillsModal" class="text-text-secondary hover:text-text-primary">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <!-- Skills Input -->
-            <div class="mb-6">
-                <label class="block text-sm font-medium text-text-primary mb-2">
-                    Ajouter des compétences
-                </label>
-                <div class="skill-input-container" id="skillInputContainer">
-                    <input type="text" id="skillInput" class="bg-transparent outline-none flex-1 min-w-[120px]" placeholder="Tapez une compétence...">
+            <div id="security" class="tab-content">
+                <div class="dark-card p-6 rounded-lg border dark-border">
+                    <h3 class="text-lg font-medium text-text-primary mb-6">Changer le mot de passe</h3>
+                    <form class="space-y-6" action="/candidate/profile/password" method="post">
+                        <div class="space-y-4">
+                            <div>
+                                <label for="current_password" class="block text-sm font-medium text-text-primary mb-2">
+                                    Mot de passe actuel
+                                </label>
+                                <input id="current_password" name="current_password" type="password" required
+                                       class="dark-input w-full px-3 py-2 border rounded-md focus:outline-none">
+                            </div>
+                            <div>
+                                <label for="new_password" class="block text-sm font-medium text-text-primary mb-2">
+                                    Nouveau mot de passe
+                                </label>
+                                <input id="new_password" name="new_password" type="password" required
+                                       class="dark-input w-full px-3 py-2 border rounded-md focus:outline-none">
+                            </div>
+                            <div>
+                                <label for="confirm_password" class="block text-sm font-medium text-text-primary mb-2">
+                                    Confirmer le nouveau mot de passe
+                                </label>
+                                <input id="confirm_password" name="confirm_password" type="password" required
+                                       class="dark-input w-full px-3 py-2 border rounded-md focus:outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit"
+                                    class="dark-button w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black">
+                                Mettre à jour le mot de passe
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <p class="text-xs dark-text-secondary mt-1">
-                    Tapez pour rechercher ou sélectionnez dans les suggestions ci-dessous
-                </p>
-            </div>
-
-            <!-- Predefined Skills by Category -->
-            <div class="space-y-6">
-                <!-- Frontend -->
-                <div>
-                    <h4 class="category-title">Frontend</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <div class="skill-suggestion" data-skill="HTML5">HTML5</div>
-                        <div class="skill-suggestion" data-skill="CSS3">CSS3</div>
-                        <div class="skill-suggestion" data-skill="JavaScript">JavaScript</div>
-                        <div class="skill-suggestion" data-skill="TypeScript">TypeScript</div>
-                        <div class="skill-suggestion" data-skill="React">React</div>
-                        <div class="skill-suggestion" data-skill="Vue.js">Vue.js</div>
-                        <div class="skill-suggestion" data-skill="Angular">Angular</div>
-                        <div class="skill-suggestion" data-skill="Svelte">Svelte</div>
-                        <div class="skill-suggestion" data-skill="Next.js">Next.js</div>
-                        <div class="skill-suggestion" data-skill="Tailwind CSS">Tailwind CSS</div>
-                        <div class="skill-suggestion" data-skill="Bootstrap">Bootstrap</div>
-                        <div class="skill-suggestion" data-skill="Sass/SCSS">Sass/SCSS</div>
-                    </div>
-                </div>
-
-                <!-- Backend -->
-                <div>
-                    <h4 class="category-title">Backend</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <div class="skill-suggestion" data-skill="Node.js">Node.js</div>
-                        <div class="skill-suggestion" data-skill="Express.js">Express.js</div>
-                        <div class="skill-suggestion" data-skill="PHP">PHP</div>
-                        <div class="skill-suggestion" data-skill="Laravel">Laravel</div>
-                        <div class="skill-suggestion" data-skill="Symfony">Symfony</div>
-                        <div class="skill-suggestion" data-skill="Python">Python</div>
-                        <div class="skill-suggestion" data-skill="Django">Django</div>
-                        <div class="skill-suggestion" data-skill="Flask">Flask</div>
-                        <div class="skill-suggestion" data-skill="Ruby">Ruby</div>
-                        <div class="skill-suggestion" data-skill="Ruby on Rails">Ruby on Rails</div>
-                        <div class="skill-suggestion" data-skill="Java">Java</div>
-                        <div class="skill-suggestion" data-skill="Spring Boot">Spring Boot</div>
-                        <div class="skill-suggestion" data-skill="C#">C#</div>
-                        <div class="skill-suggestion" data-skill=".NET">.NET</div>
-                        <div class="skill-suggestion" data-skill="Go">Go</div>
-                        <div class="skill-suggestion" data-skill="Rust">Rust</div>
-                    </div>
-                </div>
-
-                <!-- Database -->
-                <div>
-                    <h4 class="category-title">Base de données</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <div class="skill-suggestion" data-skill="MySQL">MySQL</div>
-                        <div class="skill-suggestion" data-skill="PostgreSQL">PostgreSQL</div>
-                        <div class="skill-suggestion" data-skill="MongoDB">MongoDB</div>
-                        <div class="skill-suggestion" data-skill="Redis">Redis</div>
-                        <div class="skill-suggestion" data-skill="SQLite">SQLite</div>
-                        <div class="skill-suggestion" data-skill="Oracle">Oracle</div>
-                        <div class="skill-suggestion" data-skill="SQL Server">SQL Server</div>
-                        <div class="skill-suggestion" data-skill="Elasticsearch">Elasticsearch</div>
-                        <div class="skill-suggestion" data-skill="Firebase">Firebase</div>
-                    </div>
-                </div>
-
-                <!-- DevOps -->
-                <div>
-                    <h4 class="category-title">DevOps</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <div class="skill-suggestion" data-skill="Docker">Docker</div>
-                        <div class="skill-suggestion" data-skill="Kubernetes">Kubernetes</div>
-                        <div class="skill-suggestion" data-skill="CI/CD">CI/CD</div>
-                        <div class="skill-suggestion" data-skill="Jenkins">Jenkins</div>
-                        <div class="skill-suggestion" data-skill="GitLab CI">GitLab CI</div>
-                        <div class="skill-suggestion" data-skill="GitHub Actions">GitHub Actions</div>
-                        <div class="skill-suggestion" data-skill="AWS">AWS</div>
-                        <div class="skill-suggestion" data-skill="Azure">Azure</div>
-                        <div class="skill-suggestion" data-skill="Google Cloud">Google Cloud</div>
-                        <div class="skill-suggestion" data-skill="Terraform">Terraform</div>
-                        <div class="skill-suggestion" data-skill="Ansible">Ansible</div>
-                    </div>
-                </div>
-
-                <!-- Tools & Others -->
-                <div>
-                    <h4 class="category-title">Outils & Autres</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <div class="skill-suggestion" data-skill="Git">Git</div>
-                        <div class="skill-suggestion" data-skill="REST API">REST API</div>
-                        <div class="skill-suggestion" data-skill="GraphQL">GraphQL</div>
-                        <div class="skill-suggestion" data-skill="Webpack">Webpack</div>
-                        <div class="skill-suggestion" data-skill="Babel">Babel</div>
-                        <div class="skill-suggestion" data-skill="Jest">Jest</div>
-                        <div class="skill-suggestion" data-skill="Cypress">Cypress</div>
-                        <div class="skill-suggestion" data-skill="Figma">Figma</div>
-                        <div class="skill-suggestion" data-skill="Agile">Agile</div>
-                        <div class="skill-suggestion" data-skill="Scrum">Scrum</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal Actions -->
-            <div class="flex justify-end space-x-3 mt-6">
-                <button id="cancelSkills" class="dark-button-secondary px-4 py-2 border border-transparent text-sm font-medium rounded-md">
-                    Annuler
-                </button>
-                <button id="saveSkills" class="dark-button px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black">
-                    Enregistrer les compétences
-                </button>
             </div>
         </div>
     </div>
+</main>
 
-    <!-- Edit Profile Modal -->
-    <div id="editProfileModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="dark-card rounded-lg p-6 w-full max-w-2xl max-h-screen overflow-y-auto">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-medium text-text-primary">Modifier mon profil</h3>
-                <button id="closeEditModal" class="text-text-secondary hover:text-text-primary">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <form>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-text-primary mb-1">Prénom</label>
-                        <input type="text" value="Jean" class="dark-input w-full px-3 py-2 border rounded-md">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-text-primary mb-1">Nom</label>
-                        <input type="text" value="Dupont" class="dark-input w-full px-3 py-2 border rounded-md">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-text-primary mb-1">Spécialité</label>
-                        <input type="text" value="Développeur Full Stack" class="dark-input w-full px-3 py-2 border rounded-md">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-text-primary mb-1">Email</label>
-                        <input type="email" value="jean.dupont@email.com" class="dark-input w-full px-3 py-2 border rounded-md">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-text-primary mb-1">Téléphone</label>
-                        <input type="tel" value="+33 6 12 34 56 78" class="dark-input w-full px-3 py-2 border rounded-md">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-text-primary mb-1">Localisation</label>
-                        <input type="text" value="Paris, France" class="dark-input w-full px-3 py-2 border rounded-md">
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <label class="block text-sm font-medium text-text-primary mb-1">À propos</label>
-                    <textarea rows="4" class="dark-input w-full px-3 py-2 border rounded-md">Développeur Full Stack avec 5 ans d'expérience dans la création d'applications web modernes. Passionné par les nouvelles technologies et l'optimisation des performances.</textarea>
-                </div>
-                <div class="flex justify-end space-x-3 mt-6">
-                    <button type="button" id="cancelEdit" class="dark-button-secondary px-4 py-2 border border-transparent text-sm font-medium rounded-md">
-                        Annuler
-                    </button>
-                    <button type="submit" class="dark-button px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black">
-                        Enregistrer
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+<script>
+    // Profile dropdown
+    document.getElementById('profileMenuButton').addEventListener('click', function () {
+        document.getElementById('profileMenu').classList.toggle('hidden');
+    });
 
-    <script>
-        // Profile dropdown
-        document.getElementById('profileMenuButton').addEventListener('click', function() {
-            document.getElementById('profileMenu').classList.toggle('hidden');
-        });
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+        const profileMenu = document.getElementById('profileMenu');
+        const profileMenuButton = document.getElementById('profileMenuButton');
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const profileMenu = document.getElementById('profileMenu');
-            const profileMenuButton = document.getElementById('profileMenuButton');
-            
-            if (!profileMenuButton.contains(event.target) && !profileMenu.contains(event.target)) {
-                profileMenu.classList.add('hidden');
-            }
-        });
-
-        // Tab functionality
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                // Remove active class from all tabs and contents
-                tabBtns.forEach(tab => {
-                    tab.classList.remove('dark-active');
-                    tab.classList.add('border-transparent');
-                    tab.classList.remove('text-text-primary');
-                    tab.classList.add('text-text-secondary');
-                });
-                
-                tabContents.forEach(content => {
-                    content.classList.remove('active');
-                });
-                
-                // Add active class to clicked tab and corresponding content
-                this.classList.add('dark-active');
-                this.classList.remove('border-transparent');
-                this.classList.remove('text-text-secondary');
-                this.classList.add('text-text-primary');
-                
-                const tabId = this.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-
-        // Skills Modal
-        const addSkillsBtn = document.getElementById('addSkillsBtn');
-        const skillsModal = document.getElementById('skillsModal');
-        const closeSkillsModal = document.getElementById('closeSkillsModal');
-        const cancelSkills = document.getElementById('cancelSkills');
-        const saveSkills = document.getElementById('saveSkills');
-        const skillInput = document.getElementById('skillInput');
-        const skillInputContainer = document.getElementById('skillInputContainer');
-        
-        let tempSkills = [];
-
-        // Open skills modal
-        addSkillsBtn.addEventListener('click', function() {
-            skillsModal.classList.add('active');
-            // Load existing skills
-            loadExistingSkills();
-        });
-
-        // Close skills modal
-        closeSkillsModal.addEventListener('click', function() {
-            skillsModal.classList.remove('active');
-        });
-
-        cancelSkills.addEventListener('click', function() {
-            skillsModal.classList.remove('active');
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            if (event.target === skillsModal) {
-                skillsModal.classList.remove('active');
-            }
-        });
-
-        // Load existing skills
-        function loadExistingSkills() {
-            tempSkills = [];
-            document.querySelectorAll('.skill-tag').forEach(tag => {
-                const skillName = tag.textContent.replace('×', '').trim();
-                tempSkills.push(skillName);
-            });
-            updateTempSkillsDisplay();
+        if (!profileMenuButton.contains(event.target) && !profileMenu.contains(event.target)) {
+            profileMenu.classList.add('hidden');
         }
+    });
 
-        // Update temp skills display
-        function updateTempSkillsDisplay() {
-            // Clear existing temp skills
-            skillInputContainer.querySelectorAll('.skill-item').forEach(item => item.remove());
-            
-            // Add temp skills
-            tempSkills.forEach(skill => {
-                const skillElement = document.createElement('div');
-                skillElement.className = 'skill-item';
-                skillElement.innerHTML = `
-                    ${skill}
-                    <span class="skill-remove">&times;</span>
-                `;
-                
-                skillElement.querySelector('.skill-remove').addEventListener('click', function() {
-                    tempSkills = tempSkills.filter(s => s !== skill);
-                    updateTempSkillsDisplay();
-                });
-                
-                skillInputContainer.insertBefore(skillElement, skillInput);
+    // Tab functionality
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            // Remove active class from all tabs and contents
+            tabBtns.forEach(tab => {
+                tab.classList.remove('dark-active');
+                tab.classList.add('border-transparent');
+                tab.classList.remove('text-text-primary');
+                tab.classList.add('text-text-secondary');
             });
-        }
 
-        // Add skill by typing
-        skillInput.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                const skillValue = this.value.trim();
-                
-                if (skillValue && !tempSkills.includes(skillValue)) {
-                    tempSkills.push(skillValue);
-                    updateTempSkillsDisplay();
-                    this.value = '';
-                }
-            }
-        });
-
-        // Add skill by clicking suggestions
-        document.querySelectorAll('.skill-suggestion').forEach(suggestion => {
-            suggestion.addEventListener('click', function() {
-                const skill = this.getAttribute('data-skill');
-                
-                if (this.classList.contains('selected')) {
-                    // Remove skill
-                    this.classList.remove('selected');
-                    tempSkills = tempSkills.filter(s => s !== skill);
-                } else {
-                    // Add skill
-                    this.classList.add('selected');
-                    if (!tempSkills.includes(skill)) {
-                        tempSkills.push(skill);
-                    }
-                }
-                
-                updateTempSkillsDisplay();
+            tabContents.forEach(content => {
+                content.classList.remove('active');
             });
+
+            // Add active class to clicked tab and corresponding content
+            this.classList.add('dark-active');
+            this.classList.remove('border-transparent');
+            this.classList.remove('text-text-secondary');
+            this.classList.add('text-text-primary');
+
+            const tabId = this.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
         });
-
-        // Save skills
-        saveSkills.addEventListener('click', function() {
-            if (tempSkills.length === 0) {
-                alert('Veuillez sélectionner au moins une compétence');
-                return;
-            }
-            
-            // Update skills display on main page
-            updateSkillsDisplay();
-            
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'fixed top-4 right-4 bg-green-primary text-black p-4 rounded-md shadow-lg z-50';
-            successMessage.textContent = `Compétences mises à jour avec succès (${tempSkills.length} compétences)`;
-            document.body.appendChild(successMessage);
-            
-            // Remove success message after 3 seconds
-            setTimeout(() => {
-                document.body.removeChild(successMessage);
-            }, 3000);
-            
-            // Close modal
-            skillsModal.classList.remove('active');
-        });
-
-        // Update skills display on main page
-        function updateSkillsDisplay() {
-            // Clear all skill containers
-            document.getElementById('frontendSkills').innerHTML = '';
-            document.getElementById('backendSkills').innerHTML = '';
-            document.getElementById('databaseSkills').innerHTML = '';
-            document.getElementById('toolsSkills').innerHTML = '';
-            
-            // Categorize and add skills
-            const frontendSkills = ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'React', 'Vue.js', 'Angular', 'Svelte', 'Next.js', 'Tailwind CSS', 'Bootstrap', 'Sass/SCSS'];
-            const backendSkills = ['Node.js', 'Express.js', 'PHP', 'Laravel', 'Symfony', 'Python', 'Django', 'Flask', 'Ruby', 'Ruby on Rails', 'Java', 'Spring Boot', 'C#', '.NET', 'Go', 'Rust'];
-            const databaseSkills = ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'SQLite', 'Oracle', 'SQL Server', 'Elasticsearch', 'Firebase'];
-            const toolsSkills = ['Git', 'REST API', 'GraphQL', 'Webpack', 'Babel', 'Jest', 'Cypress', 'Figma', 'Agile', 'Scrum', 'Docker', 'Kubernetes', 'CI/CD', 'Jenkins', 'GitLab CI', 'GitHub Actions', 'AWS', 'Azure', 'Google Cloud', 'Terraform', 'Ansible'];
-            
-            tempSkills.forEach(skill => {
-                const skillElement = document.createElement('span');
-                skillElement.className = 'skill-tag';
-                skillElement.innerHTML = `${skill}<span class="remove-skill">&times;</span>`;
-                
-                // Add remove functionality
-                skillElement.querySelector('.remove-skill').addEventListener('click', function() {
-                    skillElement.remove();
-                    tempSkills = tempSkills.filter(s => s !== skill);
-                });
-                
-                // Add to appropriate category
-                if (frontendSkills.includes(skill)) {
-                    document.getElementById('frontendSkills').appendChild(skillElement);
-                } else if (backendSkills.includes(skill)) {
-                    document.getElementById('backendSkills').appendChild(skillElement);
-                } else if (databaseSkills.includes(skill)) {
-                    document.getElementById('databaseSkills').appendChild(skillElement);
-                } else if (toolsSkills.includes(skill)) {
-                    document.getElementById('toolsSkills').appendChild(skillElement);
-                }
-            });
-        }
-
-        // Remove existing skills
-        document.querySelectorAll('.remove-skill').forEach(removeBtn => {
-            removeBtn.addEventListener('click', function() {
-                this.parentElement.remove();
-            });
-        });
-
-        // Edit profile modal
-        const editProfileBtn = document.getElementById('editProfileBtn');
-        const editProfileModal = document.getElementById('editProfileModal');
-        const closeEditModal = document.getElementById('closeEditModal');
-        const cancelEdit = document.getElementById('cancelEdit');
-
-        editProfileBtn.addEventListener('click', function() {
-            editProfileModal.classList.remove('hidden');
-        });
-
-        closeEditModal.addEventListener('click', function() {
-            editProfileModal.classList.add('hidden');
-        });
-
-        cancelEdit.addEventListener('click', function() {
-            editProfileModal.classList.add('hidden');
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            if (event.target === editProfileModal) {
-                editProfileModal.classList.add('hidden');
-            }
-        });
-
-        // Form submission
-        document.querySelector('#editProfileModal form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'fixed top-4 right-4 bg-green-primary text-black p-4 rounded-md shadow-lg z-50';
-            successMessage.textContent = 'Profil mis à jour avec succès';
-            document.body.appendChild(successMessage);
-            
-            // Remove success message after 3 seconds
-            setTimeout(() => {
-                document.body.removeChild(successMessage);
-            }, 3000);
-            
-            // Close modal
-            editProfileModal.classList.add('hidden');
-        });
-    </script>
+    });
+</script>
 </body>
 </html>

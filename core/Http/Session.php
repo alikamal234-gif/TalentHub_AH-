@@ -48,8 +48,12 @@ class Session
             $_SESSION = [];
         }
     }
+    
+    public function hasFlash(string $key): bool {
+        return $this->has("_flash_$key");
+    }
 
-    public function flash(string $key, mixed $value): void
+    public function setFlash(string $key, mixed $value): void
     {
         $this->set("_flash_$key", $value);
     }
