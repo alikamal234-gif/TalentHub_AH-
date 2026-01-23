@@ -6,6 +6,7 @@ use App\Entity\Categorie;
 use App\Entity\Offer;
 use App\Entity\User;
 use App\Entity\Role;
+use App\Entity\Tag;
 use Core\Database\Connection;
 use Core\Repository\AbstractRepository;
 use Core\Repository\SoftDeleteInterface;
@@ -320,6 +321,45 @@ class OfferRepository extends AbstractRepository implements SoftDeleteInterface
         return $object->setDeletedAt(null);
     }
 
+    public function findTagsByOffer(int $offerId): array
+    {
+        $stmt = $this->connection->getConnection()->prepare(
+            "SELECT t.* FROM tags t 
+             JOIN offer_tag ot ON t.id = ot.tag_id 
+             WHERE ot.offer_id = :offer_id AND t.deleted_at IS NULL"
+        );
+        $stmt->execute([':offer_id' => $offerId]);
+        $data = $stmt->fetchAll();
+
+        $tagRepo = new TagRepository($this->connection);
+        return array_map(fn($item) => $tagRepo->mapToObject($item), $data);
+    }
+
+    public function syncTags(int $offerId, array $tagIds): void
+    {
+        // Remove old tags
+        $stmt = $this->connection->getConnection()->prepare(
+            "DELETE FROM offer_tag WHERE offer_id = :offer_id"
+        );
+        $stmt->execute([':offer_id' => $offerId]);
+
+        // Add new tags
+        if (!empty($tagIds)) {
+            $sql = "INSERT INTO offer_tag (offer_id, tag_id) VALUES ";
+            $values = [];
+            $params = [];
+            foreach ($tagIds as $index => $tagId) {
+                $values[] = "(:offer_id_$index, :tag_id_$index)";
+                $params[":tag_id_$index"] = (int) $tagId;
+                $params[":offer_id_$index"] = $offerId;
+            }
+            $sql .= implode(', ', $values);
+
+            $stmt = $this->connection->getConnection()->prepare($sql);
+            $stmt->execute($params);
+        }
+    }
+
     public function mapToObject(array $data): Offer
     {
         $category = null;
@@ -367,6 +407,8 @@ class OfferRepository extends AbstractRepository implements SoftDeleteInterface
         if (isset($data['deleted_at'])) {
             $offer->setDeletedAt(new DateTimeImmutable($data['deleted_at']));
         }
+
+        $offer->setTags($this->findTagsByOffer($offer->getId() ?? 0));
 
         return $offer;
     }

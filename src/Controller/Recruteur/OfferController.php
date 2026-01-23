@@ -5,6 +5,7 @@ namespace App\Controller\Recruteur;
 use App\Entity\Offer;
 use App\Repository\OfferRepository;
 use App\Repository\CategorieRepository;
+use App\Repository\TagRepository;
 use Core\Controller\AbstractController;
 use Core\Http\Request;
 use Core\Http\Response;
@@ -13,7 +14,8 @@ class OfferController extends AbstractController
 {
     public function __construct(
         private OfferRepository $offerRepository,
-        private CategorieRepository $categorieRepository
+        private CategorieRepository $categorieRepository,
+        private TagRepository $tagRepository
     ) {
     }
 
@@ -27,7 +29,8 @@ class OfferController extends AbstractController
     public function create(): Response
     {
         return $this->render('recruteur/offer/create.html.twig', [
-            'categories' => $this->categorieRepository->findAll()
+            'categories' => $this->categorieRepository->findAll(),
+            'tags' => $this->tagRepository->findAll()
         ]);
     }
 
@@ -57,6 +60,11 @@ class OfferController extends AbstractController
 
         $this->offerRepository->save($offer);
 
+        $tags = $request->input('tags');
+        if ($tags) {
+            $this->offerRepository->syncTags($offer->getId(), $tags);
+        }
+
         $this->redirectToPath('/recruteur/offres');
     }
 
@@ -71,7 +79,8 @@ class OfferController extends AbstractController
 
         return $this->render('recruteur/offer/edit.html.twig', [
             'offer' => $offer,
-            'categories' => $this->categorieRepository->findAll()
+            'categories' => $this->categorieRepository->findAll(),
+            'tags' => $this->tagRepository->findAll()
         ]);
     }
 
@@ -99,6 +108,9 @@ class OfferController extends AbstractController
             $offer->setCompany($company);
 
             $this->offerRepository->save($offer);
+
+            $tags = $request->input('tags');
+            $this->offerRepository->syncTags($offer->getId(), $tags ?? []);
         }
 
         $this->redirectToPath('/recruteur/offres');

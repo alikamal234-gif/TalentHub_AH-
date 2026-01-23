@@ -17,18 +17,21 @@ class Offer
     private string $company;
     private DateTimeImmutable $createdAt;
     private ?DateTimeImmutable $deletedAt = null;
+    /**
+     * @var Tag[]
+     */
+    private array $tags = [];
 
     public function __construct(
         ?Categorie $category,
-        User      $owner,
-        string    $name,
-        string    $description,
-        float     $salary,
-        string    $city,
-        string    $contact,
-        string    $company
-    )
-    {
+        User $owner,
+        string $name,
+        string $description,
+        float $salary,
+        string $city,
+        string $contact,
+        string $company
+    ) {
         $this->category = $category;
         $this->owner = $owner;
         $this->name = $name;
@@ -163,6 +166,23 @@ class Offer
     public function setDeletedAt(?DateTimeImmutable $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+        return $this;
+    }
+
+    /**
+     * @return Tag[]
+     */
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param Tag[] $tags
+     */
+    public function setTags(array $tags): self
+    {
+        $this->tags = $tags;
         return $this;
     }
 }
