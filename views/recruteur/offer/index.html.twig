@@ -1,0 +1,78 @@
+{% extends 'recruteur/base.html.twig' %}
+{% block title "Offres d'emploi" %}
+
+{% block body_title "Mes offres d'emploi" %}
+
+{% block body %}
+    <div class="dark-card shadow rounded-lg border dark-border">
+        <div class="px-4 py-5 sm:px-6 border-b dark-border flex justify-end items-center gap-2">
+            <a href="/recruteur/offres/trash" class="dark-button-secondary inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded">
+                <i class="fas fa-trash mr-1"></i>
+                Corbeille
+            </a>
+            <a href="/recruteur/offres/create" class="dark-button inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded text-black">
+                <i class="fas fa-plus mr-1"></i>
+                Ajouter une offre
+            </a>
+        </div>
+        <div class="overflow-hidden">
+            <table class="min-w-full divide-y divide-dark-border">
+                <thead class="bg-dark-bg">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                        Offre
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                        Catégorie
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                        Ville
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                        Salaire
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                        Date
+                    </th>
+                    <th scope="col" class="relative px-6 py-3">
+                        <span class="sr-only">Actions</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="divide-y divide-dark-border">
+                {% for offer in offers %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">
+                            {{ offer.name }}
+                            <div class="text-xs text-text-secondary">{{ offer.company }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                            {{ offer.category ? offer.category.name : 'N/A' }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                            {{ offer.city }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                            {{ offer.salary|number_format(2, ',', ' ') }} €
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                            {{ offer.createdAt|date('d/m/Y') }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a href="/recruteur/offres/candidatures?id={{ offer.id }}" class="text-indigo-500 hover:text-indigo-400 mr-3">Candidatures</a>
+                            <a href="/recruteur/offres/edit?id={{ offer.id }}" class="dark-text-accent hover:text-green-primary mr-3">Modifier</a>
+                            <a href="/recruteur/offres/trashed?id={{ offer.id }}" class="text-red-500 hover:text-red-400">Archiver</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="px-6 py-10 text-center text-sm text-text-secondary italic">
+                            Aucune offre d'emploi trouvée.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -94,6 +94,56 @@ class CandidatureRepository extends AbstractRepository
     }
 
     /**
+     * @return Candidature[]
+     */
+    public function findAllByOffer(Offer $offer): array
+    {
+        $data = $this->createQueryBuilder()
+            ->select(
+                'can.*',
+                'u.name AS user_name',
+                'u.email AS user_email',
+                'u.password AS user_password',
+                'u.speciality AS user_speciality',
+                'u.phone AS user_phone',
+                'u.image AS user_image',
+                'u.created_at AS user_created_at',
+                'u.deleted_at AS user_deleted_at',
+                'u.role_id AS user_role_id',
+                'o.name AS offer_name',
+                'o.description AS offer_description',
+                'o.salary AS offer_salary',
+                'o.city AS offer_city',
+                'o.contact AS offer_contact',
+                'o.company AS offer_company',
+                'o.created_at AS offer_created_at',
+                'o.deleted_at AS offer_deleted_at',
+                'o.category_id AS offer_category_id',
+                'o.owner_id AS offer_owner_id'
+            )
+            ->innerJoin('users', 'can.user_id = u.id', 'u')
+            ->innerJoin('offers', 'can.offer_id = o.id', 'o')
+            ->where('can.offer_id = :offer_id')
+            ->setParameter(':offer_id', $offer->getId())
+            ->getResult()
+        ;
+
+        return array_map(fn($data) => $this->mapToObject($data), $data);
+    }
+
+    /**
+     * @param Candidature $candidature
+     */
+    public function save(Candidature $candidature): void
+    {
+        if ($candidature->getId()) {
+            $this->update($candidature);
+        } else {
+            $this->create($candidature);
+        }
+    }
+
+    /**
      * @param Candidature $object
      * @return Candidature
      */

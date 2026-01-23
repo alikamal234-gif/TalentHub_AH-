@@ -1,0 +1,107 @@
+{% extends 'recruteur/base.html.twig' %}
+{% block title "Dashboard Recruteur" %}
+
+{% block body_title "Tableau de bord recruteur" %}
+
+{% block header_actions %}
+    <a href="/recruteur/offres/create" class="dark-button inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded text-black">
+        <i class="fas fa-plus mr-1"></i>
+        Ajouter une offre
+    </a>
+{% endblock %}
+
+{% block body %}
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+        <div class="dark-card overflow-hidden shadow rounded-lg border dark-border">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
+                        <i class="fas fa-briefcase text-black"></i>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium dark-text-secondary truncate">Mes offres</dt>
+                            <dd class="text-lg font-medium text-text-primary">12</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-dark-bg px-5 py-3 border-t dark-border">
+                <div class="text-sm">
+                    <a href="#" class="font-medium dark-text-accent hover:text-green-primary">
+                        Voir toutes les offres
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="dark-card overflow-hidden shadow rounded-lg border dark-border">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
+                        <i class="fas fa-users text-black"></i>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium dark-text-secondary truncate">Candidatures</dt>
+                            <dd class="text-lg font-medium text-text-primary">87</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-dark-bg px-5 py-3 border-t dark-border">
+                <div class="text-sm">
+                    <a href="#" class="font-medium dark-text-accent hover:text-green-primary">
+                        Voir toutes les candidatures
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="dark-card overflow-hidden shadow rounded-lg border dark-border">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
+                        <i class="fas fa-eye text-black"></i>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium dark-text-secondary truncate">Vues totales</dt>
+                            <dd class="text-lg font-medium text-text-primary">1,428</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-dark-bg px-5 py-3 border-t dark-border">
+                <div class="text-sm">
+                    <a href="#" class="font-medium dark-text-accent hover:text-green-primary">
+                        Voir les statistiques
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="dark-card overflow-hidden shadow rounded-lg border dark-border">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-green-primary rounded-md p-3">
+                        <i class="fas fa-chart-line text-black"></i>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium dark-text-secondary truncate">Taux de conversion</dt>
+                            <dd class="text-lg font-medium text-text-primary">6.1%</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-dark-bg px-5 py-3 border-t dark-border">
+                <div class="text-sm">
+                    <a href="#" class="font-medium dark-text-accent hover:text-green-primary">
+                        Voir les détails
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
