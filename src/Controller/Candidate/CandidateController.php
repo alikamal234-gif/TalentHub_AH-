@@ -16,8 +16,23 @@ class CandidateController extends AbstractController
         
         return $this->render("candidate/candidate.html.twig",['roleName' => $roleName,'offres' => $Offres]);
     }
-    public function postuler(): Response
-    {
-        return $this->render("candidate/postuler.html.twig");
+   
+    public function postuler(Request $request, OfferRepository $offerRepository)
+{
+    $id = $request->query('id');  
+
+    if (!$id) {
+        dd("ID not found in URL");
     }
+
+    $offre = $offerRepository->find($id);
+
+    if (!$offre) {
+        dd("Offer not found");
+    }
+
+    return $this->render('candidate/postuler.html.twig', [
+        'offre' => $offre
+    ]);
+}
 }
