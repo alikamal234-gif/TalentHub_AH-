@@ -196,4 +196,13 @@ class UserRepository extends AbstractRepository implements SoftDeleteInterface
 
         return $user;
     }
+
+    public function countUserByRole($role): int{
+        return $this->createQueryBuilder()
+        ->innerJoin("roles","r.id=u.role_id","r")
+        ->where("r.name = :role")
+        ->setParameter(":role",$role)
+        ->getAffectedRows()
+        ;
+    }
 }

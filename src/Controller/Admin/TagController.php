@@ -30,6 +30,7 @@ class TagController extends AbstractController{
             'tags' => $this->tagRepository->findAllTrashed()
         ]);
     }
+    
     public function delete(Request $request)
     {
         $id = (int) $request->query('id');

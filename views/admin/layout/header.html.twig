@@ -11,13 +11,13 @@
                 </div>
                 <!-- Navigation links -->
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="/admin" class="dark-active inline-flex items-center px-1 pt-1 text-sm font-medium">
+                    <a href="/admin" class="{% if request.uri == '/admin' %}dark-active inline-flex items-center px-1 pt-1 text-sm font-medium{% else %} border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium dark-hover {% endif %}">
                         Dashboard
                     </a>
-                    <a href="/admin/categories" class="border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium dark-hover">
+                    <a href="/admin/categories" class="{% if request.uri == '/admin/categories' %}dark-active inline-flex items-center px-1 pt-1 text-sm font-medium{% else %} border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium dark-hover {% endif %}">
                         Categorie
                     </a>
-                    <a href="/admin/tags" class="border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium dark-hover">
+                    <a href="/admin/tags" class="{% if request.uri == '/admin/tags' %}dark-active inline-flex items-center px-1 pt-1 text-sm font-medium{% else %} border-transparent text-text-secondary hover:text-text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium dark-hover {% endif %}">
                         Tags
                     </a>
                 </div>

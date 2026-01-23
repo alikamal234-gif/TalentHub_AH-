@@ -33,7 +33,7 @@ Router::get('/admin/categories/restore', [CategorieController::class, 'restore']
 
 
 
-// Router of categories
+// Router of tags
 Router::get('/admin/tags', [TagController::class, 'index']);
 
 // create

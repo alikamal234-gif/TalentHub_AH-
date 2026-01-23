@@ -133,6 +133,7 @@ class TagRepository extends AbstractRepository implements SoftDeleteInterface
             ':id' => $object->getId(),
         ]);
     }
+    
 
     /**
      * @param Tag $object
