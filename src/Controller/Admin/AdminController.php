@@ -2,13 +2,16 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\UserRepository;
 use Core\Controller\AbstractController;
 use Core\Http\Response;
 
 class AdminController extends AbstractController
 {
-    public function admin(): Response
+    public function admin(UserRepository $userRepository): Response
     {
-        return $this->render("admin/admin.html.twig");
+        $Candidate = $userRepository->countUserByRole("Candidate");
+        $Recruiter = $userRepository->countUserByRole("Recruiter");
+        return $this->render("admin/admin.html.twig",[ "candidateCount" => $Candidate, "recruiterCount"=>$Recruiter]);
     }
 }
