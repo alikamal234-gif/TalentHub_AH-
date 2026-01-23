@@ -95,9 +95,9 @@ class Candidature
     public function getCvUrl(): ?string
     {
         if ($this->cv) {
-            $mimeType = new finfo(FILEINFO_MIME_TYPE)->buffer($this->cv);
-            return sprintf('data:%s;base64,%s', $mimeType, base64_encode($this->cv));
+            return sprintf('data:application/pdf;base64,%s', base64_encode($this->cv));
         }
+
         return null;
     }
 
