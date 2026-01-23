@@ -7,7 +7,6 @@ use App\Controller\Recruteur\RecruteurController;
 use App\Controller\Auth\AuthentificationController;
 use App\Middleware\AuthMiddleware;
 use Core\Router\Router;
-
 Router::get('/', [HomeController::class, 'index']);
 Router::get('/auth', [AuthentificationController::class, 'index']);
 Router::post('/login', [AuthentificationController::class, 'login']);
