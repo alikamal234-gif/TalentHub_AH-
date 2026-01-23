@@ -277,4 +277,5 @@ class CandidatureRepository extends AbstractRepository
     ->getSingleResult()
         ;
     }
+    
 }

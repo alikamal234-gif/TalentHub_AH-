@@ -47,3 +47,6 @@ Router::get('/recruteur/offres/candidatures/accept', [CandidateController::class
 
 Router::get('/recruteur/offres/candidatures/reject', [CandidateController::class, 'reject'])
     ->middleware([AuthMiddleware::class, RecruiterMiddleware::class]);
+
+
+
