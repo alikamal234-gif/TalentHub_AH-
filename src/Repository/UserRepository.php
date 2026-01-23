@@ -205,4 +205,13 @@ class UserRepository extends AbstractRepository implements SoftDeleteInterface
         ->getAffectedRows()
         ;
     }
+    public function getAllByRole($role){
+        return $this->createQueryBuilder()
+        ->select("u.*")
+        ->from("users","u")
+        ->innerJoin("roles","r.id = u.role_id",'r')
+        ->where("r.name = :role")
+        ->setParameter(":role",$role)
+        ->getResult();
+    }
 }

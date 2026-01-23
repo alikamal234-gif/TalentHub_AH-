@@ -2,6 +2,8 @@
 
 use App\Controller\Admin\AdminController;
 use App\Controller\Admin\CategorieController;
+use App\Controller\Admin\CandidateController;
+use App\Controller\Admin\RecruteurController;
 use App\Controller\Admin\TagController;
 use App\Middleware\AdminMiddleware;
 use App\Middleware\AuthMiddleware;
@@ -49,3 +51,10 @@ Router::get('/admin/tags/delete', [TagController::class, 'delete']);
 Router::get('/admin/tags/trash', [TagController::class, 'trash']);
 Router::get('/admin/tags/trashed', [TagController::class, 'trashed']);
 Router::get('/admin/tags/restore', [TagController::class, 'restore']);
+
+
+// Router of candidate
+Router::get('/admin/candidate', [CandidateController::class, 'candidate']);
+
+// Router of Recruiter
+Router::get('/admin/recruiter', [RecruteurController::class, 'Recruteur']);
