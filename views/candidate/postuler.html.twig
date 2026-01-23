@@ -80,8 +80,8 @@
     </p>
 
     <!-- Form -->
-    <form action="apply.php" method="POST" enctype="multipart/form-data" class="space-y-4">
-
+    <form action="/candidate/postuler" method="POST" enctype="multipart/form-data" class="space-y-4">
+      <input type="hidden" name="id" value="{{ offre.id }}">
       <!-- Message -->
       <div>
         <label class="block text-sm font-medium mb-1">

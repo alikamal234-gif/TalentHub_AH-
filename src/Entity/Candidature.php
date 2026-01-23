@@ -11,7 +11,7 @@ class Candidature
     public const string STATUS_ACCEPTED = 'accepted';
     public const string STATUS_REJECTED = 'rejected';
 
-    private ?int $id;
+    private ?int $id = null;
     private User $user;
     private Offer $offer;
     private ?string $message;

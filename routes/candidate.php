@@ -1,6 +1,8 @@
 <?php
 
 use App\Controller\Candidate\CandidateController;
+
+use App\Controller\Candidate\CandidatureController;
 use App\Controller\Candidate\ProfileController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\CandidateMiddleware;
@@ -23,3 +25,5 @@ Router::post('/candidate/profile/password', [ProfileController::class, 'changePa
 ;
 
 Router::get('/candidate/postuler', [CandidateController::class, 'postuler'])->middleware(AuthMiddleware::class);
+Router::post('/candidate/postuler', [CandidatureController::class, 'store'])->middleware(AuthMiddleware::class);
+
