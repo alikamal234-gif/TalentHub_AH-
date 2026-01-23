@@ -386,6 +386,7 @@
                             <!-- Job cards -->
                             <div class="space-y-4">
                                 <!-- Job card 1 -->
+                                {% for offre in offres %}
                                 <div class="job-card dark-card p-4 rounded-lg border dark-border">
                                     <div class="flex items-start justify-between">
                                         <div class="flex">
@@ -393,18 +394,20 @@
                                                 <span>TC</span>
                                             </div>
                                             <div>
-                                                <h4 class="text-lg font-medium text-text-primary">Développeur Full Stack</h4>
-                                                <p class="text-sm dark-text-secondary">TechCorp • Paris, France</p>
+                                                <h4 class="text-lg font-medium text-text-primary">{{offre.name}}</h4>
+                                                <p class="text-sm dark-text-secondary">{{offre.city}}</p>
                                                 <div class="flex items-center mt-2 text-sm dark-text-secondary">
-                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> CDI</span>
-                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> 45k-60k€</span>
-                                                    <span><i class="fas fa-clock mr-1"></i> Il y a 2 jours</span>
+                                                    <span class="mr-4"><i class="fas fa-briefcase mr-1"></i> {{offre.contact}}</span>
+                                                    <span class="mr-4"><i class="fas fa-euro-sign mr-1"></i> {{offre.salary}}</span>
+                                                    <span><i class="fas fa-clock mr-1"></i> {{offre.createdAt | date("Y-M-D")}}</span>
                                                 </div>
                                                 <div class="flex flex-wrap gap-2 mt-3">
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">JavaScript</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">React</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">Node.js</span>
-                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">MongoDB</span>
+                                                {%
+                                                    for tag in offre.getTags
+                                                %}
+                                                    <span class="tag-pill px-2 py-1 bg-green-primary text-black text-xs rounded-full">{{ tag.name }}</span>
+                                                    
+                                                {% endfor %}
                                                 </div>
                                             </div>
                                         </div>
@@ -412,7 +415,7 @@
                                             <button class="dark-button-secondary px-3 py-1 border border-transparent text-xs font-medium rounded-md mb-2">
                                                 <i class="fas fa-bookmark mr-1"></i> Sauvegarder
                                             </button>
-                                            <a href="{% if roleName == "Candidate" %} /candidate/postuler {% else %} /auth {% endif %}"
+                                            <a href="/candidate/postuler"
   class="dark-button px-3 py-1 text-xs font-medium rounded-md text-black">
   <i class="fas fa-paper-plane mr-1"></i> Postuler
 </a>
@@ -422,7 +425,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+                                {% endfor %}
                                 
                                 <!-- More recent job cards... -->
                             </div>
