@@ -262,4 +262,19 @@ class CandidatureRepository extends AbstractRepository
         ->getAffectedRows()
         ;
     }
+    public function countCandidatureByRecruteur($id){
+        return $this->createQueryBuilder()
+        ->select("COUNT(c.id) AS total_candidatures,
+    COUNT(DISTINCT o.id) AS total_offers,
+    CASE 
+        WHEN COUNT(DISTINCT o.id) = 0 THEN 0
+        ELSE ROUND((COUNT(c.id) * 100.0 / COUNT(DISTINCT o.id)), 2)
+    END AS conversion_rate")
+    ->from("offers","o")
+    ->leftJoin("candidatures","c.offer_id = o.id","c")
+    ->where("o.owner_id = :recruiter_id")
+    ->setParameter("recruiter_id",$id)
+    ->getSingleResult()
+        ;
+    }
 }
