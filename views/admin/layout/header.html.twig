@@ -31,16 +31,18 @@
             <div class="flex items-center">
                 <!-- Profile dropdown -->
                 <div class="relative">
-                    <button id="profileMenuButton" class="dark-card flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-primary p-1">
-                        <span class="sr-only">Ouvrir le menu utilisateur</span>
-                        <div class="h-8 w-8 rounded-full bg-green-primary flex items-center justify-center text-black">
-                            <i class="fas fa-user"></i>
-                        </div>
+                    <button id="profileMenuButton" class="dark-card flex items-center space-x-2 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-primary p-1 pr-3">
+                        {% if request.user.imageUrl %}
+                            <img class="h-8 w-8 rounded-full object-cover" src="{{ request.user.imageUrl }}" alt="{{ request.user.name }}">
+                        {% else %}
+                            <div class="h-8 w-8 rounded-full bg-green-primary flex items-center justify-center text-black">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        {% endif %}
+                        <span class="text-text-primary font-medium">{{ request.user.name }}</span>
                     </button>
                     <div id="profileMenu" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg dark-card ring-1 ring-dark-border">
                         <div class="py-1">
-                            <a href="#" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Mon profil</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Paramètres</a>
                             <a href="/logout" class="block px-4 py-2 text-sm text-text-primary hover:bg-dark-hover">Déconnexion</a>
                         </div>
                     </div>
